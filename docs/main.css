@@ -27,7 +27,7 @@ ul {
 }
 
 ul li:before {
-  content: "»";
+  content: '\00BB';
   color: #006ab9;
   font-size: 24px;
   margin-right: 0.5em;
