@@ -6,7 +6,7 @@
 <head>
 	  <link rel="shortcut icon" href="https://byui-cse.github.io/Language-Courses/site/images/fav.ico" type="image/x-icon">
         <script type="text/javascript">
-                 var codeType = "JavaScript"
+                 var codeType = "Erlang"
         </script>
         <script type="text/javascript" src="https://byui-cse.github.io/Language-Courses/site/highlight.pack.js"></script>
         <link rel="stylesheet" href="https://byui-cse.github.io/Language-Courses/site/highlight_styles/xcode.css">
@@ -24,54 +24,45 @@
 </header>
 <main>
 
-	<h2>The Why of JavaScript</h2>
+	<h2>The Why of Erlang</h2>
 	<h3>Some Background</h3>
-	<p>Before and during the early 1990's, a new technology was on the rise. Servers were popping up supplying
-	documents consumed by a new type of computer application... the 'Web Browser.' The documents 
-	were written in a new language called Hyper-Text Markup Language (HTML) and the protocol used to transfer 
-	the data in the document to the web browser was called http. This combination of server, document type, 
-	and protocol was revolutionary, but there 
-	was a problem. No matter how nice you made the HTML 'pages', they were static. They were useful for displaying
-	information like the contents of books and advertising, but not usable for much more.
-       	A way was needed to make the pages act for and react to the user.</p>
+	<p>
+		The Ericsson corporation in northern Europe had a need. Their old telephone control system was going to be replaced with 
+	new hardware. They had created the new hardware, but the design and development of the controlling software collapsed. They needed to replace that 
+	development with something else, or loose a lot of money. Thankfully they had been financing Joe Armstrong and others to explore “a better way of programming telephony applications” as part of Ericsson's research lab expenditures since the late 1980's. 
+	</p>
 
 	<p>
-	In 1995, Netscape Communications, the first company to produce a marketed web browser, created  
-       	 the forerunner to what most people know today as JavaScript to help solve this problem. They initially called it Mocha. 
-	Today, if you are creating a website, you use JavaScript, the name most people use instead of the language's 
-        acutal name, ECMA Script. Today, it is not  uncommon to write both the server code  
-	producing the HMTL for the web browser as well as code that lets the web browser be active in JavaScript.
+		In the lab, Armstrong and a few others had been creating and experimenting with a new language they called <a href="https://www.erlang.org">Erlang</a>. Initially concieved as an internal Ericson language, those responsible, including Armstrong, found that the language worked very well for any system that needed massively concurrent, distributed applications with nearly 100% uptimes. In 1998, the Ericsson corporation open sourced Erlang. Since then, many companies including Google, Amazon, WhatsApp, Digital Ocean, MasterCard, Nintendo, and many others have adopted Erlang as a major part of their design and development core set of tools. 
 	</p>
-	<h3>Python and JavaScript are Cousins</h3>
-	<p>Take a look at Figure 1. It shows the ancestery of both JavaScript and Python. Since C is an ancestor of both languages
+	<p>If you want more information on the history of Erlang, Joe Armstrong wrote an <a href="https://dl.acm.org/doi/10.1145/1238844.1238850">article for the ACM</a> outlining how and why Erlang became what it is.</p>
+	<h3>Python and Erlang are Cousins</h3>
+	<p>Take a look at Figure 1. It shows the ancestery of both <a href="https://www.erlang.org">Erlang</a> and Python. Since <a href="https://en.wikipedia.org/wiki/Modula"  target="_blank">Modula</a> is an ancestor of both languages
        	you can expect to see some
-	things in Javacript that remind you of what you learned about coding in Python. C is not Python's only ancester. 
-	A very strong contributor to Python is the <a href="https://en.wikipedia.org/wiki/Modula"  target="_blank">Modula language</a>. 
-	Because of this ancestry, modules exist in Python but not in JavaScript.
-	Modulo's ranges are an important part of Python. Other language users see that power and want it too. Because of 
-	this, you can find JavaScript libraries to use in your apps that add in Modules, ranges, and other types of behaviors.
+	things in Erlang that remind you of what you learned about coding when you studied Python. An example of this is the concept of a module.
 	</p>
 <figure>
-  <img src="images/python_ecma_lang_history.png" alt="place holder">
-  <figcaption>Figure 1. - The anticedent languages for Python and ECMA Script (Grady Booch).</figcaption>
+  <img src="images/python_erlang_history.png" alt="place holder">
+  <figcaption>Figure 1. - The anticedent languages for Python and Erlang (Grady Booch, Joe Armstrong).</figcaption>
 </figure>
 
 <h2>Installations</h2>
+	<p>
+		Before doing anything else, you will need to <a href="<a href="https://www.erlang.org"> download and install the Erlang compiler and tools for your OS.</a>
+	</p>
 	<h3>The IDE</h3>
 	<p>The Integrated Development Environment (IDE) selected for this course is 
 	<a href="https://code.visualstudio.com" target="_blank">Visual Studio Code</a>. Go to the 
 	<a href="https://code.visualstudio.com" target="_blank">site for Visual Studio Code</a> download the installer for your
-	operating system. When you start the download you will be taken to a page that will help you get started. 
-	<a href="https://youtu.be/Sdg0ef2PpBw">This video</a> will help you install and get started. Since you will 
-	be working in JavaScript, <a href="https://code.visualstudio.com/docs/languages/javascript" target="_blank">this page of hints</a>
-	may be of help to you. It's OK if you don't understand everything about VSCode right off the bat. You'll 
-	gradually learn as you run into a need.</p>
-	</p>The web browser you'll be using in the class is Google Chrome. If you don't have it installed, go to the 
-	<a href="https://www.google.com/chrome/?brand=CHBD&gclid=EAIaIQobChMIoae7g5zi4gIVgrfsCh1sDgh2EAAYASAAEgI9JfD_BwE&gclsrc=aw.ds" target="_blank"> download page for Chrome</a> and install it.</p>
+	operating system. When you start the download you will be taken to a page that will help you get started. Since you will 
+	be writting in Erlang, <a href="https://marketplace.visualstudio.com/items?itemName=pgourlain.erlang" target="_blank">the VSCode plugin</a>. Ignore all of the hints, steps, and photos on the page. Those are for using a tool called rebar3 which we won't be using in this introductory class.
+	</p>
+	<p>It's OK if you don't understand everything about VSCode and this plugin right off the bat. You'll 
+	gradually learn as you run into a need. This plugin will enable color coding for Erlang in VSCode and pull up help docs for built-in Erlang functions (BIFs) when you move your mouse over a function and type Command (MacOS) or control (Windows).</p>
+	
 
 <h2>Test Your Tools</h2>
-	<p>Download and unzip this <a href="https://byui-cse.github.io/cse121b-course/week01/example_source/stepwise_debugging.zip">directory</a> that contains two files you 
-	can use to test VSCode and Chrome applications you installed on your machine. After going to where you 
+	<p>Download and unzip this <a href="https://byui-cse.github.io/cse121b-course/week01/example_source/stepwise_debugging.zip">directory</a> that contains two files you can use to test VSCode and Chrome applications you installed on your machine. After going to where you 
 	downloaded the file, select it and unzip it.</p>
 	<h3>How to Unzip</h3>
 	<ul>
@@ -90,7 +81,7 @@
 	current date and time.<p>
 	<img src="images/first_js_console.png" class="steps_image" alt="a view of the console"/>
 	<p>When you reach this point, you know your browser is setup correctly and you now know how you will use the browser's
-	console to see the results of computing using JavaScript.</p>
+	console to see the results of computing using Erlang.</p>
 	<h3>Testing Your IDE</h3>
 	<p>Run Visual Studio Code. If this is the first time you've run it you should see this.
 	</p>
@@ -100,14 +91,14 @@
 	computer's harddrive. Then select first_load_js and click the Open button in the Open dialog box. You should now 
 	see this.</p>
 	<img src="images/first_js_vsc_open_folder.png" class="steps_image" alt="view of visual studio code after directory loaded"/>
-	<p>To see your code, first click FIRST_LOAD_JS and then click learning.js. You should now see the JavaScript that 
+	<p>To see your code, first click FIRST_LOAD_JS and then click learning.js. You should now see the Erlang that 
 	was run to write the date and time to your browsers console. It should look like this.</p>
-	<img src="images/first_js_vsc_show_code.png" class="steps_image" alt="showing JavaScript in VS Code"/>
+	<img src="images/first_js_vsc_show_code.png" class="steps_image" alt="showing Erlang in VS Code"/>
 
 
 <h2>Workflow</h2>
 	<p>The work you do using these two tools will flow like this. Each time you are asked to do an assignment, you will create a directory named for the assignment. For example, if you were asked for your assignment to write code that calculated loan payments, you could create a folder called loan_pay_calc. Then, using your operating system,
-       	you would copy index.html and learn.js from first_load_js into the loan_pay_calc directory. Finally, you would open the loan_pay_calc folder in VS Code, open the learn.js file, and replace the JavaScript code in learn.js with 
+       	you would copy index.html and learn.js from first_load_js into the loan_pay_calc directory. Finally, you would open the loan_pay_calc folder in VS Code, open the learn.js file, and replace the Erlang code in learn.js with 
 	code that would calculate loan payments.</p>
 	<p>If you follow this pattern for each assignment, you will reduce your workload.</p>
 	</main>
