@@ -55,14 +55,14 @@
 	<a href="https://code.visualstudio.com" target="_blank">Visual Studio Code</a>. Go to the 
 	<a href="https://code.visualstudio.com" target="_blank">site for Visual Studio Code</a> download the installer for your
 	operating system. When you start the download you will be taken to a page that will help you get started. Since you will 
-	be writting in Erlang, <a href="https://marketplace.visualstudio.com/items?itemName=pgourlain.erlang" target="_blank">the VSCode plugin</a>. Ignore all of the hints, steps, and photos on the page. Those are for using a tool called rebar3 which we won't be using in this introductory class.
+	be writting in Erlang, add <a href="https://marketplace.visualstudio.com/items?itemName=pgourlain.erlang" target="_blank">this plugin</a> to VSCode. Ignore all of the hints, steps, and photos on the plugin's page. Those are for using a tool called rebar3. We won't be using rebar3 in this introductory class, but feel free to explore it and the plugin's use of it you feel so inclined and have some spare time.
 	</p>
-	<p>It's OK if you don't understand everything about VSCode and this plugin right off the bat. You'll 
-	gradually learn as you run into a need. This plugin will enable color coding for Erlang in VSCode and pull up help docs for built-in Erlang functions (BIFs) when you move your mouse over a function and type Command (MacOS) or control (Windows).</p>
+	<p>Please realize that it's OK if you don't understand everything about VSCode and this plugin right off the bat. You'll 
+	gradually learn as you run into a need. The reason for adding the Erlang plugin is that it enables color coding for Erlang in VSCode and the showing of help docs for built-in Erlang functions (BIFs) when you move your mouse over a function and type <kbd>Command</kbd> (MacOS) or <kbd>control</kbd> (Windows).</p>
 	
 
 <h2>Test Your Tools</h2>
-	<p>Download and unzip this <a href="https://byui-cse.github.io/cse121b-course/week01/example_source/stepwise_debugging.zip">directory</a> that contains two files you can use to test VSCode and Chrome applications you installed on your machine. After going to where you 
+	<p>Download and unzip this <a href="https://byui-cse.github.io/cse121e-course/week01/example_source/test.zip">directory</a> that contains a file you can use to test VSCode and and the plugin you installed on your machine. After going to where you 
 	downloaded the file, select it and unzip it.</p>
 	<h3>How to Unzip</h3>
 	<ul>
@@ -70,36 +70,36 @@
 		<li><a href="https://www.lifewire.com/how-to-zip-and-unzip-files-and-folders-on-a-mac-2260188" target="_blank">MacOS</a></li>
 		<li><a href="https://www.hostingmanual.net/zipping-unzipping-files-unix/" target="_blank">Linux</a></li>
 	</ul>	
-	<h3>Testing Your Browser</h3>
-	<p>After the folder is unzipped, right or control click the index.html file in the first_load_js directory and select
-	'Open with' and Chrome. You will see this in the browser.</p>
-	<img src="images/first_js_load.png" class="steps_image" alt="instructions for accessing the developer tools"/>
-	<p>Follow the directions on the screen. You should now see this.</p>
-	<img src="images/first_js_see.png" class="steps_image" alt="a view of the developer tools"/>
-	<p>What you see on the right-hand side are called the developer tools. The tool we are most interested in, for now, is
-	the console. Click the word 'Console' at the top of the developer tools and you should see this which includes the 
-	current date and time.<p>
-	<img src="images/first_js_console.png" class="steps_image" alt="a view of the console"/>
-	<p>When you reach this point, you know your browser is setup correctly and you now know how you will use the browser's
-	console to see the results of computing using Erlang.</p>
-	<h3>Testing Your IDE</h3>
-	<p>Run Visual Studio Code. If this is the first time you've run it you should see this.
+	<h3>Testing VSCode</h3>
+	<p>After the folder is unzipped, run VSCode and select <kbd>File->Open Folder</kbd> from the pulldown menu at the top of your screen. Go to the folder, not the enclosed file, highlight it, and then click Open. You should now see this.</p>
+	<img src="images/erlang_opened_folder.png" class="steps_image" alt="a view of the IDE window"/>
+	<p>On the left of the window under <kbd>test</kbd>, select <kbd>test.erl</kbd>. You will then see a few messages appear at the bottom of the screen you can safely ignore and the source code for the Erlang source file <kbd>test.erl</kbd>.<p>
+	<img src="images/erlang_opened_file.png" class="steps_image" alt="a view of the source code"/>
+	<p>When you reach this point, you are ready to use the Erlang tools to compile and run code. In this class, we will run all code in a <a href="https://en.wikipedia.org/wiki/Read–eval–print_loop">REPL</a> called erl. To do so, select the terminal tab near the bottom of the VSCode window. You should now see something like this.</p>
+	<img src="images/erlang_terminal.png" class="steps_image" alt="a view of the terminal"/>
+	<p>
+		Next, click and type <kbd>erl</kbd>, the REPL's name, in the terminal. You should now see this.
 	</p>
-	<img src="images/first_js_vsc_startup.png" class="steps_image" alt="initial view of visual studio code"/>
-	<p>Now it is time to open the files in the first_load_js directory in VS Code. To do this select File->Open from the 
-	VS Code pull down menues. You will now need to navigate to where you stored the first_load_js directory on your 
-	computer's harddrive. Then select first_load_js and click the Open button in the Open dialog box. You should now 
-	see this.</p>
-	<img src="images/first_js_vsc_open_folder.png" class="steps_image" alt="view of visual studio code after directory loaded"/>
-	<p>To see your code, first click FIRST_LOAD_JS and then click learning.js. You should now see the Erlang that 
-	was run to write the date and time to your browsers console. It should look like this.</p>
-	<img src="images/first_js_vsc_show_code.png" class="steps_image" alt="showing Erlang in VS Code"/>
+	<img src="images/erlang_repl.png" class="steps_image" alt="a view of the running REPL"/>
+	<p>
+		Now, to compile and load the testing code into the REPL, type <kbd>c(test)</kbd>. including the trailing period. If everything goes right, you will see a new file, test.beam, on the left of the VSCode main window near the top and <kbd>{ok,test}</kbd> in the terminal window.
+	</p>
+	<img src="images/erlang_loaded.png" class="steps_image" alt="a view of the running REPL with the test file ready to run"/>
+	<p>
+		To run any module's function in the REPL, follow this pattern, <kbd>module_name:function_name(parameters_if_any).</kbd>
+	</p>
+	<p>
+		Following this pattern, enter <kbd>test:print_hello().</kbd> in the REPL. When everything works correctly, you will see the appropriate output in the REPL.
+	</p>
+	<img src="images/erlang_ran.png" class="steps_image" alt="a view of the running REPL diplaying hello everybody! and this is so cool!"/>
+
+	<iframe width="560" height="315" src="https://www.youtube.com/embed/SCANNlUpAf4" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 
 <h2>Workflow</h2>
-	<p>The work you do using these two tools will flow like this. Each time you are asked to do an assignment, you will create a directory named for the assignment. For example, if you were asked for your assignment to write code that calculated loan payments, you could create a folder called loan_pay_calc. Then, using your operating system,
-       	you would copy index.html and learn.js from first_load_js into the loan_pay_calc directory. Finally, you would open the loan_pay_calc folder in VS Code, open the learn.js file, and replace the Erlang code in learn.js with 
-	code that would calculate loan payments.</p>
+	<p>The work you do using these two tools will flow like this. Each time you are asked to do an assignment, you will create a directory named for the assignment. For example, if you were asked for your assignment to write code that calculated loan payments, you could create a folder called loan_pay_calc. Then, using VSCode,
+       	create an appropriately named .erl, Erlang, file. Then add the functions as instructed. Each time you have a function somewhat completed, use the erl REPL to load, compile it, and run it. Then use the output of the function to debug it.
+    </p>
 	<p>If you follow this pattern for each assignment, you will reduce your workload.</p>
 	</main>
 
