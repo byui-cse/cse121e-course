@@ -259,19 +259,19 @@ lists:seq(1,100).
 66> lists:seq($ ,$~).
   </code></pre></p>
       <p>
-        It is very common to use the <kbd>lists:seq(From,To)</kbd> function in conjunction as part of a list comprehension.
+        It is very common to use the <kbd>lists:seq(From,To)</kbd> function as part of a list comprehension. Here is an example.
       </p>
             <p><pre><code>
 Evens = [X || X <- lists:seq(1,100), X rem 2 == 0].
   </code></pre></p>
       <p>
         Let me translate the Erlang to English for you.
-        "Create a list of <kbd>X</kbd> values where <kbd>X</kbd> is a member of the list <kbd>1,2,3&helip;100</kbd>, and the remainder of X divided by 2 is 0."
+        "Create a list of <kbd>X</kbd> values where <kbd>X</kbd> is a member of the list <kbd>1,2,3&hellip;100</kbd>, and the remainder of X divided by 2 is 0."
       </p>
       <h2>List BIF's</h2>
       <p>
-        Erlang has a lot of Built in Functions(BIF's) that you can use to
-        with arrays. You can find them in the <kbd>lists</kbd> module. As an example, imagine you needed to use a list to keep track of
+        Erlang has <a href="http://erlang.org/doc/man/lists.html">a lot of Built in Functions (BIF's)</a> that you can use to
+        with lists. You can find them in the <kbd>lists</kbd> module. As an example, imagine you needed to use a list to keep track of
         customers lined up to see a movie. As people show up, they line
         up in the order they arrived. You need to know who is last in line so you can give them some sort of reward for waiting. 
         In Erlang you do this using the <a href="http://erlang.org/doc/man/lists.html#last-1"><kbd>last(List)</kbd></a> function.  
@@ -289,39 +289,39 @@ More = lists:append(Customers,[grace]).
 	</code></pre>
       <p>
         Notice that Grace must be in a list. That's because the <a href="https://www.tutorialspoint.com/erlang/erlang_append.htm"><kbd>append(List1,List2)</kbd></a> function is designed to append the contents of the second list to the contents of the first. That means that if William and Asha showed up together, they 
-        can be added with just one call to <kbd>append(List1,List2)</kbd>.
+        can be added with just one call to <kbd>list:append(List1,List2)</kbd>.
       </p>
       <p>
-        Notice that the result of append is <kbd>More</kbd>. This means that append is a non-destructive function. It doesn't destroy the list <kbd>Customers</kbd> 
+        Also notice that the result of <kbd>list:append(List1,List2)</kbd> is <kbd>More</kbd>. This means that <kbd>list:append(List1,List2)</kbd> is a non-destructive function. It doesn't destroy the list <kbd>Customers</kbd> 
         by modifying it. You may be tempted to think that <kbd>More</kbd> is a copy of <kbd>Customers</kbd> with <kbd>grace</kbd> added on. This is not the case in 
-        Erlang. Such a computational result would be very wasteful of memory. You may think that return-by-reference and return-by-value are the only two options 
-        available to language designers due to limited exposure to computational languages. That limit, however, is not the case. The same is true of 
+        Erlang. Such a computational result would be very wasteful of memory. You may also think that return-by-reference and return-by-value are the only two options 
+        available to language designers due to limited exposure to computational languages. Those two are not the only options. The same is true of 
         pass-by-reference and pass-by-value. There are other options. It is beyond the scope of this course to dive deeply into such things. You can learn how 
         lists are passed and returned if you take CSE 382, Functional Patterns and Data Structures, or you can read the first part of <a href="https://www.amazon.com/Purely-Functional-Data-Structures-Okasaki/dp/0521663504/ref=sr_1_2?crid=5D06DI5ZIYRT&dchild=1&keywords=purely+functional+data+structures&qid=1603389760&sprefix=purely+functional%2Caps%2C226&sr=8-2">
           Purely Functional Data Structures by Chris Okasaki</a>.
       </p>
       <p>
-        If you don't want either of those options, just believe me. The creators of Erlang were not stupid. They are not creating copies when lists are passed to 
-        functions nor when they are returned. They were nice to us so it looks like that was what is happening, but it's not.
+        If you don't want either of those options, just believe me. The creators of Erlang were not silly. Erlang doesn't create copies when lists are passed to 
+        functions nor when they are returned. The creators were nice to us so they made it look like that was what is happening, but it's not.
       </p>
       <h2>Efficient use of Lists</h2>
       <p>
-        Appending to a list is great, but it is not efficient. Because of the way lists are handled in functional languages, prepending to a list is very efficient. 
+        Appending to a list is great, but it is definitely not efficient. Because of the way lists are handled in functional languages, prepending to a list is VERY efficient. 
         It is actually more computationally efficient to build a list using prepend and then sort it to reverse the order of the list than it is to 
         append to the list. The efficiency difference between building a list by prepending and appending is so large, that Erlang has an operator, rather than 
-        a function, you use to do prepending. Including an operator rather than a function strongly encourages the use of prepending. 
-        Appending elements to a list is very 'un-Erlangy.' The operator used to prepend is <kbd>|</kbd> 
-        and its name is the <kbd>cons</kbd> operator (search inside <a href="https://learnyousomeerlang.com/starting-out-for-real">the page opened by this link</a>  for 'cons operator'). 
+        a function, that you use to do prepending. Including an operator rather than a function strongly encourages the use of prepending since you don't have to type much to make prepending work. 
+        This is why appending elements to a list is very 'un-Erlangy.' In order to prepend to a list use the <kbd>|</kbd> operator  
+        named the <kbd>cons</kbd> operator (search inside <a href="https://learnyousomeerlang.com/starting-out-for-real">the page opened by this link</a>  for 'cons operator' if you want more detail). 
       </p>
       <p>
-        Consider the situation where Aurelie needs to be prepended to the <kbd>More</kbd> list. The code to do so looks like this.
+        Now lets use the cons operator. Consider the situation where Aurelie needs to be prepended to the <kbd>More</kbd> list. The code to do so looks like this.
       </p>
             <p><pre><code>
 Persons = [aurelie|More].
   </code></pre></p>
   <p>
-    That's it. That's all the code you have to write. Not only is prepending to a list more computationally efficient, it is also much more efficient when you 
-    are writing your code since you don't have to type so much. It is also very clear. It reflects <a href="https://www.quora.com/What-is-the-best-way-to-explain-cons-operator-in-Erlang-or-other-functional-programming-languages">the concept of <kbd>cons</kbd> directly</a>. Another great 
+    That's it. That's all the code you have to write. So much going on for such a small cost! So, not only is prepending to a list more computationally efficient, it is also much more efficient when you 
+    write your code since you don't have to type so much. It is also very clear. It reflects <a href="https://www.quora.com/What-is-the-best-way-to-explain-cons-operator-in-Erlang-or-other-functional-programming-languages">the concept of <kbd>cons</kbd> directly</a>. Another great 
     thing about the <kbd>cons</kbd> operator is that it can be used to get both the head of the list and all the rest of the list, called the tail, with one use. 
     For example, If we wanted to have two variables <kbd>H</kbd> and <kbd>T</kbd> where <kbd>H</kbd> was <kbd>aurelie</kbd> and <kbd>T</kbd> was 
     <kbd>[bob,sue,george,svetlana,grace]</kbd>, we can do that in one line of code.
