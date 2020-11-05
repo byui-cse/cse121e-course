@@ -29,7 +29,7 @@
   <body onload="fetchSource()">
     <header class="hero-image">
       <section class="hero-text">
-        <h1>CSE 121b: Week 03</h1>
+        <h1>CSE 121e: Week 03</h1>
         <p>Creating, Calling, and Using Functions</p>
       </section>
     </header>
@@ -48,24 +48,28 @@
         after the nouns they modify.
       </p>
       <p>
-        While each language has its own organizational rules, they all do the
+        While each language has its own organizational rules, these rules all do the
         same thing. They allow us to organize and express our thinking.
       </p>
-      <h3>Functions - a fundamental organization concept of JavaScript</h3>
+      <h3>Functions - a fundamental organization concept of Erlang</h3>
       <p>
-        Python and JavaScript, being related languages, both have functions as a
-        fundimental organizational structure. When you truly begin thinking in
-        JavaScript, you will be thinking in functions. You will think of how
+        Python and Erlang, being related languages, both have functions as a
+        fundimental organizational structure. In Erlang this organization is so 
+        strong a principle that you can't put code in a file unless it is 
+        a function or in a function.
+        </p>
+        <p>When you truly begin thinking in
+        Erlang, you will be thinking in functions. You will think of how
         functions are related to each other. You will have thoughts along these
         lines, "If this function calls that one..." You will be able to do this
         since you will eventually realize that when you are designing solutions
-        in JavaScript, how a function accomplishes something is not as important
+        in Erlang, how a function accomplishes something is not as important
         as that it will, and that you can wait to figure out how to complete the
         function later.
       </p>
 
       <p>
-        In Python and JavaScript there are similarities and differences between
+        In Python and Erlang there are similarities and differences between
         the languages regarding how you declare functions. In JavaScript, the
         'function' keyword is used instead of 'def'. Also, JavaScript the
         convention usually used for names of functions and variables is called
@@ -75,11 +79,18 @@
         function that averages two numbers could be defined like this.
       </p>
       <pre>
-<code class="JavaScript">function averageTwoNumbers(firstNum, secondNum){
-	return (firstNum+secondNum)/2
-}</code>
+<code class="Erlang">average_two_numbers(First, Second) -> (First + Second) div 2.
+</code>
 	</pre>
-
+      <p>
+        Lets break down the syntax into Enlish.
+      </p>
+      <p>
+        Functions, variables, and atoms that have names comprised of more than one word 
+        can either use snake_case or camelCase according to the <a href="http://www.erlang.se/doc/programming_rules.shtml#REF10726">
+          Erlang coding standards
+        </a>. For this class, we will use snake_case.
+      </p>
       <p>
         Notice the '{' and '}' operators. These are the JavaScript scope
         operators. These are used instead of the white-space scope operator used
