@@ -68,328 +68,238 @@
         function later.
       </p>
 
+      <h3>Modules - organizing functions in Erlang</h3>
+      <p>
+        Like Python, Erlang uses modules as a way to organize your functions. 
+        Unlike Python, Erlang allows you to make it possible to make some 
+        of your functions unavailable to programmers who are not working in 
+        the module itself. This allows you to have 'helper functions' to 
+        do the heavy lifting and functions that are easier to call that 
+        others can use. When you get to 'thinking in functions,' you 
+        won't care how a function you call accomplishes its task, just that it 
+        does. The reality is that, in Erlang, you must explicitly tell a module 
+        which functions other programmers are allowed to use.
+      </p>
+      <p>
+        Here is an example module. This module is found in a source code file named <kbd>funcs.erl</kbd>. 
+        Erlang, like Python, requires the module name to be the name of the file in which it resides.
+
+      <pre>
+<code class="Erlang">-module(funcs).
+  2 -export([print_parts/1,factorial/1,double/1]).
+</code></pre>
+      The first line is a function call that declares the atom that is the name of the module, <kbd>funcs</kbd>. 
+      The second line is a function call, <kbd>-export</kbd>, that is passed a list of functions that are made available 
+      for use outside of the <kbd>funcs</kbd> module. Each entry in the export list consists of two parts, 
+      1)the atom that is the name of the function to export, and 2) the number of parameters that function has. 
+      These two parts are always seperated by the <kbd>/</kbd> character. Just so you understand, the use of 
+      <kbd>/</kbd> here does NOT indicate division.
+      </p>
+      <p>
+        In the code snippet above, a module called <kbd>funcs</kbd> is declared. Three functions, <kbd>print_parts</kbd>, 
+        <kbd>factorial</kbd>, and <kbd>double</kbd> are made available for use outside the module. This is the module's 
+        <a href="https://en.wikipedia.org/wiki/API">API</a>.
+      </p>
+      <h3>Using Functions</h3>
       <p>
         In Python and Erlang there are similarities and differences between
-        the languages regarding how you declare functions. In JavaScript, the
-        'function' keyword is used instead of 'def'. Also, JavaScript the
-        convention usually used for names of functions and variables is called
-        'camel case'. To create a name, the first word of the name starts with a
-        lower-case letter, and the first letter of all the rest of the words
-        making up the name begin with an upper-case letter. For example, a
-        function that averages two numbers could be defined like this.
+        the languages regarding how you declare functions. Unlike Python's use of <kbd>def</kbd>, 
+        Erlang requires no keyword to identify a function. Also, Erlang 
+        uses either snake_case or camelCase for function names. In this class, we'll use 
+        snake_case. For example, a function that averages two numbers could be defined like this.
       </p>
       <pre>
 <code class="Erlang">average_two_numbers(First, Second) -> (First + Second) div 2.
 </code>
 	</pre>
       <p>
-        Lets break down the syntax into Enlish.
+        Lets break down the syntax into English. "There is a function named <kbd>average_two_numbers</kbd>. It has 
+        two parameters, <kbd>First</kbd> and <kbd>Second</kbd>. The body of the function sums the <kbd>First</kbd> 
+        and <kbd>Second</kbd> variables, and then the sum is divided by <kbd>2</kbd> using integer division."
       </p>
       <p>
-        Functions, variables, and atoms that have names comprised of more than one word 
-        can either use snake_case or camelCase according to the <a href="http://www.erlang.se/doc/programming_rules.shtml#REF10726">
-          Erlang coding standards
-        </a>. For this class, we will use snake_case.
+        It is very important to notice that EVERY function ends with a '.' just like every English sentence. Also, the 
+        <kbd>-></kbd> operator indicates the code to execute, the 'body' of the function.
       </p>
       <p>
-        Notice the '{' and '}' operators. These are the JavaScript scope
-        operators. These are used instead of the white-space scope operator used
-        in Python. In JavaScript, white space means nothing but when writing
-        your code, it is important to use white space to help make your code
-        easier to read. Never left justify your code.
+        Single line functions are nice, but not everything should be done using single line functions. As a simple example, 
+        here is some code to print out the head and the tail of a list on seperate lines in the REPL. Yes, there are 
+        better ways to perform this behavior. That isn't the point of this code snippet. The point is to see what 
+        multi-line functions look like syntax-wise.
       </p>
-      <p>
-        As with Python, JavaScript functions can have more than one line of
-        code. The previous example could be written as
-      </p>
-      <pre>
-<code class="JavaScript">function averageTwoNumbers(firstNum, secondNum){
-	let sum = firstNum+secondNum
-	let avg = sum/2
-	return avg
-}</code>
-	</pre>
-
-      <p>
-        It does exactly the same thing, it's just broken up into multiple lines
-        of code. There is something of great importance to note in his little
-        example. JavaScript and Python share the same scope rules. When let or
-        const are used within the scope operators in JavaScript, the variable or
-        constant exists only within that scope. In other words, the sum and avg
-        variables declared between the scope operators for this function can not
-        be used outside of this function.
-      </p>
-      <p>
-        JavaScript does have another keyword, var, that can be used
-        <a
-          href="https://medium.com/front-end-weekly/es6-cool-stuffs-var-let-and-const-in-depth-24512e593268"
-          >to 'hoist'</a
-        >
-        the variable outside of its declaring scope, but it can cause logic
-        errors in your code and has fallen out of favor with most developers and
-        engineers. You should rarely use it, and only when you have a great deal
-        of experience with JavaScript.
-      </p>
-      <h3>Another way to Write Functions</h3>
-      <p>
-        Having seen the traditional way of declaring a function, it is important
-        that you know there are other ways to create functions. The one we'll
-        look at this week is called 'function expressions' in the JavaScript
-        community. Here is the averageTwoNumbers function written using the
-        expression type syntax.
-      </p>
-      <pre>
-<code class="JavaScript">let averageTwoNumbers = function(firstNum, secondNum){
-	let sum = firstNum+secondNum
-	let avg = sum/2
-	return avg
-}</code>
-	</pre>
-
-      <p>
-        Regardless of if you used a function declaration or expression to creat
-        it, you would still call averageTwoNumbers using exactly the same
-        syntax, averageTwoNumbers(15,10). So what then is the difference? Why
-        would you choose one way over the other?
-      </p>
-      <p>
-        The JavaScript language has a concept called 'global scope'. When you
-        use the traditional function declaration syntax, your function is
-        created and lives in this global scope. An advantage of this is that you
-        could write code using the function declaration that used the function
-        BEFORE the function declaration like many other languages allow. Here's
-        a simple, syntactically correct example.
-      </p>
-      <pre>
-<code class="JavaScript">averageTwoNumbers(15,20)
-/*
- *
- * a bunch of other code goes here
- *
- */
-
-function averageTwoNumbers(firstNum, secondNum){
-	let sum = firstNum+secondNum
-	let avg = sum/2
-	return avg
-}</code>
-	</pre>
-
-      <p>
-        Wow. This does seem pretty good. It does come with a drawback. When the
-        global space becomes too cluttered, the speed of code execution is
-        impacted. Too many global functions produces slow code.
-      </p>
-      <p>
-        OK then, why not just use the expression syntax? If you tried to do
-        this...
-      </p>
-      <pre>
-<code class="JavaScript">averageTwoNumbers(15,20)
-/*
- *
- * a bunch of other code goes here
- *
- */
-
-let averageTwoNumbers = function(firstNum, secondNum){
-	let sum = firstNum+secondNum
-	let avg = sum/2
-	return avg
-}</code>
-	</pre>
-
-      <p>
-        your code will fail to run since the averageTwoNumbers function doesn't
-        exist prior to calling it. To make it work you would need to do this
-        instead.
-      </p>
-      <pre>
-<code class="JavaScript">let averageTwoNumbers = function(firstNum, secondNum){
-	let sum = firstNum+secondNum
-	let avg = sum/2
-	return avg
-}
-/*
- *
- * a bunch of other code goes here
- *
- */
-averageTwoNumbers(15,20)</code>
-	</pre>
-
-      <p>
-        When you use the function expression syntax, the use of the function HAS
-        to happen AFTER the function is created.
-      </p>
-      <p>
-        One question that usually comes up when using the expression syntax is,
-        "Hey...aren't we just storing a function in a variable? If so, could we
-        change the function stored in the variable?" The answer is yes though
-        this is often an advanced JavaScript programming concept. If, on the
-        other hand, your variable was a const instead of a let, no such change
-        could be made.
-      </p>
-      <p>
-        So which way should we use to create functions? There are lots of
-        opinions on that topic. Feel free to read  
-        <a href="https://gomakethings.com/function-expressions-vs-function-declarations/">this opinion of one person.</a>
-      </p>
-      <h3>Libraries - sharing your functions with others</h3>
-      <p>
-        A higher order organizational idea in JavaScript is library. Libraries
-        are a way that you can share your code for other programmers to use in
-        their applications, and you can share your code with them. Libraries are
-        groups of functions that, unlike applications, can not run on their own.
-        Instead, you use what other people have written and compiled as if you
-        wrote it yourself.
-      </p>
-
-      <p>
-        In JavaScript, libraries consist of some number of files in which you
-        put your JavaScript. By tradition, the names of your files always ends
-        in '.js'. If I had a JavaScript library called totally_awsome, and in it
-        there was some code that moved stuff around on the screen, I might put
-        that code in a file called 'animations.js'. There would be other files
-        in my library that contained other functions doing other things. Each
-        file would be named after what it does and use the '.js' name ending.
-        For example, fades.js, slideshow.js, etc.
-      </p>
-      <p class="callout">
-        Libraries created like this are simple to make, but do have a few
-        drawbacks. The most important is that everything in them gets added to
-        the global scope with all of the disadvantages mentioned above. If you
-        are interested in learning more about creating small libraries (or
-        modules as they are often called) that addresses this scope issue read
-        this article:
-        <a
-          href="https://tylermcginnis.com/javascript-modules-iifes-commonjs-esmodules/"
-          target="_blank"
-          rel="noreferrer"
-          >JavaScript Modules: From IIFEs to CommonJS to ES6 Modules</a
-        >. Read down to the section <strong>IIFE</strong>, if you are interested
-        in some history then read on...if not then skip the next few sections
-        and start again at the <strong>ES Modules</strong> section.
-      </p>
-
-      <h3>Map, Filter, and Reduce</h3>
-      <p>
-        In JavaScript, as in most languages, it is important not to write code
-        that duplicates fundamental parts of the standard language library. Take
-        an <strong>Array</strong> for example as we studied last week. Did you
-        wonder when you saw the code example
-      </p>
-      <pre><code>names.push('Grace')</code></pre>
-      <p>
-        where the <strong>.push()</strong> came from? It's a built in part of an
-        Array in Javascript. Arrays have
-        <a
-          href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array"
-          target="_blank"
-          rel="noreferrer"
-          >many helpful helper methods</a
-        >
-        that we can and should use. Please visit that link and familiarize
-        yourself with the list.
-      </p>
-      <p>
-        While it would be possible to write a loop in JavaScript to average,
-        modify, or select some elements of an array, you should not. Instead you
-        should use the built-in <kbd>filter</kbd> (select some),
-        <kbd>reduce</kbd> (average, sum, product, etc.), or
-        <kbd>map</kbd> (convert all) functionallity.
-      </p>
-      <p>
-        Consider a situation where you have been hired to write code for a
-        social media site. You have been asked to write code to count up the
-        total number of 'likes' postings from a single customer has recieved.
-        Existing code that others have written puts a likes count for each
-        posting in an array called 'likes' for you.
-      </p>
-      <p>
-        Suppose you were told to filter out all the likes counts that are less
-        then 10. How should this be done?
-      </p>
-      <p>Like this.</p>
 
       <pre>
-<code class="JavaScript">let filteredLikes = likeCounts.filter(aCount => aCount >= 10)
-}</code>
-	</pre>
-      <p>
-        Let's break this up so you can see how it is done. The filter function
-        has one parameter, a function similar to the callback Lambda function
-        you learned about in Python. In JavaScript it is called by the less
-        Computer Sciencey name of 'anonymous callback function.' This callback
-        function has one paramter, an element of the array. This parameter,
-        aCount, is seperated by the '=>' operator from the next bit of code
-        describing the filtering to be done. In this case, comparing the aCount
-        parameter to 10.
-      </p>
-
-      <p>
-        On the other hand, maybe you have been asked to give the customer five
-        'bonus likes' that are to be added to each posting.
-      </p>
-
-      <p>How should the likes array be modified?</p>
-      <p>
-        Like this.
-      </p>
-      <pre>
-<code class="JavaScript">likes = likeCounts.map(aCount => aCount += 5)
+<code class="Erlang">print_parts([H|T]) ->
+  io:format("Head: ~p~n",[H]),
+  io:format("Tail: ~p~n",[T]).
 </code>
-	</pre>
-      <p>
-        Maybe you are asked to total the customers likes. How should you do
-        that?
-      </p>
-      <p>
-        You would use the reduce function. It has two parameters, the first is a
-        function with two paramters and the second is usually called an
-        accumulator initial value. The accumulator's initial value is used,
-        modified, and returned to accumulates the final result. In this case the
-        the final result is the summation of the likes.
-      </p>
-      <pre>
-<code class="JavaScript">let totalLikes = likeCounts.reduce((accumulator, aCount) => accumulator += aCount,0)
+  </pre>
+  <p>
+    Just as before, the code to be executed bounded by the <kbd>-></kbd> and <kbd>.</kbd> operators. All of the other lines 
+    end with the <kbd>,</kbd> operator. This is, once again, similar to <a href="https://owl.purdue.edu/owl/general_writing/punctuation/commas/extended_rules_for_commas.html">English punctuation rules</a>. In English, all sentances 
+    end with a period, and any independent clauses in the sentance that are joined by a coordinating conjunction (and, but, or, etc.) end in a comma. 
+    Here is a simple English sentence that illustrates this punctuation rule. 
+  </p>
+  <p>
+    The dog barked, and the wolf howled.
+  </p>
+  <p>
+    Notice that this could have been written as, "The dog barked. The wolf howled." The two clauses are independent since they are gramatically 
+    correct when written seperately. The Erlang example, above, follows this English punctuation rule. The body of the function has two independent 
+    functions. They are combined together using the <kbd>,</kbd> operator and an implied <kbd>and</kbd>. "Print the head, and print the tail." 
+    The concept and punctuation/grammar rules of combining dependent clauses in some spoken languages drove the selection of this syntactical choice
+    for Erlang. Why reinvent the wheel?
+  </p>
+  <p>
+    Be warned and forewarned! The above function as written has a major problem. The problem is this, what if the list is empty? How then can the head be 
+    split from the tail? It can't. If you put the above function in a module file, compile the module, and then call the function using an empty list, 
+    you will get this error message.
+  </p>
+  <P><kbd>** exception error: no function clause matching funcs:print_parts([])</kbd></P>
+  <p>
+    This error is mysterious until greater knowledge and understanding is gained. There is something missing from the function as it was declared. But 
+    don't worry, the fix is easy and applies a variation of the Erlang pattern matching concept from week 02's reading. Here is the code snippet in 
+    it's fixed form.
+  </p>
+  <p>
+    <pre>
+<code class="Erlang">print_parts([])->
+  io:format("Empty List");
+print_parts([H|T]) ->
+  io:format("Head: ~p~n",[H]),
+  io:format("Tail: ~p~n",[T]).
 </code>
-	</pre>
-      <p>
-        What if you are to give five bonus likes only for those that already
-        have 10 likes and then sum the result? You could do a seperate line of
-        code to accomplish this, or since the map and filter array functions
-        return an array, you could do it more professionally like this. It uses
-        map, filter, and reduce.
-      </p>
-      <pre>
-<code class="JavaScript">let sum = likeCounts.filter(aCount => aCount >= 10).map(aCount=>aCount += 5).reduce((accumulator, aCount) => accumulator += aCount,0)
+  </pre>
+  </p>
+  <p>
+    At first it may seem that the fix creates two functions but it does not. Notice that the end of the body for the fist use of <kbd>print_parts</kbd> 
+    does NOT end in a period. That's why the first use of <kbd>print_parts</kbd> can NOT be a function all by itself. Instead of a period, the body of 
+    the first use of <kbd>print_parts</kbd> ends in a semicolon. 
+    The <kbd>print_parts</kbd> function starts with the first use of <kbd>print_parts</kbd> and ends with a period. The <kbd>print_parts</kbd> function 
+    consists of two dependent clauses seperated by a semicolon. Once again, 
+    Erlang is following <a href="https://www.econtentpro.com/blog/when-to-use-a-semicolon/7">the grammar/punctuation rules for depented clauses 
+    of some spoken languages</a>.
+  </p>
+  <p>
+    When the <kbd>print_parts</kbd> function is called, Erlang uses pattern matching to decide which clause of the function will execute. That's why, 
+    in the code above, if the <kbd>print_parts</kbd> function is called and passed an empty list, the first clause is used and executed. If <kbd>print_parts</kbd> 
+    is called and passed a non-empty list, the second clause of <kbd>print_parts</kbd> matches the use of the function and the second clause is used 
+    and executed. Now the error message you saw before the fix was made, 
+  </p>
+  <p><kbd>** exception error: no function clause matching funcs:print_parts([])</kbd></p>
+  <p>
+    starts to make sense. It says, "Error: I tried to find a clause for the <kbd>print_parts</kbd> function that matches the pattern 
+    <kbd>funcs:print_parts([])</kbd> but couldn't. Did you forget to add one or did you use the wrong parameters?"
+  </p>
+  <p>
+    When you are adding clauses to a function, it is important that you order the independent clauses you are adding. No matter how many 
+    independent clauses there are in your function, order them from most to least restrictive. Otherwise you will get 
+    unexpected behavior when you use the function. You will see an example of this soon.
+  </p>
+  <h3>Why This Design for Functions?</h3>
+  <p>
+    By having function independent clauses and using pattern matching to determine which of those clauses is used makes it possible to 'think in functions' as was 
+    mentioned at the top of this page. In other languages that don't take this approach to functions, you usually have to have some sort of 'if' behavior inside 
+    the function to do the pattern matching by hand. Because of the way Erlang uses pattern matching, no such conditional branching is needed, and the programmer 
+    using the function has to know LESS about how the function works internally than they would in some other languages. 
+  </p>
+  <p>
+    While this distinction may not seem a big deal to you right now, when you start creating more complicated reality-like applications with millions of lines of 
+    code, this distinction becomes very important. Think of how many 'if' type lines of code you don't have to create in Erlang compared to other languages if 
+    your application consists of hundreds of thousands of functions. Also remember that any new code you write, including these 'if' type lines of code, are 
+    green-code. In other words, they will have bugs in them. So, with Erlang, you write less code which leads, always, to fewer bugs created.
+   </p>
+   <p>
+     There is another benefit, amoung many others that you will see, of this clause/pattern matching approach to functions. Take a look at how the factorial behavior 
+     from mathematics can be written using two clauses, one when the function is passed <kbd>0</kbd>, and the other when it is passed a non-zero value.
+   </p>
+  <p>
+    <pre>
+<code class="Erlang">factorial(0) -> 1;
+factorial(N) -> N * factorial(N-1).
 </code>
-	</pre>
+  </pre>
+  </p>
+  <p>
+    Notice how there are no 'if' type constructs in the code just like is described above. Also notice that this is a recursive function! Because of 
+    Erlang's clause/pattern matching approach to functions, you don't EVER need loops. In fact, there are no loop constructs in Erlang. You just don't 
+    need them.
+  </p>
+  <p>
+    There are some <a href="https://erlang.org/doc/efficiency_guide/myths.html">false beliefs about Erlang</a> running around the internet. One of them is that you should always use tail-recursion in Erlang. Not so. First of all, tail-recursion isn't faster. Another is that if you don't use tail-recursion, you'll end up 
+    having a stack overflow happen at runtime. Not so. Erlang is desgned so that you will run out of RAM instead of getting a stack overflow. These statements 
+    don't mean you can ignore tail-recursion, it just means you don't have to go through contortions to make all your functions tail-recursive. I like 
+    <a href="https://ferd.ca/erlang-s-tail-recursion-is-not-a-silver-bullet.html">this statement by Fred Herbert</a> .
 
-      <p>
-        Suppose you wanted to be able to easily test your 'bonus likes' code by
-        printing to the console. It would mean your callback function would need
-        more than one line of code. You can do that! It would look like this.
-      </p>
-      <pre>
-<code class="JavaScript">likeCounts.filter(aCount => aCount >= 10).map(aCount=>{
-		aCount += 5
-		console.log(aCount)
-		return aCount
-		})
+    "Writing clean code generally leads to better performance. This is something that many languages can not claim as true, but Erlang certainly can. In the general case, the optimisations in the Erlang VM come from observing idiomatic code in production, and clean [code] at that. This is why body recursion might be better, and why many other optimizations were made...Clean code is the best code."
+  </p>
+  <p>
+    The point he is making is that sometimes, in Erlang, body-recursive functions, those that are non-tail-recusive, can sometimes be better.
+  </p>
+  <p class="callout">
+    <span>Interesting Info:</span><br>
+        Another great result of Erlang's being a functional programming language and functional programming languages' affinity with Mathematics is the 
+        similarity between the Erlang version of multi-part functions and how you describe them in Mathematics. Take a look and compare the erlang version 
+        with this Mathematics version of factorial.
+        
+      <img src="images/fact.png" alt="the bipartite representation of the factorial function">
+      Such a close match! Again, why reinvent the wheel? The Erlang creators tried very hard to not add unnecessary stuff you'd have to know in addition 
+      to things you already know.
+  </p>
+  <h2>Guards, Guards!</h2>
+  <p>
+    In the factorial example, above, it was very important to get the order of the function's clauses correct so that the function would execute as expected. 
+    This can be problematic when you have functions containing many clauses or when the pattern matching isn't as simple as factorial. Erlang's solution 
+    to these problems is called a guard. The keyword for a guard is <kbd>when</kbd>. Here is a code snippet example of a factorial function that 
+    not only uses guards, but adds another clause so if factorial is called with a negative number, a situation which is undefined in Mathematics, the function 
+    retuns an atom representing a failure.
+  </p>
+  <p>
+    <pre>
+<code class="Erlang">factorial(N) when N > 0 -> N * factorial(N-1);
+factorial(N) when N == 0 -> 1;
+factorial(N) when N < 0 -> undefined.%Factorials of negative integers are not defined. Therefore return the atom undefined.
 </code>
-	</pre>
-      <p>
-        Notice the use of the JavaScript scope operators and the inclusion of
-        the return keyword in the last line of map's callback function. For map,
-        whatever is returned by the callback is what ends up in the resulting
-        array.
-      </p>
-      
-      <p>
-      	If you would like a deeper dive into JavaScript functions, there are many resources on the web. Mahendra Choudrey has produced a <a href="https://medium.com/@iampika/javascript-functions-e66ed8871771">quick, deep, overview</a>.
-      </p>
+  </pre>
+  </p>
+  <p>
+    By using guards, the order of our independent clauses is irrelevant, freeing us from a potential ordering bugs. It does cost us in a little more code, 
+    but in most cases, the extra text is worth it, especially when your guards need to be more complicated than this simplistic example.
+  </p>
+
+  <h2>Recursion and Lists</h2>
+  <p>
+    There are better ways to do this upcoming example that you'll see in a bit, but let's take a look at how to build a new list that is the numbers in a list multiplied by <kbd>2</kbd>. In the code snippet below you see a function called <kbd>double</kbd>. Notice that in this case we don't need to worry about the order of the clauses 
+    since there is no way for the pattern matcher to fail. That is also why no guards are needed. Eiter a list has elements and matches the first clause, or 
+    the list is empty and matches the last clause. Those are the only two options.
+  </p>
+  <p>
+<pre>
+<code class="Erlang">double([H|T]) ->
+    [2 * H | double(T)];
+double([]) ->
+    [].</code></pre>
+  </p>
+  <p>
+    Also notice the use of the cons operator, <kbd>[H|T]</kbd>, to split the list passed to the function into the head of the list and the tail, the rest of the 
+    numbers in the list. The Head is then multiplied by <kbd>2</kbd> and the cons operator is used to prepend the result to whatever is returned from calling 
+    the <kbd>double</kbd> function on the remaining tail numbers.
+  </p>
+  <p>
+    This way, each time <kbd>double</kbd> gets called, the list it is passed gets smaller by one number until the list is empty. Then, after getting to the end of 
+    the list, each doubled number is prepended to a new list, last number first, until the doubled values are all included, first number last <a href="https://www.churchofjesuschrist.org/study/scriptures/dc-testament/dc/29?lang=eng">(Doctrine and 
+    Covenants 29:30)</a>.
+  </p>
+  <p>
+    Put the <kbd>double</kbd> function, above, in a file as part of a module, compile the module in the REPL, and run it. Then play around with it. What happens if you 
+    print out the values of <kbd>H</kbd> and <kbd>T</kbd>? Try out a few other changes you dream up. This exploration process should help you understand the 
+    list disassembly-reassembly precess that is a major part of writing Erlang code.
+  </p>  
+  <h2>The Better Way; Map, Filter, and Reduce</h2>
+  <p>
+    
+  </p>
+
     </main>
     <footer>
       <a
