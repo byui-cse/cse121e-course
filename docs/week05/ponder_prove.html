@@ -16,155 +16,59 @@
   <body>
     <header class="hero-image">
       <section class="hero-text">
-        <h1>CSE 121b: Week 05</h1>
+        <h1>CSE 121e: Week 05</h1>
         <p>Ponder and Prove</p>
       </section>
     </header>
     <main>
       <h1>Your Task</h1>
       <section>
-        <h3>Before beginning this Task:</h3>
-        <ul>
-          <li>
-            Make sure you have reviewed the
-            <a href="../week05/" target="_blank">Controlling Your Code</a>
-            course content.
-          </li>
-          <li>
-            Download the following Zip file and extract it into a local folder
-            of your choice:
-            <a href="week05.zip">week05.zip</a>
-          </li>
-          <li>
-            Open the local folder in VS Code
-          </li>
-        </ul>
-      </section>
-      <section>
-        <h3>Conditionals</h3>
+        <h3>Description</h3>
         <p>
-          In the first part of this Task, you will use the <span class="file_name">if</span>,
-          <span class="file_name">else if</span> conditionals. You will also use the
-          <span class="file_name" >switch</span>, <span class="file_name">case</span> and
-          <span class="file_name">break</span> statements.
+          What you want to accomplish with this task is to solve the design problems listed in the reading for this week so you can run a bunch of computations concurrently without one crash taking everything down. Also, you will use some of the Erlang programming principles learned earlier in the class to write easily read, understood, and, therefore, easily maintained code.
         </p>
       </section>
       <section>
-        <h3>Using If and Else If</h3>
+        Before beginning this Task, make sure you have reviewed the
+            <a href="../week05/" target="_blank">gen_servers and supervisors</a>
+            course content.
+      </section>
+      <section>
+        <h3>The gen_servers</h3>
         <h4>Complete the following steps</h4>
-        <p>In the <span class="file_name">task5.js</span> file:</p>
         <ol>
+          <li>Separate the add, multiply, and divide functionalities of the <kbd>calcs</kbd> module into three <kbd>gen_server</kbd> modules, one module per functionality.</li>
+          <li>Create modules for calculating a binomial coefficient, factorial, and generating all permutations of any list. Again, one module per functionality.</li>
+          <li>The factorial gen_server should keep track of the last number it was sent and the factorial value calculated from that number and use these two values to minimize the computation required for the next time the factorial <kbd>gen_server</kbd> is used. If it is not possible to re-use these values to reduce the required computation, then do as must be done.</li>
+        </ol>
+      </section>
+      <section>
+        <h3>The Supervisor</h3>
+        <h4>Complete the following steps</h4>
+        <ol>
+          <li>Write a supervisor called <kbd>calcs_supervisor</kbd> that supervises all of these <kbd>gen_servers</kbd> using the one_for_one supervision technique.</li>
+          <li>From within the REPL, run <kbd>calcs_supervisor</kbd> and exercise each of the <kbd>gen_servers</kbd>.</li>
           <li>
-            Declare and initialize a new variable to hold the current date.
-          </li>
-          <li>Declare another variable to hold the day of the week.</li>
-          <li>
-            Using the variable declared in Step 1, assign the value of the
-            variable declared in Step 2 to the day of the week ( hint: getDay()
-            ).
-          </li>
-          <li>Declare a variable to hold a message that will be displayed.</li>
-          <li>
-            Using an if statement, when the day of the week is a weekday (i.e.
-            Monday - Friday), set the message variable to the string 'Hang in
-            there!'
-          </li>
-          <li>
-            Using an else statement, set the message variable to 'Woohoo! It is
-            the weekend!'
+            Fix any bugs you find.
           </li>
         </ol>
       </section>
       <section>
-        <h3>Switch, Case, Break</h3>
+        <h3>The Testing Driver</h3>
         <h4>Complete the following steps</h4>
-        <p>In the <span class="file_name">task5.js</span> file:</p>
         <ol>
-          <li>Declare a new variable to hold another message.</li>
-          <li>
-            Use switch, case and break to set the message variable to the day of
-            the week as a string (e.g. Sunday, Monday, etc.) using the day of
-            week variable declared in Step 2 above.
-          </li>
+          <li>Create a module that contians one function per <kbd>gen_server</kbd>. Have each of these function spawn a call to the client function of the <kbd>gen_server</kbd> it is responsible for executing, and then wait for the response and print it out to the console.</li>
+          <li>Write an additional function, <kbd>driver/0</kbd>, as part of this module that calls each of the functions described in the previous item. Make sure that you make a call to divide that causes a crash after you have sent each of the list-type functions a list of 100,000,000 numbers.</li>
+          <li>From within the REPL, run <kbd>driver/0</kbd> and observe the results.</li>
         </ol>
-      </section>
-      <section>
-        <h3>Output Changes</h3>
-        <h4>Complete the following steps</h4>
-        <p>In the <span class="file_name">task5.js</span> file:</p>
-        <ol>
-          <li>
-            Assign the value of the first message variable to the HTML element
-            with an ID of message1.
-          </li>
-          <li>
-            Assign the value of the second message variable to the HTML element
-            with an ID of message2.
-          </li>
-        </ol>
-      </section>
-      <section>
-        <h3>Fetch</h3>
-        <h4>Complete the following steps</h4>
-        <p>In the <span class="file_name">task5.js</span> file:</p>
-        <ol>
-          <li>Declare a global empty array variable to store a list of temples</li>
-          <li>Declare a function named output that accepts a list of temples as an array argument and does the following for each temple:
-            <ul>
-              <li>Creates an HTML &lt;article&gt; element</li>
-              <li>Creates an HTML &lt;h3&gt; element and add the temple's templeName property to it.</li>
-              <li>Creates an HTML &lt;h4&gt; element and add the temple's location property to it.</li>
-              <li>Creates an HTML &lt;h4&gt; element and add the temple's dedicated property to it.</li>
-              <li>Creates an HTML &lt;img&gt; element and add the temple's imageUrl property to the src attribute and the temple's templeName property to the alt attribute.</li>
-              <li>Appends the &lt;h3&gt; element, the two &lt;h4&gt; elements, and the &lt;img&gt; element to the &lt;article&gt; element as children.</li>
-              <li>Appends the &lt;article&gt; element to the HTML element with an ID of temples.</li>
-            </ul>
-          </li>
-          <li>
-            Using the built-in fetch method, call this absolute URL:
-            'https://byui-cse.github.io/cse121b-course/week05/temples.json'.
-          </li>
-          <li>
-            Add a .then() method to turn the returned string into a JavaScript
-            object ( hint: .json() ).
-          </li>
-          <li>
-            Add another .then() method with a variable name to hold the temples and an empty arrow function.
-          </li>
-          <li>
-            Inside of second .then() method, assign the list of temples (as a JSON object) to the temples variable.
-          </li>
-          <li>
-            Finally, call the output function and pass it the list of temples.
-          </li>
-          <li>Declare a function named reset that clears all of the &lt;article&gt; elements from the HTML element with an ID of temples.</li>
-          <li>Declare a function named sortBy that:
-            <ul>
-              <li>calls the reset function,</li>
-              <li>sorts the global temple list by the currently selected value of the HTML element with an ID of sortBy, and</li>
-              <li>calls the output function passing in the sorted list of temples.</li>
-            </ul>
-          </li>
-          <li>Add a change event listener to the HTML element with an ID of sortBy that calls the sortBy function.</li>
-        </ol>
-      </section>
-      <section>
-        <h3>Review</h3>
-        <h4>
-          After completing the previous steps:
-        </h4>
-        <ol>
-          <li>
-            Review one of the many <a href="provided_solution.zip">possible solutions</a> for this task,
-          </li>
-          <li>Compare and contrast your code with the possible solution's code, and</li>
-          <li>Make note of any improvements you could make for future tasks.</li>
-        </ol>
+        <p>
+          After you have a working solution, you should compare what you created with <a href="provided_solution.zip/">another possible solution</a>.
+        </p>
+        
       </section>
       <section>
         <h3>Stretch (optional)</h3>
-        <p>Consider adding a "Filter by" feature that allows users to filter the list of temples. 
-        This will require changes to both the HTML and the JavaScript files</p>
+        <p>Apply your googling skills to see some ideas about how you can use a supervisor to supervise many running instances of the same gen_server module.</p>
       </section>
     </main>
     <footer>
