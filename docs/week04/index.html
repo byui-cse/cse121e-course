@@ -260,6 +260,29 @@ loop()-&gt;
 	<p>
 		If you get a message that looks like that when you send a message to a process, you know you didn't put the message together well.
 	</p>
+	<p>
+		There is two more things you should understand about the code for the process you saw earlier. There is nothing special about the <kbd>loop/0</kbd> function. It's just a function. You could name it anything you want, <kbd>again</kbd>, <kbd>wait</kbd>, or even something as silly as <kbd>skip_down_the_road</kbd>. 
+		The name the function is unimportant. Also, the function can have any number of parameters you want. Say there was something you wanted the process to 
+		'remember' between times when it recieves a request. All you have to do is add a parameter. If, for some reason, you needed to track how many times the 
+		process received a request and print out that count when the server is shut down, the code could look like. 
+	</p>
+	<p><pre><code class="Erlang">loop(Count)-&gt;
+    receive
+        {Pid,{multiply,List}} ->
+              Pid ! {ok,lists:foldl(fun(X,Y)->X*Y end,1,List)};
+        {Pid,{add,List}} ->
+              Pid ! {ok,lists:foldl(fun(X,Y)->X+Y end,0,List)};
+        {Pid,{divide,Dividend,Divisor}} -> 
+              Pid ! {ok,Dividend div Divisor};
+        {Pid,_Other} ->
+              Pid ! {fail, unrecognized_message}
+    end,
+    loop(Count+1).
+</code></pre></p>
+	<p>
+		Since loop is just like any other recursive function, the number of parameters is up to you as are the types of those parameters. If you needed to, you could 
+		have paramters of type atom, tuple, list, numeric, or any other type. The set of parameters you use are usually refered to as the "state" of the process.
+	</p>
 	<p>Having seen how to write a simple process that 
 		can receive and send messages, it's now time to make it easier to send a message to a process. You are getting tired of re-typing message sending code 
 		in the REPL, right? &#128578;
