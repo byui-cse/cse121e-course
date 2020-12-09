@@ -1,227 +1,76 @@
-<!DOCTYPE html>
-<html lang="en">
+<!-- uses https://highlightjs.org/
+-->
+
+<html>
 
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>CSE 121b: Week 02 | Ponder and Prove</title>    
-	<script type="text/javascript">
-    	var codeType = "JavaScript"
+	<link rel="shortcut icon" href="https://byui-cse.github.io/Language-Courses/site/images/fav.ico" type="image/x-icon">
+    <script type="text/javascript">
+                 var codeType = "Erlang"
     </script>
     <script src="https://byui-cse.github.io/Language-Courses/site/highlight.pack.js"></script>
     <link rel="stylesheet" href="https://byui-cse.github.io/Language-Courses/site/highlight_styles/xcode.css">
     <link rel="stylesheet" href="https://byui-cse.github.io/Language-Courses/site/weekly.css">
-	<script type="text/javascript" src="https://byui-cse.github.io/Language-Courses/site/weekly.js"></script>
-	<link rel="stylesheet" href="../main.css">
+    <script type="text/javascript" src="https://byui-cse.github.io/Language-Courses/site/weekly.js"></script>
+
 </head>
 
-<body  onload="fetchSource()">
-	<header class="hero-image">
-		<section class="hero-text">
-			<h1>CSE 121b: Week 02</h1>
-			<p>Ponder and Prove</p>
-		</section>
-	</header>
-	<main>
-		<h1>Week 2 Task Instructions</h1>
-		<h2>The Fundamentals</h2>
-		<section>
-			<h3>Before beginning this Task:</h3>
-			<ul>
-				<li>
-					Make sure you have reviewed the <a href="../week01/" target="_blank">Installation and
-						Purpose</a>
-					and <a href="../week02/" target="_blank">The Fundamentals</a>
-					course
-					content.
-				</li>
-				<li>
-					Download the following Zip file and extract it into a local folder of your choice:
-					<a href="week02.zip">week02.zip</a>
-				</li>
-				<li>
-					Open the local folder in VS Code
-				</li>
-			</ul>
-		</section>
-		<section>
-			<h3>JavaScript and HTML</h3>
+<body onload="fetchSource()">
+<div class="hero-image">
+  <div class="hero-text">
+    <h1>CSE 121e: Week 02</h1>
+    <p>Ponder and Prove</p>
+  </div>
+</div>
+<h1>Introduction</h1>
+	<p>
+		You work for a TV program. The Show is one that has competition between teams and cooperation within teams. Your 
+		boss needs help selecting good teams from persons that have been selected to be potential participants.
+	</p>
+	<h1>Your Task</h1>
+	<p>
+		Create two lists, one of females and one of males with 10 persons in each list. Each element of the list must be 
+		a tuple that looks like this, <kbd>{Propensity, Name, gender_atom}</kbd>. The propensity is numeric with a scale of your choice.
+	</p>
+	<p>
+		Each team suggested team must include 4 people with no more than two of the same gender.
+	</p>
+	<ol>
+		  <li><p>
+          Write a function that
+			generates a list of all possible permutations of the teams of size 4 where each element of the list is a 
+			tuple in this format. <kbd>{Total_propensity,[Name,Name,Name,Name]}</kbd> Hint: use list comprehensions.</p>
 			<p>
-				In the Tasks for this course, you will manipulate content in HTML files from JavaScript. In order to link
-				a JavaScript file to an HTML file, an HTML <span class="tag">&lt;script&gt;</span></code> tag is used.
+				Sort this list and return the sorted list. Hint: use <kbd>lists:sort/1</kbd>.
 			</p>
-			<p>
-				The <span class="tag">&lt;script&gt;</span> tag is commonly placed before the closing <span class="tag">&lt;/body&gt;</span> tag
-				as follows:
-			</p>
+		</li>
+		  <li><p>
+		  	Write a function that selects the top five teams by propensity and returns the five teams in a list.
+		  </p></li>
+		  <li>
+		  	<p>
+		  		Write a function that, for each selected team, prints out the team propensity on one line, followed by each team mate's name babbed in and on seperate lines.
+		  	</p>
+		  </li>
+	</ol>
 
-			<p><pre><code class="HTML">&lt;main&gt;
-	&lt;section&gt;
-		&lt;div&gt;
-			&lt;label for="name"&gt;Name:&lt;/label&gt;
-			&lt;span id="name"&gt;&lt;/span&gt;
-		&lt;/div&gt;
-		&lt;div&gt;
-			&lt;label for="food"&gt;Favorite Foods:&lt;/label&gt;
-			&lt;span id="food"&gt;&lt;/span&gt;
-		&lt;/div&gt;
-	&lt;/section&gt;
-&lt;/main&gt;
-&lt;footer&gt;
-	&amp;copy;&lt;span id="year"&gt;&lt;/span&gt; | Biography | Lesson 2
-&lt;/footer&gt;
-&lt;script src="scripts/task2.js"&gt;&lt;/script&gt;
-</code>
-	</pre></p>
-			<p>
-				The "src" attribute of the <span class="tag">&lt;script&gt;</span> tag should point to the folder and file name of
-				the JavaScript file relative to the current HTML file.
-			</p>
-		</section>
-		<section>
-			<h3>Accessing HTML elements using JavaScript</h3>
-			<p>Since this is not an HTML course, you aren't required to know HTML elements in depth. 
-			However, you will need an understanding of how to access HTML elements from JavaScript code, 
-			since using JavaScript to access HTML elements in web pages is a very common use of JavaScript.</p>
-			<p>
-				There are several ways to access HTML elements. One of which is by using this built-in function (BIF).
-			</p>
-			<p>
-					<code class="JavaScript" style="border: none;margin: 0px;padding: 0px; padding-left: 20px;">document.getElementById('elementId')</code>
-				</p>
-				<p>
-					In real code, the id "elementId" is replaced by an actual, unique id.
-					For example, this HTML element 
-				<p>
-					<code class="JavaScript" style="border: none;margin: 0px;padding: 0px; padding-left: 20px;">&lt;section id="discussion"&gt;</code>
-				</p>
-				<p>has an id of "discussion". That means the following JavaScript is used to find the element and store it in a variable for later use. 
-				</p>
-				<p>
-					 <code class="JavaScript" style="border: none;margin: 0px;padding: 0px; padding-left: 20px;">let theDiscussionElement = document.getElementById('discussion')</code> 
-				</p>
+	<h2>Definitions</h2>
+	<ul>
+		<li><a href="http://mathworld.wolfram.com/Combinatorics.html">Combinatorics</a></li>
+		<li><a href="http://mathworld.wolfram.com/Combination.html">Combinations</a></li>
+		<li><a href="http://mathworld.wolfram.com/CartesianProduct.html">Cartesian Product</a></li>
+	</ul>
 
-				<p>
-					Another approach is to use the <span class="file_name">querySelector</span> BIF:
-				</p>
-				<p>
-					<code class="JavaScript" style="border: none;margin: 0px;padding: 0px; padding-left: 20px;">document.querySelector('#elementId')</code>
-				</p>
-				<p>
-					The "elementId" is, again, the value of the HTML attribute's id. Notice that this BIF 
-					requires a pound sign (#) before the name of the id value.
-				</p>
-				<p>
-					Using the same discussion HTML element you looked at before, the JavaScript to get it and store it in a variable is
-				</p>
-				<p>
-					<code class="JavaScript" style="border: none;margin: 0px;padding: 0px; padding-left: 20px;">let theDiscussionElement = document.querySelector('#discussion');</code>
-				</p>
-			</p>
+  <section>
+      <h3>Review</h3>
+      <h4>After completing the previous steps:</h4>
+      <ol>
+          <li>Review one of the many <a href="https://byui-cse.github.io/cse121e-course/week02/provided_solution.zip">possible solutions</a> for this task,</li>
+          <li>Compare and contrast your code with the possible solutions&rsquo; code, and</li>
+          <li>Make note of any improvements you could make for future tasks.</li>
+      </ol>
+  </section>
 
-			<h3>Modifying HTML elements using JavaScript</h3>
-			<p>
-				Once you get access to the HTML element, you can change its content by using one of two properties, 
-				the first of which uses the element's <span class="file_name">innerHTML</span> property.
-				</p>
-				<p>
-					Here is some JavaScript code that does this.
-				</p>
-				<p>
-					<code class="JavaScript" style="border: none;margin: 0px;padding: 0px; padding-left: 20px;">
-						document.querySelector('#discussion').innerHTML = 'The content I would like to
-						display in the HTML file.'
-					</code>
-				</p>
-				<p>
-					Another, similar, way uses the element's <span class="file_name">textContent</span> property.
-				</p>
-				<p>
-					<code class="JavaScript" style="border: none;margin: 0px;padding: 0px; padding-left: 20px;">
-						document.querySelector('#discussion').textContent = 'The content I would like to
-						display in the HTML file.'
-					</code>
-				</p>
-			</p>
-			<p>
-				You can also modify an HTML element using the <span class="file_name">setAttribute</span> BIF. To 
-				change the picture displayed in an image tag modify the <span class="file_name">src</span> property of the image element.
-			</p>
-			<p>
-				<code class="JavaScript" style="border: none;margin: 0px;padding: 0px; padding-left: 20px;">document.querySelector('#mainImage').setAttribute('src', 'images/main.png')</code>
-			</p>
-			<p>
-				Of course, you can make this same modification directly.
-			</p>
-
-			<p>
-				<code class="JavaScript" style="border: none;margin: 0px;padding: 0px; padding-left: 20px;">document.querySelector('#mainImage').src = 'images/main.png'</code>
-			</p>
-		</section>
-		<section>
-			<h3>Variables</h3>
-			<h4>Complete the following steps</h4>
-			<p>In the <span class="file_name">task2.js</span> file:</p>
-			<ol>
-				<li>Declare and instantiate a variable to hold your name</li>
-				<li>Place the value of the name variable into the <span class="file_name">task2.html</span> file inside of the
-					element with an "id of "name"
-					(hint: document.querySelector())</li>
-				<li>Declare and instantiate a variable to hold the current year</li>
-				<li>Place the value of the current year variable into the <span class="file_name">task2.html</span> file inside of
-					the element with an <span class="file_name">id</span> of
-					"year"</li>
-				<li>Copy an image of yourself into the <span class="file_name">images</span> folder</li>
-				<li>Declare and instantiate a variable to hold the name and location of your picture (hint:
-					<span class="file_name">images/imagename.png</span>)</li>
-				<li>Place the value of the picture variable into the <span class="file_name">task2.html</span> file in the "src"
-					attribute of the <span class="file_name">img</span>
-					element (hint: document.querySelector().setAttribute())</li>
-			</ol>
-		</section>
-		<section>
-			<h3>Arrays</h3>
-			<h4>Complete the following steps</h4>
-			<p>In the <span class="file_name">task2.js</span> file:</p>
-			<ol>
-				<li>Declare an array variable to hold your favorite foods ( hint: [] ) and fill it with your favorite foods as strings.</li>
-				<li>Use JavaScript to modify the element who's <span class="file_name">id</span> is "food" found in the <span class="file_name">task2.html</span> file.</li>
-				<li>Declare and instantiate a variable to hold another of your favorite foods.</li>
-				<li>Add the value stored in this variable to the favorite food array.</li>
-				<li>Repeat Step 2</li>
-				<li>Remove the first element in the favorite foods array</li>
-				<li>Repeat Step 2</li>
-				<li>Remove the last element in the favorite foods array</li>
-				<li>Repeat Step 2</li>
-			</ol>
-		</section>
-		<section>
-			<h3>Review</h3>
-			<h4>After completing the previous steps:</h4>
-			<ol>
-	          <li>Review one of the many <a href="provided_solution.zip">possible solutions</a> for this task,</li>
-	          <li>Compare and contrast your code with the possible solution's code, and</li>
-	          <li>Make note of any improvements you could make for future tasks.</li>
-			</ol>
-		</section>
-	</main>
-	<footer>
-      <a
-        rel="license"
-        href="http://creativecommons.org/licenses/by/4.0/"
-        target="_blank"
-        ><img
-          alt="This work is licensed under a Creative Commons Attribution 4.0 International License"
-          style="border-width: 0;"
-          src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a
-      ><br />This work is licensed under a
-      <a
-        rel="license"
-        href="http://creativecommons.org/licenses/by/4.0/"
-        target="_blank"
-        >Creative Commons Attribution 4.0 International License</a
-      >.
-    </footer>
+<a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.
 </body>
-
 </html>
