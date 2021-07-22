@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>CSE 121b: Week 05 | Ponder and Prove</title>
+    <title>CSE 121e: Week 04 | Tasks</title>
     <script type="text/javascript">
       var codeType = "JavaScript"
     </script>
@@ -16,8 +16,8 @@
   <body>
     <header class="hero-image">
       <section class="hero-text">
-        <h1>CSE 121e: Week 05</h1>
-        <p>Ponder and Prove</p>
+        <h1>CSE 121e: Week 04</h1>
+        <p>Tasks</p>
       </section>
     </header>
     <main>
@@ -30,22 +30,27 @@
       </section>
       <section>
         Before beginning this Task, make sure you have reviewed the
-            <a href="../week05/" target="_blank">gen_servers and supervisors</a>
+            <a href="../week04/" target="_blank">concurrent programming</a>
             course content.
       </section>
       <section>
         <h3>The Process</h3>
         <h4>Complete the following steps</h4>
         <ol>
-          <li>Create a process that provides factorial for its functionallity. The process must keep track of the last number it was sent and the factorial value calculated from that number and use these two values to minimize the computation required for the next time the factorial process is used. If it is not possible to re-use these values to reduce the required computation, then do as must be done.</li></li>
+          <li>Create a process that provides factorial for its functionality. The process must keep track of the last number it was sent and the factorial value calculated from that number and use these two values to minimize the computation required for the next time the factorial process is used. If it is not possible to re-use these values to reduce the required computation, then do as must be done.</li>
+          <li>
+            In the same module as the factorial function, write a <kbd>start/0</kbd> function that spawns the factorial function as a process and returns the factorial process' PID.
+          </li>
+          <li>
+            In the same module as the factorial function, write a client function that sends an integer to the factorial process and waits for a response.
+          </li>
         </ol>
       </section>
       <section>
         <h3>The Testing Driver</h3>
         <h4>Complete the following steps</h4>
         <ol>
-          <li>Create a seperate module containing a testing driver function that spawns a process calling the client function of the factorial module's client function. This new function is responsible for makeing the call, waiting for the response, and then printing the response out to the console.</li>
-          <li>Write an additional function, <kbd>driver/0</kbd>, as part of this module that calls the testing driver function described in the previous item 1000 times. Make it interesting by asking for the factorial of numbers that are not too small but not too large either.</li>
+          <li>Create a separate module containing a testing driver function, <kbd>driver/0</kbd>, that uses the spawned factorial process and calls client function you've written.  It must call the testing driver function described 1000 times. Make it interesting by asking for the factorial of numbers that are not too small but not too large either.</li>
           <li>From within the REPL, run <kbd>driver/0</kbd> and observe the results.</li>
         </ol>
         
@@ -53,7 +58,7 @@
       <h3>Review</h3>
       <h4>After completing the previous steps:</h4>
       <ol>
-          <li>Review one of the many <a href="https://byui-cse.github.io/cse121e-course/week03/provided_solution.zip">possible solutions</a> for this task,</li>
+          <li>Review one of the many <a href="https://byui-cse.github.io/cse121e-course/week04/provided_solution.zip">possible solutions</a> for this task,</li>
           <li>Compare and contrast your code with the possible solutions&rsquo; code, and</li>
           <li>Make note of any improvements you could make for future tasks.</li>
       </ol>
@@ -62,7 +67,10 @@
       </section>
       <section>
         <h3>Stretch (optional)</h3>
-        <p>Apply your googling skills to see some ideas about how you can use a supervisor to supervise many running instances of the same gen_server module.</p>
+        <p>Dealing with large numbers can be slow when applying factorial. Write a function that can accept a maximum and minimum number. This function should have as its value the product of all the integers in the range [min,max]. Decide how many processes running this range-product should be spawned for a number based on the number's size. </p>
+        <p>
+          Write a function that spawns an appropriate number of processes, uses them to calculate factorial for a large number, and then shuts them down.
+        </p>
       </section>
     </main>
     <footer>
