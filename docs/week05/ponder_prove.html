@@ -57,7 +57,7 @@
         <h3>The Testing Driver</h3>
         <h4>Complete the following steps</h4>
         <ol>
-          <li>Create a module that contians one function per <kbd>gen_server</kbd>. Have each of these function spawn a call to the client function of the <kbd>gen_server</kbd> it is responsible for executing, and then wait for the response and print it out to the console.</li>
+          <li>Create a module that contains one function per <kbd>gen_server</kbd>. Have each of these function spawn a call to the client function of the <kbd>gen_server</kbd> it is responsible for executing, and then wait for the response and print it out to the console.</li>
           <li>Write an additional function, <kbd>driver/0</kbd>, as part of this module that calls each of the functions described in the previous item. Make sure that you make a call to divide that causes a crash after you have sent each of the list-type functions a list of 100,000,000 numbers.</li>
           <li>From within the REPL, run <kbd>driver/0</kbd> and observe the results.</li>
         </ol>
