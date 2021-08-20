@@ -41,9 +41,12 @@
 	<p>Data collected by your staff indicates that Chocolate is your
 	customers&rsquo; preferred flavor from list one. To aid you in deciding how to plan
 	your ice cream purchases in future weeks, you need to know what all the
-	possible combinations of flavors are. </p>
+	possible combinations of flavors given that customers can select one flavor from list one and one flavor from list two. </p>
 
 	<h1>Your Task</h1>
+	<p>
+		Depending on how you design your task solutions, you may need some <a href="http://erlang.org/doc/man/lists.html#foldl-3">list BIF's</a> not covered in the reading.
+	</p>
 	<ol>
 		  <li><p>
           Write a function that
@@ -58,8 +61,28 @@
 			with instructions for the customer to &ldquo;select a flavor for each
 			scoop&rdquo;.</p>
 
-			    <p>Add code to your function so it also prints out all
-       			double-dipper cones that have Chocolate as the first or second scoop type, including double chocolate.</p>
+			    <p>Print out all
+       			double-dipper cones that have Chocolate as the first or second scoop type, including chocolate-chocolate.
+       		</p>
+      </li>
+      <li>
+      	<p>
+      		You decide you also need a list of all possible combinations of flavors in addition to those that have chocolate as the first flavor. Print out all possible scoop combinations.
+      	</p>
+      </li>
+      <li>
+      	<p>
+      		You decide to gather data about the popularity of all of these combinations. After having done so, you decide to print out a sorted list of all the combinations with those that are the most popular first. Use the <a href="">rand:uniform/0</a> BIF to simulate this collected data. You can use any scale you would like for the popularity data.
+      	</p>
+      	<p>
+      		Print out the entire list.
+      	</p>
+      </li>
+      <li>
+      	<p>
+      		You become curious regarding how popular the top 10 combinations are. Print out the top ten most popular combinations, each with its popularity. Also calculate and print the percentage popularity of of these 10 compared to all the combinations.
+      	</p>
+      </li>
 	</ol>
 
 	<h3>Definitions</h3>
