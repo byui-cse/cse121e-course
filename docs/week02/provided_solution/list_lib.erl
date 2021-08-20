@@ -7,7 +7,7 @@
 %%
 %% Parameters - 1)List of items to shuffle
 %% Value - a shuffled list
-%% Complexity - O(n^2 log n^2)
+%% Complexity - O(n^3)
 %%
 shuffle(List) ->
 %% Determine where to initially divide the list, then perform a series of randomizations.
@@ -19,7 +19,7 @@ shuffle(List) ->
 %% Parameters - 1)Where to divide the list
 %%              2)List to randomize
 %% Value - a randomized list
-%% Complexity - O(n^2 log n^2)
+%% Complexity - O(n^3)
 %%
 randomize(1, List) ->
    randomize(List);
@@ -33,7 +33,7 @@ randomize(T, List) ->
 %%
 %% Parameters - 1)List to randomize
 %% Value - a randomized version of the list parameter
-%% Complexity - O(N log n^2)
+%% Complexity - O(n^2)
 %%
 randomize(List) ->
    %% create a list of tuples from a list of elements
@@ -49,7 +49,7 @@ randomize(List) ->
    %% the random numbers used to sort and the second element is
    %% a list containing the elements of the list passed in (unzip).
 
-   %% keysort complexity is O(n log n^2)
+   %% keysort complexity is O(n^2)
    %% unzip complexity is O(n)
    {_, Randomized} = lists:unzip(lists:keysort(1, Tuples)), 
    Randomized.
