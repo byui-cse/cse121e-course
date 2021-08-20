@@ -24,42 +24,36 @@
 </div>
 <h1>Introduction</h1>
 	<p>
-		You work for a TV program. The Show is one that has competition between teams and cooperation within teams. Your 
-		boss needs help selecting good teams from persons that have been selected to be potential participants.
+		You work for a TV program. The Show is one that has competition between teams and cooperation within teams. 
 	</p>
 	<h1>Your Task</h1>
 	<p>
-		Create two lists, one of females and one of males with 10 persons in each list. Each element of the list must be 
-		a tuple that looks like this, <kbd>{Propensity, Name, gender_atom}</kbd>. The propensity is numeric with a scale of your choice.
+		Your boss needs help selecting good teams from persons that have been selected to be potential participants.
 	</p>
-	<p>
-		Each team suggested team must include 4 people with no more than two of the same gender.
-	</p>
+		
 	<ol>
-		  <li><p>
-          Write a function that
-			generates a list of all possible permutations of the teams of size 4 where each element of the list is a 
-			tuple in this format. <kbd>{Total_propensity,[Name,Name,Name,Name]}</kbd> Hint: use list comprehensions.</p>
-			<p>
-				Sort this list and return the sorted list. Hint: use <kbd>lists:sort/1</kbd>.
+	  <li>
+	  	<p>
+	  		Create a list containing 20 persons of each gender. Each element of the list must be 
+				a tuple that looks like this, <kbd>{Propensity, Name, gender_atom}</kbd>. The propensity to do well in the game is numeric with a scale of your choice. This list will be the data as if they had been pulled from a database. 
 			</p>
-		</li>
-		  <li><p>
-		  	Write a function that selects the top five teams by propensity and returns the five teams in a list.
-		  </p></li>
-		  <li>
-		  	<p>
-		  		Write a function that, for each selected team, prints out the team propensity on one line, followed by each team mate's name babbed in and on seperate lines.
-		  	</p>
-		  </li>
-	</ol>
+			<p>
+				Hints: 1)Use list comprehensions to generate the list. 2)Depending on how you choose to design and write this function, you may need other BIF's described in the list API found in this week's reading.
+			</p>
+	  </li>
+		<li>
+	  	<p>
+	  		Use the shuffle function in the <a href="list_lib.erl">provided list_lib</a> to scramble the list.
+	  	</p>
+	  </li>
 
-	<h2>Definitions</h2>
-	<ul>
-		<li><a href="http://mathworld.wolfram.com/Combinatorics.html">Combinatorics</a></li>
-		<li><a href="http://mathworld.wolfram.com/Combination.html">Combinations</a></li>
-		<li><a href="http://mathworld.wolfram.com/CartesianProduct.html">Cartesian Product</a></li>
-	</ul>
+		  <li><p>
+          Write a function that creates teams of size 5 where each element of the list is a 
+			tuple following this format. <kbd>{total_propensity,[{name,gender},{name,gender},{name,gender},{name,gender}]}</kbd></p>
+		</li>
+	  
+
+	</ol>
 
   <section>
       <h3>Review</h3>

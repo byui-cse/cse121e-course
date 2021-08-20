@@ -43,11 +43,11 @@
       <p>
       	But wait a minute, you think. "There has to be a penalty to pay, right?" No! There is no penalty to pay if the language you are using was 
       	designed to make concurrent programming MUCH easier. Now, if you are thinking of using other languages that were not designed to make 
-      	concurrent programming easier (yes I'm looking at you C, C++, JavaScript, Clojure, and many, many others) then there is all kinds of nastyness you have to deal 
+      	concurrent programming easier (yes I'm looking at you C, C++, JavaScript, Clojure, and many, many others) then there is all kinds of nastiness you have to deal 
       	with.
       	</p> 
       	<p>
-      		But Erlang was specificly designed for concurrent programming. Because of that, the biggest traps programmers fall into when they 
+      		But Erlang was specifically designed for concurrent programming. Because of that, the biggest traps programmers fall into when they 
       	write concurrent applications, <a href="https://stackoverflow.com/questions/34510/what-is-a-race-condition"
           target="_blank"
           rel="noreferrer">race conditions</a> and <a href="https://www.cis.upenn.edu/~milom/cis501-Fall10/lectures/09_multicore-4up.pdf">cross locks</a>, are impossible to create in Erlang. That's great! You probably have never created these monsters and had to try to fix them, 
@@ -96,7 +96,7 @@
 		<p>
 			In this example, each of your friends are seperate and distinct from each other and from you. The three of you are similar to Erlang processes. 
 			You accomplished what needed to be done by sending a message to each of them. They then did what needed to be done, and sent you back a message 
-			reporting so. This is concurrancy using processes and message passing. 
+			reporting so. This is concurrency using processes and message passing. 
 		</p>
 		<p>
 			There are a couple of things about this process that you haven't thought about because you use texting technology so much and so often. First, 
@@ -105,7 +105,7 @@
 			if you don't have their ID, you can't make a request.
 		</p> 
 		<p>
-			So it turns out you use concurrancy all the time in your life. Don't think because this idea is part of an Erlang class, that concurrancy and message 
+			So it turns out you use concurrency all the time in your life. Don't think because this idea is part of an Erlang class, that concurrancy and message 
 			passing is more complicated than what you've seen in this example. It isn't. Don't let your brain trick you into thinking it is! All we need to do is 
 			see how to convert these ideas into Erlang code. &#128515;
 		</p>
@@ -131,7 +131,7 @@
 			keep that in <kbd>Pid</kbd> for this example.
 		</p>
 		<p>
-			Ok, we've got the process running. How do we send it a message? Sending messages is so fundimental to Erlang that we use an operator to send 
+			Ok, we've got the process running. How do we send it a message? Sending messages is so fundamental to Erlang that we use an operator to send 
 			messages rather than a function call. The send-message operator is <kbd>!</kbd> and messages are usually sent as tuples, so let's send a 
 			message to the <kbd>simple_calc:loop/0</kbd> process asking it to add together a list of numbers for us. Now remember, just like texting, the 
 			<kbd>simple_calc:loop/0</kbd> process has to have an ID to respond to, just like your texting buddies. Use the <kbd>self/0</kbd> function to 
@@ -215,8 +215,8 @@ loop()-&gt;
 
 	<p>
 		Take a look at the <kbd>loop/0</kbd> function. You'll find it right after its documentation. Notice that it also uses the <kbd>receive</kbd> and 
-		<kbd>end</kbd> keywords. Also notice that it isn't actually a loop. It is a tail-recursive function. Also, remember the <kbd>recieve</kbd> keyword causes 
-		the process to pause until a message is recieved. Between the <kbd>recieve</kbd> and <kbd>end</kbd> keywords you'll see several options for the incoming 
+		<kbd>end</kbd> keywords. Also notice that it isn't actually a loop. It is a tail-recursive function. Also, remember the <kbd>receive</kbd> keyword causes 
+		the process to pause until a message is received. Between the <kbd>recieve</kbd> and <kbd>end</kbd> keywords you'll see several options for the incoming 
 		message. When a match is found the code in the <kbd>-></kbd> block is executed. The code executed in each of these blocks are examples of things learned 
 		in previous weeks. If you don't recognize them, go back and review. 
 	</p>
@@ -257,7 +257,7 @@ loop()-&gt;
 	<p>
 		There is two more things you should understand about the code for the process you saw earlier. There is nothing special about the <kbd>loop/0</kbd> function. It's just a function. You could name it anything you want, <kbd>again</kbd>, <kbd>wait</kbd>, or even something as silly as <kbd>skip_down_the_road</kbd>. 
 		The name the function is unimportant. Also, the function can have any number of parameters you want. Say there was something you wanted the process to 
-		'remember' between times when it recieves a request. All you have to do is add a parameter. If, for some reason, you needed to track how many times the 
+		'remember' between times when it receives a request. All you have to do is add a parameter. If, for some reason, you needed to track how many times the 
 		process received a request and print out that count when the server is shut down, the code could look like. 
 	</p>
 	<p><pre><code class="Erlang">loop(Count)-&gt;
@@ -275,7 +275,7 @@ loop()-&gt;
 </code></pre></p>
 	<p>
 		Since loop is just like any other recursive function, the number of parameters is up to you as are the types of those parameters. If you needed to, you could 
-		have paramters of type atom, tuple, list, numeric, or any other type. The set of parameters you use are usually refered to as the "state" of the process.
+		have paramters of type atom, tuple, list, numeric, or any other type. The set of parameters you use are usually referred to as the "state" of the process.
 	</p>
 	<p>Having seen how to write a simple process that 
 		can receive and send messages, it's now time to make it easier to send a message to a process. You are getting tired of re-typing message sending code 
@@ -327,7 +327,7 @@ calc_it:calculate(Pid,{add, [1,2,3,4,5]},fun(R) -> io:format("Response: ~p~n",[R
 <iframe type="text/html" width="336" height="550" frameborder="0" allowfullscreen style="max-width:100%" src="https://read.amazon.com/kp/card?asin=B00I9GR4TW&preview=inline&linkCode=kpe&ref_=cm_sw_r_kb_dp_5qzTFbKCFS400" ></iframe>
 <p>
 	The code has the client and server code in one module, but doesn't use a <kbd>fun</kbd> as a response handler for the client function. 
-	You could add that. &#128521; The function name <kbd>rpc</kbd> is short hand for 'remote proceedure call.' A term you will hear in computing a lot.
+	You could add that. &#128521; The function name <kbd>rpc</kbd> is short hand for 'remote procedure call.' A term you will hear in computing a lot.
 </p>
 <p><pre><code class="Erlang">-module(ctemplate).
 -export([start/0,rpc/2]).
