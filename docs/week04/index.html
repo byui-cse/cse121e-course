@@ -326,17 +326,17 @@ calc_it:calculate(Pid,{add, [1,2,3,4,5]},fun(R) -> io:format("Response: ~p~n",[R
 	code comes from </p>
 <iframe type="text/html" width="336" height="550" frameborder="0" allowfullscreen style="max-width:100%" src="https://read.amazon.com/kp/card?asin=B00I9GR4TW&preview=inline&linkCode=kpe&ref_=cm_sw_r_kb_dp_5qzTFbKCFS400" ></iframe>
 <p>
-	The code has the client and server code in one module, but doesn't use a <kbd>fun</kbd> as a response handler for the client function. 
-	You could add that. &#128521; The function name <kbd>rpc</kbd> is short hand for 'remote procedure call.' A term you will hear in computing a lot.
+	The template has the client and server code in one module, but doesn't use a <kbd>fun</kbd> as a response handler for the client function. 
+	You could add that. &#128521; The function name <kbd>rpc</kbd> is short hand for 'remote procedure call.' A term you will hear in computing a lot. A file with the code in it is available for <a href="example_source/ctemplate.erl">download</a>.
 </p>
 <p><pre><code class="Erlang">-module(ctemplate).
--export([start/0,rpc/2]).
+-export([start/0,rpc/2,loop/0]).%loop must be exported so it can be spawned.
 start() ->
-	spawn(?module,loop,[]).%this is a very effective way of not having to type this over and over in your code.
+	spawn(?MODULE,loop,[]).%this is a very effective way of not having to type this over and over in your code.
 
 rpc(Pid, Request) -> %no response handler parameter. You probably want one
-	Pid ! {self(),Request}
-	recieve
+	Pid ! {self(),Request},
+	receive
 		{Pid,Response} ->
 			Response %ignoring the response
 	end.

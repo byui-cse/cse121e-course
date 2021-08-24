@@ -67,10 +67,13 @@
       </section>
       <section>
         <h3>Stretch (optional)</h3>
-        <p>Dealing with large numbers can be slow when applying factorial. Write a function that can accept a maximum and minimum number. This function should have as its value the product of all the integers in the range [min,max]. Decide how many processes running this range-product should be spawned for a number based on the number's size. </p>
-        <p>
-          Write a function that spawns an appropriate number of processes, uses them to calculate factorial for a large number, and then shuts them down.
-        </p>
+        <ol>
+          <li>Create a modified version of your solution so that the factorial process runs in one instance of the erl REPL and the client in a separate erl REPL instance on one machine.
+          </li>
+          <li>
+            Explore how to run the client on one machine and the factorial process on another. Create a modified version of you code to do so.
+          </li>
+        </ol>
       </section>
     </main>
     <footer>
