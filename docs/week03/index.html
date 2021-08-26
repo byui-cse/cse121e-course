@@ -70,7 +70,7 @@
 
       <h3>Modules - organizing functions in Erlang</h3>
       <p>
-        Like Python, Erlang uses modules as a way to organize your functions. 
+        Like Python, Erlang uses <a href="https://learnyousomeerlang.com/modules">modules</a> as a way to organize your functions. 
         Unlike Python, Erlang allows you to make it possible to make some 
         of your functions unavailable to programmers who are not working in 
         the module itself. This allows you to have 'helper functions' to 
@@ -105,7 +105,7 @@
       <h3>Using Functions</h3>
       <p>
         In Python and Erlang there are similarities and differences between
-        the languages regarding how you declare functions. Unlike Python's use of <kbd>def</kbd>, 
+        the languages regarding how you <a href="https://riptutorial.com/erlang/example/7944/function">declare functions</a>. Unlike Python's use of <kbd>def</kbd>, 
         Erlang requires no keyword to identify a function. Also, Erlang 
         uses either snake_case or camelCase for function names. In this class, we'll use 
         snake_case. For example, a function that averages two numbers could be defined like this.
@@ -294,7 +294,7 @@ factorial(N,Accum)-> factorial(N-1,Accum*N).
   <p>
     In the factorial example, above, it was very important to get the order of the function's clauses correct so that the function would execute as expected. 
     This can be problematic when you have functions containing many clauses or when the pattern matching isn't as simple as factorial. Erlang's solution 
-    to these problems is called a guard. The keyword for a guard is <kbd>when</kbd>. Here is a code snippet example of a factorial function that 
+    to these problems is called a <a href="https://en.citizendium.org/wiki/Erlang_(programming_language)/Tutorials/guards">guard</a>. The keyword for a guard is <kbd>when</kbd>. Here is a code snippet example of a factorial function that 
     not only uses guards, but adds another clause so if factorial is called with a negative number, a situation which is undefined in Mathematics, the function 
     retuns an atom representing a failure.
   </p>
@@ -324,7 +324,7 @@ factorial(N,_accum) when N < 0 -> undefined.%Factorials of negative integers are
   </p>
   <p class="callout">
     <span>Interesting Info:</span><br>
-        Wait a minute! Shouldn't the mathimatical version of the factorial function have some guards too? Great question. I'm glad you asked. &#128516; It 
+        Wait a minute! Shouldn't the mathematical version of the factorial function have some guards too? Great question. I'm glad you asked. &#128516; It 
         absolutely should! The previous mathematical version has the guards in it that match the guards for the body recursive function. We just need to 
         add one more to deal with negative numbers. In Mathematics, the way you do this is to limit the types of numbers n can be BEFORE the function is 
         described. That way everybody knows what can be used as input. In this example, <kbd>n</kbd> is limited to be an integer that is greater-than zero.<br>

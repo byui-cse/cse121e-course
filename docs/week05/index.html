@@ -4,7 +4,7 @@
 <html>
 
 <head>
-				<title>CSE 121e: Week 04 | gen_servers and supervisors</title>
+				<title>CSE 121e: Week 05 | gen_servers and supervisors</title>
           <link rel="shortcut icon" href="https://byui-cse.github.io/Language-Courses/site/images/fav.ico" type="image/x-i        con">
         <script type="text/javascript">
                  var codeType = "Erlang"
@@ -25,12 +25,12 @@
 </header>
 	<h1>gen_servers</h1>
 	<p>
-		Erlang's generic server, <kbd>gen_server</kbd> is an interesting thing. Instead of writing a server from scratch, you can leverage existing <kbd>gen_server</kbd>
+		Erlang's generic server, <a href="https://riptutorial.com/erlang/example/24705/using-gen-server-behavior"><kbd>gen_server</kbd></a> is an interesting thing. Instead of writing a server from scratch, you can leverage existing <kbd>gen_server</kbd>
 		behavior. When you do so, you reduce the number of bugs you will create, simplify your code, and dramatically reduce the amount of code you write. All 
 		of these are great reasons to use the <kbd>gen_server</kbd> behavior.
 	</p>
 	<p>
-		When you choose to use the <kbd>gen_server</kbd> behavior, you agree to a contract. You must implement specific functions in specific ways so the existing <kbd>gen_server</kbd> code can do what you want it to. It is generic, after all, and you must provide it the functions that allow it to do what YOU want. 
+		When you choose to use the <a href="http://20bits.com/article/erlang-a-generic-server-tutorial"><kbd>gen_server</kbd></a> behavior, you agree to a contract. You must implement specific functions in specific ways so the existing <kbd>gen_server</kbd> code can do what you want it to. It is generic, after all, and you must provide it the functions that allow it to do what YOU want. 
 		Supplying these functions is much like passing a <kbd>fun</kbd> to the 
 		<kbd>lists:map/2</kbd> BIF. Like <kbd>gen_server</kbd>, the <kbd>lists:map/2</kbd> BIF is generic. You provide the <kbd>fun</kbd> that specializes it 
 		so it does the mapping the way you want.
@@ -44,7 +44,7 @@
 	</p>
 		<h2>gen_server:call/2</h2>
 		<p>
-			When you want to make a synchronous call and wait for a response use the <kbd>gen_server:call/2</kbd> function or one of its variants. the  
+			When you want to make a synchronous call and wait for a response use the <a href="http://erlang.org/doc/man/gen_server.html#call-2"><kbd>gen_server:call/2</kbd></a> function or one of its variants. the  
 			<kbd>gen_server:call/2</kbd> has 2 parameters.
 			<ol>
 				<li>ServerRef - the name of the server to use (It's ID), and</li>
@@ -88,7 +88,7 @@
 		<p>
 			There it is. Done. There is one strange thing there you haven't seen before. The <kbd>gen_server:call/2</kbd> function is being used in client code. 
 			Remember, earlier you read that client code is usually written in the same module as the server code? The <kbd>?MODULE</kbd> statement make use of that. 
-			The statement <kbd>?MODULE</kbd> is of type <kbd>macro</kbd> and evaluates to the name of the module the call to <kbd>gen_server:call/2</kbd> happens in. 
+			The statement <kbd>?MODULE</kbd> is of type <a href="https://www.tutorialspoint.com/erlang/erlang_macros.htm"><kbd>macro</kbd></a> and evaluates to the name of the module the call to <kbd>gen_server:call/2</kbd> happens in. 
 			Last week, the server was in the module <kbd>simp_calc</kbd>. This week, let's put the code for the <kbd>gen_server</kbd> version in a module called 
 			<kbd>calcs</kbd>. That means <kbd>?MODULE</kbd> will be converted to <kbd>calcs</kbd> at compile time. It's handy to use this instead of writing 
 			<kbd>calcs</kbd> in your code. That way, if you decide to change the name of the module, all the client code is updated for you. &#128526;
@@ -316,19 +316,19 @@ code_change(_OldVsn, State, _Extra) -> io:format("code changing",[]),{ok, State}
 	</p>
 	<h1>Supervisors</h1>
 	<p>
-		Tracking down and fixing such ugly bugs often causes other, new defects. When you are thinking Erlangy you will avoid creating these new bugs by using supervisors. What these supervisors do is manage a bunch of gen_servers and if one detects that a gen_server has crashed it can restart it and report the restart. That is referred to as <kbd>one_for_one</kbd> supervision in the Erlang community. Another type of supervision is called <kbd>one_for_all</kbd>. In this type of supervision, a supervisor is managing several related <kbd>gen_server</kbd>s and, when one crashes, the supervisor terminates all of the related <kbd>gen_server</kbd>s and then restarts them all.
+		Tracking down and fixing such ugly bugs often causes other, new defects. When you are thinking Erlangy you will avoid creating these new bugs while fixing others by using <a href="https://riptutorial.com/erlang/example/23589/basic-supervisor-with-one-worker-process">supervisors</a>. What these supervisors do is manage a bunch of gen_servers and if one detects that a gen_server has crashed it can restart it and report the restart. That is referred to as <kbd>one_for_one</kbd> supervision in the Erlang community. Another type of supervision is called <kbd>one_for_all</kbd>. In this type of supervision, a supervisor is managing several related <kbd>gen_server</kbd>s and, when one crashes, the supervisor terminates all of the related <kbd>gen_server</kbd>s and then restarts them all.
 	</p>
 	<p>
 		This <a href="https://ferd.ca/the-zen-of-erlang.html">Let it Crash</a> approach needs to be carefully understood. It doesn't mean that you let your whole application crash or become unusable. If that's the case, you've got much more serious problems. What it does mean is this. You are human. You will make mistakes when designing applications and writing code. Any of the consistant, serious defects you create must be fixed. Yet, in spite of your best efforts to do an excellent job and create great code, you will always flub up.
 	</p>
 	<p>
-		Because of this, design your Erlang processes and <kbd>gen_servers</kbd> to be small and independent. That way if one crashes it can not take down the whole system. As part of the process of designing and creating your application, design and create a supervisor tree. In other words, have small, independent supervisors that supervise related processes and <kbd>gen_servers</kbd>. Then have small, independent supervisors that supervise related supervisors. Eventually, you have a top-level supervisor at the root of the tree. 
+		Because of this, design your Erlang processes and <kbd>gen_servers</kbd> to be small and independent. That way if one crashes it can not take down the whole system (That's the big defect in the <kbd>gen_server</kbd> above). As part of the process of designing and creating your application, you will design and create a <a href="https://adoptingerlang.org/docs/development/supervision_trees/">supervision tree</a>. In other words, have small, independent supervisors that supervise related <kbd>gen_servers</kbd> and the processes those <kbd>gen_servers</kbd> are running in. Then have small, independent supervisors that supervise related supervisors. Eventually, you have a top-level supervisor at the root of the tree. 
 	</p>
 	<p>
 		When you design and create the supervisor tree well, your application can have nearly 100% uptime for YEARS!! Yes. That means it can effectively never crash! Also, if you do a good design and creation job, you can update your software without shutting it off again leading to near 100% uptimes!!!&#x1F60E;&#129395;&#129395;&#129395;&#129395;&#129395;
 	</p>
 	<p>
-		For this class, you won't be learning how to build the entire tree. Let's save that for later. Instead, focus your energy on learning how to do an amazing job of creating <kbd>one_for_one</kbd> and <kbd>one_for_all</kbd> supervisors for <kbd>gen_servers</kbd>. This is the lowest level of the supervision tree upon which the rest of the tree is built. Supervisor supervisors (there's a fun one to say a bunch of times quickly &#128512;) will follow a similar pattern. So expect to see this kind of thing again.
+		For this class, you won't be learning how to build the entire tree. Let's save that for later. Instead, focus your energy on learning how to do an amazing job of creating <a href="https://stackoverflow.com/questions/41190705/erlang-simple-one-for-one-supervisor-does-not-restart-child"><kbd>one_for_one</kbd></a> and <kbd>one_for_all</kbd> supervisors for <kbd>gen_servers</kbd>. This is the lowest level of the supervision tree upon which the rest of the tree is built. Supervisor supervisors (there's a fun one to say a bunch of times quickly &#128512;) will follow a similar pattern. So expect to see this kind of thing again.
 	</p>
 	<h2>A Minimal Supervisor</h2>
 	<p>
