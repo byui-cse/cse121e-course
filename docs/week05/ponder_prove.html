@@ -38,7 +38,7 @@
         <h4>Complete the following steps</h4>
         <ol>
           <li>Separate the add, multiply, and divide functionalities of the <kbd>calcs</kbd> module into three <kbd>gen_server</kbd> modules, one module per functionality.</li>
-          <li>Create modules for calculating a binomial coefficient, factorial, and generating all permutations of any list. Again, one module per functionality.</li>
+          <li>Create modules for calculating a <a href="https://byjus.com/n-choose-k-formula/">binomial coefficient</a>, factorial, and generating all permutations of any list. Again, one module per functionality.</li>
           <li>The factorial gen_server should use the same ideas for reducing computation that you used for last week's task.</li>
         </ol>
       </section>
@@ -46,8 +46,8 @@
         <h3>The Supervisor</h3>
         <h4>Complete the following steps</h4>
         <ol>
-          <li>Write a supervisor called <kbd>calcs_supervisor</kbd> that supervises all of these <kbd>gen_servers</kbd> using the one_for_one supervision technique.</li>
-          <li>From within the REPL, run <kbd>calcs_supervisor</kbd> and exercise each of the <kbd>gen_servers</kbd>.</li>
+          <li>Write the code for a single supervisor called <kbd>calcs_supervisor</kbd> that supervises each of these <kbd>gen_servers</kbd> using the one_for_one supervision technique.</li>
+          <li>From within the REPL, run <kbd>calcs_supervisor</kbd> and exercise each of the <kbd>gen_servers</kbd> using client functions.</li>
           <li>
             Fix any bugs you find.
           </li>

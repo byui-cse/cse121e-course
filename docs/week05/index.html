@@ -154,7 +154,7 @@ handle_call({multiply,List},_From,State) ->
 	{reply,
 		lists:foldl(fun(X,Accum)->Accum*X end, 1,List),
 	State};%% not modifying the server's internal state
-handle_call({divide,Left,Right},_From,State) -> 
+handle_call({divide,Dividend,Divisor},_From,State) -> 
 	{reply,
 		Left div Right,
 	State};%% not modifying the server's internal state
@@ -215,7 +215,7 @@ add(List) -> gen_server:call(?MODULE,{add,List}).
 %%@doc The &lt;kbd&gt;multiply/1&lt;/kbd&gt; function returns the product of all elements of the parameter of type list. The list can be empty.
 multiply(List) -> gen_server:call(?MODULE,{multiply,List}).
 %%@doc The &lt;kbd&gt;divide/2&lt;/kbd&gt; function returns the quotient of the dividend, the first parameter, and the divisor, the second parameter.
-divide(Left,Right) -> gen_server:call(?MODULE,{divide,Left,Right}).
+divide(Dividend,Divisor) -> gen_server:call(?MODULE,{divide,Dividend,Divisor}).
 
 
 %%%--------
