@@ -4,6 +4,7 @@
 <html>
 
 <head>
+				<title>CSE 121e: Week 04 | gen_servers and supervisors</title>
           <link rel="shortcut icon" href="https://byui-cse.github.io/Language-Courses/site/images/fav.ico" type="image/x-i        con">
         <script type="text/javascript">
                  var codeType = "Erlang"
@@ -25,17 +26,17 @@
 	<h1>gen_servers</h1>
 	<p>
 		Erlang's generic server, <kbd>gen_server</kbd> is an interesting thing. Instead of writing a server from scratch, you can leverage existing <kbd>gen_server</kbd>
-		behavior. When you do so, you reduce the number of bugs you will create, simplify the code you write, and dramatically reduce the amount of code you write. All 
+		behavior. When you do so, you reduce the number of bugs you will create, simplify your code, and dramatically reduce the amount of code you write. All 
 		of these are great reasons to use the <kbd>gen_server</kbd> behavior.
 	</p>
 	<p>
 		When you choose to use the <kbd>gen_server</kbd> behavior, you agree to a contract. You must implement specific functions in specific ways so the existing <kbd>gen_server</kbd> code can do what you want it to. It is generic, after all, and you must provide it the functions that allow it to do what YOU want. 
 		Supplying these functions is much like passing a <kbd>fun</kbd> to the 
-		<kbd>lists:map/2</kbd> function. Like <kbd>gen_server</kbd>, the <kbd>lists:map/2</kbd> function is generic. You provide the <kbd>fun</kbd> that specializes it 
+		<kbd>lists:map/2</kbd> BIF. Like <kbd>gen_server</kbd>, the <kbd>lists:map/2</kbd> BIF is generic. You provide the <kbd>fun</kbd> that specializes it 
 		so it does the mapping the way you want.
 	</p>
 		Additionally, you must supply the client code used to access the <kbd>gen_server's</kbd> generic behaviors.
-		In last week's learning, you saw how a client can be moved into a seperate module and be run seperately from a server. This, however, is not a requirement for a client. Usually when you use the <kbd>gen_server</kbd> behavior available to you via Erlang, you do NOT seperate the client code from the server code.
+		In last week's learning, you saw how a client can be in the same module and yet be run separately from a server. Having the rpc client-code in the same module is not a requirement for a client You could put it in a separate module should you choose to. However when you use the <kbd>gen_server</kbd> behavior available to you via Erlang, you do NOT separate the client code from the server code.
 	</p>
 	<p>
 		Each <kbd>gen_server</kbd> is a process. Therefore, when you want the <kbd>gen_server</kbd> to execute something, you have to use specific functions just like 
@@ -73,11 +74,11 @@
 </code></pre></p>
 		<p>
 			The example in this reading is going to show you how to implement this same, simple, server using the <kbd>gen_server</kbd> behavior so you can focus on 
-			the behavior and how to use it rather than getting caught up in the code for some other type of server. It will also allow you to compare and contrast 
-			the two servers to help you understand the basics of <kbd>gen_server</kbd>.
+			the behavior and how to use it rather than getting caught up in the code for some server that does something other than these simple arithmetic functions. It will also allow you to compare and contrast 
+			the two servers types of servers to help you understand the basics of <kbd>gen_server</kbd>.
 		</p>
 		<p>
-			So what, then, would a call to the existing <kbd>gen_server:call/2</kbd> function look like that would, when the rest of the server is complete, 
+			So what would a call to the existing <kbd>gen_server:call/2</kbd> function look like that would, when the rest of the server is complete, 
 			add up a list of numbers?
 		</p>
 		<p>
@@ -111,7 +112,7 @@
 		</p>
 		<p>
 		<pre>
-		<code>quotient_of(List)->gen_server:call(?MODULE,{divide,List}). 
+		<code>quotient_of(Dividend,Divisor)->gen_server:call(?MODULE,{divide,Dividend,Divisor}). 
 </code></pre></p>
 		<p>
 			Using these client functions also requires very little code and, hopefully, is easy for those who are using your server to use.&#128512;
@@ -119,17 +120,17 @@
 
 		<p>
 		<pre>
-		<code>calcs:sum([1,2,3,4,5]. 
+		<code>calcs:sum_of([1,2,3,4,5]. 
 </code></pre></p>
 		<p>
-			Look at that! They don't even know you are using a server or that it's running in a seperate process! That's the way you want your 
+			Look at that! They don't even know you are using a server or that it's running in a separate process! That's the way you want your 
 			code to be for those who use it.&#129395;
 		</p>
 		<h2>gen_server:cast/2</h2>
 		<p>
-			The <kbd>gen_server:cast/2</kbd> function is used for asynchronous calls. But these are a specific type of asynchronouse call. Use 
+			The <kbd>gen_server:cast/2</kbd> function can be used for asynchronous calls. But these are a specific type of asynchronous call. Use 
 			<kbd>cast/2</kbd> when you want to throw something at a server and don't particularly care if it arrives, if the server actually 
-			exists, or if the data is dispensible, and you are not expecting any kind of response. 
+			exists, or if the data is dispensable, and you are not expecting any kind of response. 
 			This function has similar behavior to the <a href="https://en.wikipedia.org/wiki/IP_multicast"> IP 
 			multicast networking protocol</a>. As someone new to Erlang, you should probably avoid using <kbd>gen_server:cast/2</kbd>. I've 
 			included it here, because you will see it being used in online examples. Many of those are misusing <kbd>gen_server:cast/2</kbd>.
@@ -147,27 +148,27 @@
 		<code>handle_call({add,List},_From,State) ->
 	{reply,
 		lists:foldl(fun(X,Accum)->Accum+X end,0,List),
-	State};%% not modifying the state
+	State};%% not modifying the server's internal state
 
 handle_call({multiply,List},_From,State) -> 
 	{reply,
 		lists:foldl(fun(X,Accum)->Accum*X end, 1,List),
-	State};%% not modifying the state
+	State};%% not modifying the server's internal state
 handle_call({divide,Left,Right},_From,State) -> 
 	{reply,
 		Left div Right,
-	State};%% not modifying the state
+	State};%% not modifying the server's internal state
 handle_call(stop, _From, _State) -> 
 	{stop,normal,
 		server_stopped,
-    down}. %% setting the state to down
+    down}. %% setting the server's internal state to down
 </code></pre></p>
 		<p>
 			Imagine you wanted to add more commands that worked on lists. Maybe things like <kbd>mean</kbd>, <kbd>median</kbd>, or <kbd>mode</kbd>. You would then 
 			add a new <kbd>handle_call/3</kbd> clause with the additional needed behavior and a client function that calls the clause you just created.
 		</p>
 		<p>
-			Imagine if you needed to add more commands that used two values. The values might be numbers. They might be strings. Or they might be anything. Again, you would add a <kbd>handle_call/3</kbd> clause and an appropriate client function.
+			Imagine if you needed to add more commands with some number of parameters. The parameters might be numbers. They might be strings. Or they might be anything. Again, you would add a <kbd>handle_call/3</kbd> clause and an appropriate client function.
 		</p>
 		<p>
 			In any of these cases, the correct <kbd>handle_call</kbd> clause will get called by the <kbd>gen_server</kbd>.
@@ -175,7 +176,7 @@ handle_call(stop, _From, _State) ->
 		<h2>The Full Code Set</h2>
 		<p>
 			There are some other functions that need to be added to the <kbd>calcs</kbd> module to meet the contract with the <kbd>gen_server</kbd> behavior. We won't 
-			go over them all yet, but here is the 'just enough' code to get the <kbd>calcs</kbd> module running, including documentation.
+			go over them all yet, but here is the 'just enough' code to get the <kbd>calcs</kbd> module running, including documentation comments that <a href="http://erlang.org/doc/apps/edoc/chapter.html">EDoc</a> can use to generate documentation web pages.
 		</p>
 		<p>
 			<pre>
@@ -201,6 +202,8 @@ handle_call(stop, _From, _State) ->
 %%% client functions
 %%%--------
 
+%%These can be used as a template.
+
 %% @doc The &lt;kbd&gt;start/0&lt;/kbd&gt; function spawns the gen_server.
 start() -> gen_server:start_link({local, ?SERVER}, ?MODULE, [], []).
 %% @doc The &lt;kbd&gt;stop/0&lt;/kbd&gt; function causes a graceful stop of the gen_server.
@@ -219,6 +222,7 @@ divide(Left,Right) -> gen_server:call(?MODULE,{divide,Left,Right}).
 %%% gen_server callbacks
 %%% these functions match the interface the &lt;kbd&gt;gen_server&lt;/kbd&gt; needs in order to provide the services desired.
 %%%--------
+%% These can also be used as a template.
 
 %% getting things going
 start_link() -> gen_server:start_link({local, ?SERVER}, ?MODULE, [], []).
@@ -231,28 +235,34 @@ init([]) -> {ok,up}.%% setting the state to up
 %%   &lt;li&gt;division of two numbers, the dividend followed by the divisor in a tuple (BigO(1)), and&lt;/li&gt;
 %%	 &lt;li&gt;stop, to elegantly stop the &lt;kbd&gt;gen_server&lt;/kbd&gt; process.
 %% &lt;/ol&gt;
-%% All messages are to be tuples following the pattern {\&lt;command\&gt;,
-%% \&lt;list\&gt;} add and multiply. Otherwise, {\&lt;divide\&gt;,Dividend,Divisor}.
-%% Another option is to stop the server the paramters are:
+%% All add and multiply messages are to be tuples following the pattern {\&lt;command\&gt;,
+%% \&lt;list\&gt;}. Otherwise, {\&lt;divide\&gt;,Dividend,Divisor}.
+%% Another option is to stop the server the parameters are:
 %% &lt;ol&gt;
 %%   &lt;li&gt;stop, an atom,&lt;/li&gt;
 %%   &lt;li&gt;From, the PID of the &lt;kbd&gt;gen_server&lt;/kbd&gt; process, and&lt;/li&gt;
-%%   &lt;li^gt;State, the current state of the &lt;kbd&gt;gen_server&lt;/kbd&gt;.&lt;/li>
+%%   &lt;li&gt;State, the current state of the &lt;kbd&gt;gen_server&lt;/kbd&gt;.&lt;/li>
 %% &lt;/ol> 
 
+
+%%These are specific to your need.
 handle_call({add,List},_From,State) ->
           {reply,
                 lists:foldl(fun(X,Accum)->Accum+X end,0,List),
-           State};%% not modifying the state
+           State};%% not modifying the server's internal state
 
 handle_call({multiply,List},_From,State) -> 
           {reply,
                 lists:foldl(fun(X,Accum)->Accum*X end, 1,List),
-           State};
-handle_call({divide,Left,Right},_From,State) -> {reply,Left div Right,State};
-handle_call(stop, _From, _State) -> {stop,normal,
-                                        server_stopped,
-                                        down}. %% setting the state to down
+           State};%% not modifying the server's internal state
+handle_call({divide,Dividend,Divisor},_From,State) -> 
+	  {reply,
+                Dividend div Divisor,
+           State};%% not modifying the server's internal state
+handle_call(stop, _From, _State) -> 
+	{stop,normal,
+                server_stopped,
+          down}. %% setting the server's internal state to down
 
 %%%--------
 %%% gen_server callbacks
@@ -296,17 +306,17 @@ code_change(_OldVsn, State, _Extra) -> io:format("code changing",[]),{ok, State}
 		I, the author, used to work on a piece of software that controlled the planning and scheduling of semiconductor factories. If the software crashed, the factory using the software could loose millions of dollars per hour. That's why crashing was completely unacceptable. The software is written in C++ and uses a lot of manual memory allocation and deallocation. There was an erratic crash happening in the software. In fact, it had only happened once. I was given the task of finding the defect and fixing it. I was given a crash report that was helpful as a starting point. It showed where in the code the crash happened. When I looked in the software, there was no direct reason there should have been a crash at that point. That's when I knew we were in trouble.
 	</p>
 	<p>
-		As a senior engineer, it took me 4 days to track down and fix the problem. There was a shared piece of data used in several places in the non-concurrent application. In one place where it had been used but was no longer needed, the memory for the data was released to be reused. The other variables for that piece of data would continue to use the data. Eventually, the system would decide to reuse the data's old memory. Now when the remaining variables tried to read it, the data would be corrupt and the application would crash. This type of defect is called 'use after free.' We called it a zombie pointer. It would seem to be alive, but was actually dead.&#129503;
+		As a senior engineer, it took me 4 days to track down and fix the problem. There was a shared piece of data used in several places in the non-concurrent application. In one place where it had been used but was no longer needed, the memory for the data was released to be reused. The other variables for that piece of data would continue to use the data. Eventually, the system would decide to reuse the data's old memory. Now when the remaining variables tried to read it, the data would be corrupt and the application would crash. This type of defect is called 'use-after-free.' We called it a zombie pointer. It would seem to be alive, but was actually dead.&#129503;
 	</p>
 	<p>
-		This type of defect is very expensive to fix if it can be tracked down at all. Thankfully, Erlang doesn't require or allow manual memory management. That means use after free defects can't be created. Also, since Erlang is a functional programming language, you can't create either of the concurrency defects either.&#x1F60E;&#129395;
+		This type of defect is very expensive to fix if it can be tracked down at all. Thankfully, Erlang doesn't require or allow manual memory management. That means use-after-free defects can't be created. Also, since Erlang is a functional programming language, you can't create either of the concurrency defects either.&#x1F60E;&#129395;
 	</p>
 	<p>
-		That does NOT mean that your Erlang code can never crash. A simple example of a crash in Erlang is division by zero. If your <kbd>gen_server</kbd> code has an accidental division by zero in a case that gets called sometimes. You have a problem. Now division by zero errors are easy to track down. Other erratic defects and crashes due to bad engineering or programming decisions when using Erlang can be just as hard to track down and fix as the defects mentioned earlier. The question is, should we fix these erratic, serious defects? The answer is a resounding NO!
+		That does NOT mean that your Erlang code can never crash. A simple example of a crash in Erlang is division by zero. If your <kbd>gen_server</kbd> code has an accidental division by zero in a case that gets called sometimes. You have a problem. Now division by zero errors are easy to track down. Other erratic defects and crashes due to bad engineering or programming decisions when using Erlang can be just as hard to track down and fix as the defects mentioned earlier. The question is, should we fix these erratic, serious defects? The answer is a resounding NO! There is an Erlang way to deal with these.
 	</p>
 	<h1>Supervisors</h1>
 	<p>
-		Tracking down and fixing such ugly bugs often causes other, new defects. When you are thinking Erlangy you will avoid creating these new bugs by using supervisors. What these supervisors do is manage a bunch of gen_servers and if it detects that one has crashed it can restart it and report the restart. That is referred to as <kbd>one_for_one</kbd> supervision in the Erlang community. Another type of supervision is called <kbd>one_for_all</kbd>. In this type of supervision, a supervisor is managing several related <kbd>gen_server</kbd>s and, when one crashes, the supervisor terminates all of the related <kbd>gen_server</kbd>s and then restarts them all.
+		Tracking down and fixing such ugly bugs often causes other, new defects. When you are thinking Erlangy you will avoid creating these new bugs by using supervisors. What these supervisors do is manage a bunch of gen_servers and if one detects that a gen_server has crashed it can restart it and report the restart. That is referred to as <kbd>one_for_one</kbd> supervision in the Erlang community. Another type of supervision is called <kbd>one_for_all</kbd>. In this type of supervision, a supervisor is managing several related <kbd>gen_server</kbd>s and, when one crashes, the supervisor terminates all of the related <kbd>gen_server</kbd>s and then restarts them all.
 	</p>
 	<p>
 		This <a href="https://ferd.ca/the-zen-of-erlang.html">Let it Crash</a> approach needs to be carefully understood. It doesn't mean that you let your whole application crash or become unusable. If that's the case, you've got much more serious problems. What it does mean is this. You are human. You will make mistakes when designing applications and writing code. Any of the consistant, serious defects you create must be fixed. Yet, in spite of your best efforts to do an excellent job and create great code, you will always flub up.
@@ -318,11 +328,11 @@ code_change(_OldVsn, State, _Extra) -> io:format("code changing",[]),{ok, State}
 		When you design and create the supervisor tree well, your application can have nearly 100% uptime for YEARS!! Yes. That means it can effectively never crash! Also, if you do a good design and creation job, you can update your software without shutting it off again leading to near 100% uptimes!!!&#x1F60E;&#129395;&#129395;&#129395;&#129395;&#129395;
 	</p>
 	<p>
-		For this class, you won't be learning how to build the entire tree. Let's save that for later. Instead, focus your energy on learning how to do an amazing job of creating <kbd>one_for_one</kbd> and <kbd>one_for_all</kbd> supervisors for <kbd>gen_servers</kbd>. This is the lowest level of the supervision tree upon which the rest of the tree is built. Supervisor supervisors (there's a fun one to say a bunch of times quickly &#128512;) will follow a similar pattern. So expect to see this kind of thing again.&#128512;
+		For this class, you won't be learning how to build the entire tree. Let's save that for later. Instead, focus your energy on learning how to do an amazing job of creating <kbd>one_for_one</kbd> and <kbd>one_for_all</kbd> supervisors for <kbd>gen_servers</kbd>. This is the lowest level of the supervision tree upon which the rest of the tree is built. Supervisor supervisors (there's a fun one to say a bunch of times quickly &#128512;) will follow a similar pattern. So expect to see this kind of thing again.
 	</p>
 	<h2>A Minimal Supervisor</h2>
 	<p>
-		Here is some code you can use as a template when you create a supervisor (notice the <kbd>-behavior(supervisor) line of code</kbd>). We won't go into detail regarding all the functions in this class, but expect to in later classes.&#128512; Some of these functions look very similar to those found in a <kbd>gen_server</kbd>. Concept reuse. What a great concept!&#128512; However, the most important thing to understand in the code below is what's happening in the <kbd>init/1</kbd> function.
+		Here is some code you can use as a template when you create a supervisor (notice the <kbd>-behavior(supervisor)</kbd> line of code). We won't go into detail regarding all the supervisor functions in this class, but expect to in later classes.&#128512; Some of these functions look very similar to those found in a <kbd>gen_server</kbd>. That's the principle of concept reuse. What a great concept!&#128512; However, the most important thing to understand in the code below is what's happening in the <kbd>init/1</kbd> function.
 	</p>
 	<p>
 		While there are many things you can do in <kbd>init/1</kbd>, what you see below is code that defines the behavior of the supervisor. Notice that the supervisor is going to use the <kbd>one_for_one</kbd> management scheme discussed earlier. Directly after that line of code is a list of all the modules the supervisor starts up and manages. In this case, the list only has one tuple in it describing one <kbd>gen_server</kbd>, <kbd>calcs</kbd>. Look in the code comments for the meanings of each of the parts of the supervised module definition.
@@ -360,14 +370,15 @@ start_link(Args) ->
 init([]) ->
     {ok,
         {
-          {one_for_one, 3, 10},% the pattern for this tuple is {supervision_type, restart_limit, restart_limit_time}. 
-          					   % in this case, if the managed gen_server has to be restarted more than 3 times in 10 seconds, 
-          					   % the supervisor should notify it's supervisor, if one exists, by failing.
+          {one_for_one, 3, 10},
+   % the pattern for this tuple is {supervision_type, restart_limit, restart_limit_time}. 
+   % in this case, if the managed gen_server has to be restarted more than 3 times in 10 seconds, 
+   % the supervisor should notify it's supervisor, if one exists, by failing.
             [% the begining of the list of children this supervisor supervises
               {calc_it,% any unique, descriptive atom that can be used for later reference. A name for the child.     
                 {calcs, start_link, []},% the pattern for this tuple is {module_name,startup_function, startup_function_parameters} for the supervised child
                 permanent,% the type of restart desired. The permanent atom means always restart. There are other options.
-                10000,% the maximum number of milliseconds the gen_server has to shut down before it is killed without remorse.
+                10000,% the maximum number of milliseconds available for the gen_server's shutdown process before the gen_server is killed without remorse.
                 worker,% an atom that declares if this child is a worker or a supervisor
                 [calcs]}]}}.% the name of the module that has the gen_server (or supervisor if this child is a supervisor) callbacks in it
 				</code>
