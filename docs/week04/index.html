@@ -291,7 +291,7 @@ loop()-&gt;
      Pid ! {self(),Command_and_data},
      receive
          Response ->
-             Completion_handler(Response)
+             Response_handler(Response)
      end.
 </code></pre></p>
 <p>
