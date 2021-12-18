@@ -4,6 +4,13 @@
 %%        href="http://creativecommons.org/licenses/by/4.0/"
 %%        target="_blank">
 %%        Creative Commons Attribution 4.0 International License</a>
+%%
+%%
+%% These solutions are not intended to be ideal solutions. Instead,
+%% they are a solution that you can compare against yours to see
+%% other options and to come up with even better solutions.
+%%
+
 -module(product_service).
 %% gen_server
 -behaviour(gen_server).
