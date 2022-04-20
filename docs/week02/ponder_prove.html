@@ -38,23 +38,22 @@
 	  		Create a list containing 20 persons of each gender. Each element of the list must be 
 				a tuple that looks like this, <kbd>{Propensity, Name, gender_atom}</kbd>. The propensity to do well in the game is numeric with a scale of your choice. This list will be the data as if they had been pulled from a database. 
 			</p>
-			<p>
-				Hints: 1)Use list comprehensions to generate the list. 2)Depending on how you choose to design and write this function, you may need other BIF's described in the list API found in this week's reading.
-			</p>
 	  </li>
 		<li>
 	  	<p>
-	  		Use the shuffle function in the <a href="provided_solution/list_lib.erl">provided list_lib</a> to scramble the list.
+	  		Use the <kbd>shuffle/1</kbd> function in the <a href="provided_solution/list_lib.erl">provided list_lib</a> to scramble the list.
 	  	</p>
 	  </li>
 
 		  <li><p>
-          Write a function that creates teams of size 5 where each element of the list is a 
+          Use the provided <kbd>generate_teams/2</kbd> function in the provided list_lib to create teams of size 5. It will produce a list where each element of the list is a 
 			tuple following this format. <kbd>{total_propensity,[{name,gender},{name,gender},{name,gender},{name,gender}]}</kbd></p>
 		</li>
-	  
-
 	</ol>
+	<h1>Self-Challenge</h1>
+	<p>
+				Use list comprehensions to generate the list of contestants. You will need other BIF's described in the list API found in this week's reading to make this happen. Depending on how you approach the problem, you man kneed to know how to write a function.
+			</p>
 
   <section>
       <h3>Review</h3>

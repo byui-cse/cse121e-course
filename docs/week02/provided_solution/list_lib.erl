@@ -1,6 +1,33 @@
 -module(list_lib).
--export([shuffle/1]).
+-export([shuffle/1,generate_teams/2]).
 
+
+%%
+%% Given a list of contestants, creates a list of teams.
+%%
+%% Parameters - 1)List of contestants
+%%          2)team size
+%% Value - a list of teams
+%% Complexity - O(n^2)
+%%
+generate_teams(Contestants,Size) when length(Contestants) < Size ->
+   [];
+generate_teams(Contestants,Size) ->
+   Team = build_team(lists:sublist(Contestants,Size),{0.0,[]}),
+   [Team]++generate_teams(lists:nthtail(Size,Contestants),Size).
+
+%%
+%% Builds a team from a list of contestants
+%%
+%% Parameters - 1)List of team member contestants
+%%          2)A tuple used to accumulate the team
+%% Value - a tuple representing the team
+%% Complexity - O(n)
+%%
+build_team([],Accum) ->
+   Accum;
+build_team([{Propensity,Name,Gender}|T],{Total_propensity,Members}) ->
+   build_team(T,{Total_propensity+Propensity,Members++[{Name,Gender}]}).
 
 %%
 %% Shuffles a list as you might a deck of cards.
