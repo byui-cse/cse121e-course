@@ -4,7 +4,7 @@
 <html>
 
 <head>
-				<title>CSE 121e: Week 05 | gen_servers and supervisors</title>
+				<title>CSE 121e: Week 05 | Stateful Processes</title>
           <link rel="shortcut icon" href="https://byui-cse.github.io/Language-Courses/site/images/fav.ico" type="image/x-i        con">
         <script type="text/javascript">
                  var codeType = "Erlang"
@@ -20,505 +20,65 @@
 <header class="hero-image">
   <section class="hero-text">
     <h1>CSE 121e: Week 05</h1>
-    <p>gen_servers and supervisors</p>
+    <p>Stateful Processes</p>
   </section>
 </header>
-	<h1>gen_servers</h1>
+	<h1>State</h1>
 	<p>
-		Erlang's generic server, <a href="https://riptutorial.com/erlang/example/24705/using-gen-server-behavior"><kbd>gen_server</kbd></a> is an interesting thing. Instead of writing a server from scratch, you can leverage existing <kbd>gen_server</kbd>
-		behavior. When you do so, you reduce the number of bugs you will create, simplify your code, and dramatically reduce the amount of code you write. All 
-		of these are great reasons to use the <kbd>gen_server</kbd> behavior.
+		For a moment, think about the computer network system you are using. Here is what seems to be a simple question. "Is the network up or down?" Another way of saying this is "Is up or down the state of the network system?" Pause your reading of this document. Take a moment and answer the question for the network you are currently using.
 	</p>
 	<p>
-		When you choose to use the <a href="http://20bits.com/article/erlang-a-generic-server-tutorial"><kbd>gen_server</kbd></a> behavior, you agree to a contract. You must implement specific functions in specific ways so the existing <kbd>gen_server</kbd> code can do what you want it to. It is generic, after all, and you must provide it the functions that allow it to do what YOU want. 
-		Supplying these functions is much like passing a <kbd>fun</kbd> to the 
-		<kbd>lists:map/2</kbd> BIF. Like <kbd>gen_server</kbd>, the <kbd>lists:map/2</kbd> BIF is generic. You provide the <kbd>fun</kbd> that specializes it 
-		so it does the mapping the way you want.
-	</p>
-		Additionally, you must supply the client code used to access the <kbd>gen_server's</kbd> generic behaviors.
-		In last week's learning, you saw how a client can be in the same module and yet be run separately from a server. Having the rpc client-code in the same module is not a requirement for a client You could put it in a separate module should you choose to. However when you use the <kbd>gen_server</kbd> behavior available to you via Erlang, you do NOT separate the client code from the server code.
+		If you said the network was up or if you said it was down, are you sure it still is? How might you check a network to see if it is up or down? Using a web browser or some other app to do something using the network only ensures that some part of it was up when the data transfers were taking place. The only sure way to check would be to check each element, the routers, servers, WiFi access points, etc. that make up the network, to see if each of them is up. The problem you run into when you try this is you can't check them all at the same time. This means by the time you check one element, any element you saw as being up previously may now be down.
 	</p>
 	<p>
-		Each <kbd>gen_server</kbd> is a process. Therefore, when you want the <kbd>gen_server</kbd> to execute something, you have to use specific functions just like 
-		you would with any other servers. We will look at 2 of these functions. There are others.
+		The state of any dynamic system is impossible to determine.
 	</p>
-		<h2>gen_server:call/2</h2>
-		<p>
-			When you want to make a synchronous call and wait for a response use the <a href="http://erlang.org/doc/man/gen_server.html#call-2"><kbd>gen_server:call/2</kbd></a> function or one of its variants. the  
-			<kbd>gen_server:call/2</kbd> has 2 parameters.
-			<ol>
-				<li>ServerRef - the name of the server to use (It's ID), and</li>
-				<li>Request - this is usually a tuple similar to what you saw last week. It usually contains an atom that is a command, and some data to work with.</li>
-			</ol>
-		</p>
-		<p>Last week, you saw how to create a custom server that could multiply or add up a list of numbers, or divide two numbers. The tuple passed to the server by the client code looked 
-			like this,
-		</p>
-		<p>
-		<pre>
-		<code>{add,[1,2,3]}. <!-- no need to declare Erlang as the code type here. It's done at the top of this page for all code in this page.-->
+	<h2>State and OO Applications</h2>
+	<p>
+		Applications of any significant size written in Object Oriented languages are actually dynamic systems. Their state is the aggregate of the state of each property of each instance of each class currently in memory. The application's state is distributed. As you become more comfortable doing OO design and programming, you stop worrying about the state of the application and only consider the state of the class you are working on. This means you will need to do A LOT of validation of data that is passed to the methods of the class you are creating. If you don't, chaos will ensue within the application.
+	</p>
+	<p>
+		You could write code that will run within your application to check its current state, but that would mean you would have to make it stop being dynamic temporarily. If you  were to do this (you should not) the application would have to stop doing anything else until you had checked everything. Your application would be so slow it would be unusable.
+	<p>
+	<p>
+		If you think about it, that is what you are assuming is happening when you do input validation checks on class instances. This is a very bad assumption. You hope that as you do a validation check, the instance you just checked doesn't change after you check it. Especially you hope it hasn't changed in some way that could upset your calculations.
+	</p>
+	<h2>State and Functional Applications</h2>
+	<p>
+		In functional programming, the state of the application is reduced to the values of the parameters passed to the function you are writing. Nothing else can affect those values while you are using them. This greatly reduces the problems that might arise while your function executes. Any pattern matching you do will yield consistent decisions. There is no need to be concerned about anything else that may or may not be happening in the system that is your application.
+	</p>
+
+	<h1>Stateful Erlang Processes</h1>
+		There are two things you should understand about the code for the process you saw in the previous reading. There is nothing special about the <kbd>run/0</kbd> function. It's just a function. You could name it anything you want, <kbd>again</kbd>, <kbd>wait</kbd>, or even something as silly as <kbd>skip_down_the_road</kbd>. 
+		The name the function is unimportant. Also, the <kbd>run/0</kbd> function you saw was stateless. This means it has no data carried over from one invocation to the next. 
+	</p>
+	<p>Say there <span font-style:italic>was</span> some data, a state, you wanted the process to 
+		continue to use between times when it receives a request. All you have to do is add one or more parameters and pass the data. If, for some reason, you needed to track how many times the 
+		process received a request and print out that count when the server is shut down, the code could look like this. 
+	</p>
+	<p><pre><code class="Erlang">run(Count)-&gt;
+    receive
+        {Pid,multiply,List} ->
+              Pid ! {ok,lists:foldl(fun(X,Y)->X*Y end,1,List)};
+        {Pid,add,List} ->
+              Pid ! {ok,lists:foldl(fun(X,Y)->X+Y end,0,List)};
+        {Pid,divide,Dividend,Divisor} -> 
+              Pid ! {ok,Dividend div Divisor};
+        {Pid,shutdown} ->
+              io:format("shutting down after ~p uses.~n",[Count]),
+              exit(closed);
+        {Pid,_other} ->
+              Pid ! {fail, unrecognized_message}
+    end,
+    run(Count+1).
 </code></pre></p>
-		<p>
-			like this,
-		</p>
-		<p>
-		<pre>
-		<code>{multiply,[1,2,3]}. 
-</code></pre></p>
-		<p>
-			or, like this.
-		</p>
-		<p>
-		<pre>
-		<code>{divide,23,5}.
-</code></pre></p>
-		<p>
-			The example in this reading is going to show you how to implement this same, simple, server using the <kbd>gen_server</kbd> behavior so you can focus on 
-			the behavior and how to use it rather than getting caught up in the code for some server that does something other than these simple arithmetic functions. It will also allow you to compare and contrast 
-			the two servers types of servers to help you understand the basics of <kbd>gen_server</kbd>.
-		</p>
-		<p>
-			So what would a call to the existing <kbd>gen_server:call/2</kbd> function look like that would, when the rest of the server is complete, 
-			add up a list of numbers?
-		</p>
-		<p>
-		<pre>
-		<code>gen_server:call(?MODULE,{add,[1,2,3]}. 
-</code></pre></p>
-		<p>
-			There it is. Done. There is one strange thing there you haven't seen before. The <kbd>gen_server:call/2</kbd> function is being used in client code. 
-			Remember, earlier you read that client code is usually written in the same module as the server code? The <kbd>?MODULE</kbd> statement make use of that. 
-			The statement <kbd>?MODULE</kbd> is of type <a href="https://www.tutorialspoint.com/erlang/erlang_macros.htm"><kbd>macro</kbd></a> and evaluates to the name of the module the call to <kbd>gen_server:call/2</kbd> happens in. 
-			Last week, the server was in the module <kbd>simp_calc</kbd>. This week, let's put the code for the <kbd>gen_server</kbd> version in a module called 
-			<kbd>calcs</kbd>. That means <kbd>?MODULE</kbd> will be converted to <kbd>calcs</kbd> at compile time. It's handy to use this instead of writing 
-			<kbd>calcs</kbd> in your code. That way, if you decide to change the name of the module, all the client code is updated for you. &#128526;
-		</p>
-		<p>
-			Let's embed this piece of code in a client function that can be used outside of the server with any list of numbers.
-		</p>
-		<p>
-		<pre>
-		<code>sum_of(List)->gen_server:call(?MODULE,{add,List}). 
-</code></pre></p>
-		<p>
-			Multiplication? No problem.
-		</p>
-		<p>
-		<pre>
-		<code>product_of(List)->gen_server:call(?MODULE,{multiply,List}). 
-</code></pre></p>
-		<p>
-			Division? Easy.
-		</p>
-		<p>
-		<pre>
-		<code>quotient_of(Dividend,Divisor)->gen_server:call(?MODULE,{divide,Dividend,Divisor}). 
-</code></pre></p>
-		<p>
-			Using these client functions also requires very little code and, hopefully, is easy for those who are using your server to use.&#128512;
-		</p>
-
-		<p>
-		<pre>
-		<code>calcs:sum_of([1,2,3,4,5]. 
-</code></pre></p>
-		<p>
-			Look at that! They don't even know you are using a server or that it's running in a separate process! That's the way you want your 
-			code to be for those who use it.&#129395;
-		</p>
-		<h2>gen_server:cast/2</h2>
-		<p>
-			The <kbd>gen_server:cast/2</kbd> function can be used for asynchronous calls. But these are a specific type of asynchronous call. Use 
-			<kbd>cast/2</kbd> when you want to throw something at a server and don't particularly care if it arrives, if the server actually 
-			exists, or if the data is dispensable, and you are not expecting any kind of response. 
-			This function has similar behavior to the <a href="https://en.wikipedia.org/wiki/IP_multicast"> IP 
-			multicast networking protocol</a>. As someone new to Erlang, you should probably avoid using <kbd>gen_server:cast/2</kbd>. I've 
-			included it here, because you will see it being used in online examples. Many of those are misusing <kbd>gen_server:cast/2</kbd>.
-		</p>
-		<h2>Handling Calls</h2>
-		<p>
-			So far you've seen how to make a call. Now it's time to see how to handle an incoming call using <kbd>gen_server</kbd> behavior. 
-			To do so, write all needed <kbd>handle_call/3</kbd> function clauses in your module. The <kbd>gen_server</kbd> behavior will use pattern matching 
-			to call the appropriate clause of the <kbd>handle_call</kbd> function you write. We could write a single-clause <kbd>handle_call/3</kbd> 
-			function but, as mentioned last week, that would be a bit weird. Let's follow a pattern similar to the one from last week...create 
-			a function clause to handle each type of command.
-		</p>
-		<p>
-		<pre>
-		<code>handle_call({add,List},_From,State) ->
-	{reply,
-		lists:foldl(fun(X,Accum)->Accum+X end,0,List),
-	State};%% not modifying the server's internal state
-
-handle_call({multiply,List},_From,State) -> 
-	{reply,
-		lists:foldl(fun(X,Accum)->Accum*X end, 1,List),
-	State};%% not modifying the server's internal state
-handle_call({divide,Dividend,Divisor},_From,State) -> 
-	{reply,
-		Left div Right,
-	State};%% not modifying the server's internal state
-handle_call(stop, _From, _State) -> 
-	{stop,normal,
-		server_stopped,
-    down}. %% setting the server's internal state to down
-</code></pre></p>
-		<p>
-			Imagine you wanted to add more commands that worked on lists. Maybe things like <kbd>mean</kbd>, <kbd>median</kbd>, or <kbd>mode</kbd>. You would then 
-			add a new <kbd>handle_call/3</kbd> clause with the additional needed behavior and a client function that calls the clause you just created.
-		</p>
-		<p>
-			Imagine if you needed to add more commands with some number of parameters. The parameters might be numbers. They might be strings. Or they might be anything. Again, you would add a <kbd>handle_call/3</kbd> clause and an appropriate client function.
-		</p>
-		<p>
-			In any of these cases, the correct <kbd>handle_call</kbd> clause will get called by the <kbd>gen_server</kbd>.
-		</p>
-		<h2>The Full Code Set</h2>
-		<p>
-			There are some other functions that need to be added to the <kbd>calcs</kbd> module to meet the contract with the <kbd>gen_server</kbd> behavior. We won't 
-			go over them all yet, but here is the 'just enough' code to get the <kbd>calcs</kbd> module running, including documentation comments that <a href="http://erlang.org/doc/apps/edoc/chapter.html">EDoc</a> can use to generate documentation web pages.
-		</p>
-		<p>
-			<pre>
-				<code>%% @author Lee Barney
-%% @copyright 2020 Lee Barney licensed under the &lt;a&gt;
-%%        rel="license"
-%%        href="http://creativecommons.org/licenses/by/4.0/"
-%%        target="_blank"&gt;
-%%        Creative Commons Attribution 4.0 International License&lt;/a&gt;
--module(calcs).
-%% gen_server
--behaviour(gen_server).
--export([start_link/0]).
-%% export gen_server callbacks
--export([init/1, handle_call/3, handle_cast/2, handle_info/2,
-	 terminate/2, code_change/3]).
-%% export client functions
--export([start/0,stop/0,add/1,multiply/1,divide/2]).
-
--define(SERVER,?MODULE).
-
-%%%--------
-%%% client functions
-%%%--------
-
-%%These can be used as a template.
-
-%% @doc The &lt;kbd&gt;start/0&lt;/kbd&gt; function spawns the gen_server.
-start() -> gen_server:start_link({local, ?SERVER}, ?MODULE, [], []).
-%% @doc The &lt;kbd&gt;stop/0&lt;/kbd&gt; function causes a graceful stop of the gen_server.
-stop()  -> gen_server:call(?MODULE, stop).
-
-
-%%@doc The &lt;kbd&gt;add/1&lt;/kbd&gt; function returns the sum of all elements of the parameter of type list. The list can be empty.
-add(List) -> gen_server:call(?MODULE,{add,List}).
-%%@doc The &lt;kbd&gt;multiply/1&lt;/kbd&gt; function returns the product of all elements of the parameter of type list. The list can be empty.
-multiply(List) -> gen_server:call(?MODULE,{multiply,List}).
-%%@doc The &lt;kbd&gt;divide/2&lt;/kbd&gt; function returns the quotient of the dividend, the first parameter, and the divisor, the second parameter.
-divide(Dividend,Divisor) -> gen_server:call(?MODULE,{divide,Dividend,Divisor}).
-
-
-%%%--------
-%%% gen_server callbacks
-%%% these functions match the interface the &lt;kbd&gt;gen_server&lt;/kbd&gt; needs in order to provide the services desired.
-%%%--------
-%% These can also be used as a template.
-
-%% getting things going
-start_link() -> gen_server:start_link({local, ?SERVER}, ?MODULE, [], []).
-init([]) -> {ok,up}.%% setting the state to up
-
-%%doc the &lt;kbd&gt;handle_call/3&lt;/kbd&gt; function deals with the requests made to &lt;kbd&gt;gen_server&lt;/kbd&gt;. The avaiable request types are:
-%% &lt;ol&gt;
-%%   &lt;li&gt;multiplication of all elements of a list of numbers (BigO(n)),&lt;/li&gt;
-%%   &lt;li&gt;addition of all elements of a list of numbers (BigO(n)),&lt;/li&gt;
-%%   &lt;li&gt;division of two numbers, the dividend followed by the divisor in a tuple (BigO(1)), and&lt;/li&gt;
-%%	 &lt;li&gt;stop, to elegantly stop the &lt;kbd&gt;gen_server&lt;/kbd&gt; process.
-%% &lt;/ol&gt;
-%% All add and multiply messages are to be tuples following the pattern {\&lt;command\&gt;,
-%% \&lt;list\&gt;}. Otherwise, {\&lt;divide\&gt;,Dividend,Divisor}.
-%% Another option is to stop the server the parameters are:
-%% &lt;ol&gt;
-%%   &lt;li&gt;stop, an atom,&lt;/li&gt;
-%%   &lt;li&gt;From, the PID of the &lt;kbd&gt;gen_server&lt;/kbd&gt; process, and&lt;/li&gt;
-%%   &lt;li&gt;State, the current state of the &lt;kbd&gt;gen_server&lt;/kbd&gt;.&lt;/li>
-%% &lt;/ol> 
-
-
-%%These are specific to your need.
-handle_call({add,List},_From,State) ->
-          {reply,
-                lists:foldl(fun(X,Accum)->Accum+X end,0,List),
-           State};%% not modifying the server's internal state
-
-handle_call({multiply,List},_From,State) -> 
-          {reply,
-                lists:foldl(fun(X,Accum)->Accum*X end, 1,List),
-           State};%% not modifying the server's internal state
-handle_call({divide,Dividend,Divisor},_From,State) -> 
-	  {reply,
-                Dividend div Divisor,
-           State};%% not modifying the server's internal state
-handle_call(stop, _From, _State) -> 
-	{stop,normal,
-                server_stopped,
-          down}. %% setting the server's internal state to down
-
-%%%--------
-%%% gen_server callbacks
-%%% the default behavior here is sufficient for this example.
-%%%--------
-handle_cast(_Msg, State) -> {noreply, State}.
-handle_info(_Info, State) -> {noreply, State}.
-terminate(_Reason, _State) -> ok.
-code_change(_OldVsn, State, _Extra) -> io:format("code changing",[]),{ok, State}.
-
-
-				</code>
-			</pre>
-		</p>
 	<p>
-		There is a MAJOR design flaw in the code above. Because each of these behaviors is part of this <kbd>gen_server</kbd>, when a request with a seemingly large list, say 100,000,000 numbers, is sent, all other requests to this server will have to queue up. Now you've not created something that is concurrent. OOPS!! 
-	</p>
-	<p>
-		Another problem is if one of the behaviors causes a crash, like asking divide to divide by zero, any request that has been queued will fail. OOPS!! Once again, not concurrent and certainly not stable.
-	</p>
-	<p>
-		Don't worry. Your task this week will include changing this bad design and re-implement a solution in order to solve these problems. You'll find more information about this in the task.
-	</p>
-
-	<h1>Supervisors</h1>
-	<p>
-		There are many different ways to classify software defects. Each Quality Assurance (QA) team will use a scheme created by the company they are a part of. An interesting way to classify them is to start by putting them into two large groupings, those that can be made to happen consistantly and those that can not. Let's lable these as 'Consistant' and 'Erratic.' This is an easy enough grouping to get our heads around.
-	</p>
-	<h2>Consistant Defects</h2>
-	<p>
-		This type of defect comes in two flavors, serious and superficial. Superficial defects are those that do exist, but don't effect the use of the product. These can be things like colors or fonts being incorrect in a Graphical User Interface (GUI) type application or even numerical calculations that are done incorrectly but don't effect the overall computed result in such a way that the total computed answer is significantly wrong. Whether to fix these types of defects comes down to a business decision. This decision is usually based around estimates of how much the fix will cost in developer and testing time, which customers the defect, or its change, may effect, and if there are other defects that are considered more important. This decision is not usually made by programmers or engineers.
-	</p>
-	<p>
-		Consistant serious defects directly effect the result of using the software. They may be numerical calculations that are egregiously wrong. They may be engineering defects that make the software so slow that it becomes unusable. They may be the result of poor coding that causes the application to hang or crash. These types of defects should always be fixed. They are readily detectible. Their cause is relatively easy to reproduce and therefore pin-point their cause. Company policy should be that programmers and engineers should fix any of these that are found without guidance from management. However, not all defects are so easy to pin-point.
-	</p>
-	<h2>Erratic Defects</h2>
-	<p>
-		Erratic defects occur occasionally and can be very difficult or impossible to reproduce. Their causes usually have something to do with poor engineering and/or programming. The cause may be poor decisions made when doing manual memory allocation and dealocation as is done in C, C++, and other similar languages. The cause may also be poor decisions made regarding concurrency. In many languages it is possible to share changable data between concurrent operations. This causes a defect called a race condition. When such a defect is created, it means that none of the operations involved can count on the data value being correct or even reasonable. It is not uncommon, when trying to fix a race condition, that another type of defect is created. It is called a deadlock or cross-lock. When this defect is in the code, the programm will SOMETIMES lock up but not always. But when trying to reproduce the defect, the execution happens in some other order and so the programm doesn't lock up. The question is, what should be done with these types of defects?
-	</p>
-	<p>
-		I, the author, used to work on a piece of software that controlled the planning and scheduling of semiconductor factories. If the software crashed, the factory using the software could loose millions of dollars per hour. That's why crashing was completely unacceptable. The software is written in C++ and uses a lot of manual memory allocation and deallocation. There was an erratic crash happening in the software. In fact, it had only happened once. I was given the task of finding the defect and fixing it. I was given a crash report that was helpful as a starting point. It showed where in the code the crash happened. When I looked in the software, there was no direct reason there should have been a crash at that point. That's when I knew we were in trouble.
-	</p>
-	<p>
-		As a senior engineer, it took me 4 days to track down and fix the problem. There was a shared piece of data used in several places in the non-concurrent application. In one place where it had been used but was no longer needed, the memory for the data was released to be reused. The other variables for that piece of data would continue to use the data. Eventually, the system would decide to reuse the data's old memory. Now when the remaining variables tried to read it, the data would be corrupt and the application would crash. This type of defect is called 'use-after-free.' We called it a zombie pointer. It would seem to be alive, but was actually dead.&#129503;
-	</p>
-	<p>
-		This type of defect is very expensive to fix if it can be tracked down at all. Thankfully, Erlang doesn't require or allow manual memory management. That means use-after-free defects can't be created. Also, since Erlang is a functional programming language, you can't create either of the concurrency defects either.&#x1F60E;&#129395;
-	</p>
-	<p>
-		That does NOT mean that your Erlang code can never crash. A simple example of a crash in Erlang is division by zero. If your <kbd>gen_server</kbd> code has an accidental division by zero in a case that gets called sometimes. You have a problem. Now division by zero errors are easy to track down. Other erratic defects and crashes due to bad engineering or programming decisions when using Erlang can be just as hard to track down and fix as the defects mentioned earlier. The question is, should we fix these erratic, serious defects? The answer is a resounding NO! There is an Erlang way to deal with these.
-	</p>
-	<h1>Supervisors</h1>
-	<p>
-		Tracking down and fixing such ugly bugs often causes other, new defects. When you are thinking Erlangy you will avoid creating these new bugs while fixing others by using <a href="https://riptutorial.com/erlang/example/23589/basic-supervisor-with-one-worker-process">supervisors</a>. What these supervisors do is manage a bunch of gen_servers and if one detects that a gen_server has crashed it can restart it and report the restart. That is referred to as <kbd>one_for_one</kbd> supervision in the Erlang community. Another type of supervision is called <kbd>one_for_all</kbd>. In this type of supervision, a supervisor is managing several related <kbd>gen_server</kbd>s and, when one crashes, the supervisor terminates all of the related <kbd>gen_server</kbd>s and then restarts them all.
-	</p>
-	<p>
-		This <a href="https://ferd.ca/the-zen-of-erlang.html">Let it Crash</a> approach needs to be carefully understood. It doesn't mean that you let your whole application crash or become unusable. If that's the case, you've got much more serious problems. What it does mean is this. You are human. You will make mistakes when designing applications and writing code. Any of the consistant, serious defects you create must be fixed. Yet, in spite of your best efforts to do an excellent job and create great code, you will always flub up.
-	</p>
-	<p>
-		Because of this, design your Erlang processes and <kbd>gen_servers</kbd> to be small and independent. That way if one crashes it can not take down the whole system (That's the big defect in the <kbd>gen_server</kbd> above). As part of the process of designing and creating your application, you will design and create a <a href="https://adoptingerlang.org/docs/development/supervision_trees/">supervision tree</a>. In other words, have small, independent supervisors that supervise related <kbd>gen_servers</kbd> and the processes those <kbd>gen_servers</kbd> are running in. Then have small, independent supervisors that supervise related supervisors. Eventually, you have a top-level supervisor at the root of the tree. 
-	</p>
-	<p>
-		When you design and create the supervisor tree well, your application can have nearly 100% uptime for YEARS!! Yes. That means it can effectively never crash! Also, if you do a good design and creation job, you can update your software without shutting it off again leading to near 100% uptimes!!!&#x1F60E;&#129395;&#129395;&#129395;&#129395;&#129395;
-	</p>
-	<p>
-		For this class, you won't be learning how to build the entire tree. Let's save that for later. Instead, focus your energy on learning how to do an amazing job of creating <a href="https://stackoverflow.com/questions/41190705/erlang-simple-one-for-one-supervisor-does-not-restart-child"><kbd>one_for_one</kbd></a> and <kbd>one_for_all</kbd> supervisors for <kbd>gen_servers</kbd>. This is the lowest level of the supervision tree upon which the rest of the tree is built. Supervisor supervisors (there's a fun one to say a bunch of times quickly &#128512;) will follow a similar pattern. So expect to see this kind of thing again.
-	</p>
-	<h2>A Minimal Supervisor</h2>
-	<p>
-		Here is some code you can use as a template when you create a supervisor (notice the <kbd>-behavior(supervisor)</kbd> line of code). We won't go into detail regarding all the supervisor functions in this class, but expect to in later classes.&#128512; Some of these functions look very similar to those found in a <kbd>gen_server</kbd>. That's the principle of concept reuse. What a great concept!&#128512; However, the most important thing to understand in the code below is what's happening in the <kbd>init/1</kbd> function.
-	</p>
-	<p>
-		While there are many things you can do in <kbd>init/1</kbd>, what you see below is code that defines the behavior of the supervisor. Notice that the supervisor is going to use the <kbd>one_for_one</kbd> management scheme discussed earlier. Directly after that line of code is a list of all the modules the supervisor starts up and manages. In this case, the list only has one tuple in it describing one <kbd>gen_server</kbd>, <kbd>calcs</kbd>. Look in the code comments for the meanings of each of the parts of the supervised module definition.
-	</p>
-	<p>
-			<pre>
-				<code>%% @author Lee Barney
-%% @copyright 2020 Lee Barney licensed under the &lt;a&gt;
-%%        rel="license"
-%%        href="http://creativecommons.org/licenses/by/4.0/"
-%%        target="_blank"&gt;
-%%        Creative Commons Attribution 4.0 International License&lt;/a&gt;
-
--module(calcs_supervisor).
--behaviour(supervisor).
- 
--export([start/0, start_link/1, start_in_shell_for_testing/0]).
--export([init/1]).
-
--define(SERVER, ?MODULE).
-
-
-start() ->
-    spawn(fun() ->
-        supervisor:start_link({local, ?MODULE}, ?MODULE, _Arg = [])
-    end).
-
-start_in_shell_for_testing() ->
-    {ok, Pid} = supervisor:start_link({local, ?MODULE}, ?MODULE, _Arg = []),
-    unlink(Pid).
-
-start_link(Args) ->
-    supervisor:start_link({local, ?MODULE}, ?MODULE, Args).
-
-init([]) ->
-    {ok,
-        {
-          {one_for_one, 3, 10},
-   % the pattern for this tuple is {supervision_type, restart_limit, restart_limit_time}. 
-   % in this case, if the managed gen_server has to be restarted more than 3 times in 10 seconds, 
-   % the supervisor should notify it's supervisor, if one exists, by failing.
-            [% the begining of the list of children this supervisor supervises
-              {calc_it,% any unique, descriptive atom that can be used for later reference. A name for the child.     
-                {calcs, start_link, []},% the pattern for this tuple is {module_name,startup_function, startup_function_parameters} for the supervised child
-                permanent,% the type of restart desired. The permanent atom means always restart. There are other options.
-                10000,% the maximum number of milliseconds available for the gen_server's shutdown process before the gen_server is killed without remorse.
-                worker,% an atom that declares if this child is a worker or a supervisor
-                [calcs]}]}}.% the name of the module that has the gen_server (or supervisor if this child is a supervisor) callbacks in it
-				</code>
-			</pre>
-	</p>
-	<p>
-		So here is how to start up the <kbd>calcs_supervisor</kbd> from within the REPL.
-	</p>
-	<p>
-		<pre>
-			<code class="bash">1> c(calcs).
-{ok,calcs}
-2> c(calcs_supervisor).
-{ok,calcs_supervisor}
-3> calcs_supervisor:start_in_shell_for_testing().
-true
-
-			</code>
-		</pre>
-	</p>
-	<p>
-		It is now running in its own process and has the <kbd>calcs gen_server</kbd> running in a seperate process. You are ready to go! Now use it to add all the numbers from 1 to 1,000,000 inclusive. Notice that you call the <kbd>calcs</kbd> module directly, not through the supervisor. The job of the supervisor does not include distribution of tasks or requests.  
-	</p>
-	<p>
-		<pre>
-			<code class="bash">4> calcs:add(lists:seq(1,1_000_000)).
-500000500000
-			</code>
-		</pre>
-	</p>
-	<p>
-		Does divide work? Try it out.
-	</p>
-
-	<p>
-		<pre>
-			<code class="bash">5> calcs:divide(111,7).
-15
-			</code>
-		</pre>
-	</p>
-	<p>
-		Now let's see what happens when you try to divide by zero. What should happen, according to the instructions in the <kbd>init/1</kbd> function of <kbd>calcs_supervisor</kbd>, is a crash report including the cause of the crash will be printed out and then <kbd>calcs</kbd> should be restarted. Look out, its going to be a lot of lines of error message but when something crashes, more is better than less. I'm including the whole thing here below. 
-	</p>
-
-	<p>
-		<pre>
-			<code class="bash">6> calcs:divide(111,0).
-=ERROR REPORT==== 8-Dec-2020::15:23:18.845802 ===
-** Generic server calcs terminating 
-** Last message in was {divide,111,0}
-** When Server state == up
-** Reason for termination == 
-** {badarith,[{erlang,'div',[111,0],[]},
-              {calcs,handle_call,3,[{file,"calcs.erl"},{line,70}]},
-              {gen_server,try_handle_call,4,
-                          [{file,"gen_server.erl"},{line,706}]},
-              {gen_server,handle_msg,6,[{file,"gen_server.erl"},{line,735}]},
-              {proc_lib,init_p_do_apply,3,
-                        [{file,"proc_lib.erl"},{line,226}]}]}
-** Client <0.80.0> stacktrace
-** [{gen,do_call,4,[{file,"gen.erl"},{line,208}]},
-    {gen_server,call,2,[{file,"gen_server.erl"},{line,234}]},
-    {erl_eval,do_apply,6,[{file,"erl_eval.erl"},{line,684}]},
-    {shell,exprs,7,[{file,"shell.erl"},{line,686}]},
-    {shell,eval_exprs,7,[{file,"shell.erl"},{line,642}]},
-    {shell,eval_loop,3,[{file,"shell.erl"},{line,627}]}]
-
-=CRASH REPORT==== 8-Dec-2020::15:23:18.846095 ===
-  crasher:
-    initial call: calcs:init/1
-    pid: <0.93.0>
-    registered_name: calcs
-    exception error: an error occurred when evaluating an arithmetic expression
-      in operator  div/2
-         called as 111 div 0
-      in call from calcs:handle_call/3 (calcs.erl, line 70)
-      in call from gen_server:try_handle_call/4 (gen_server.erl, line 706)
-      in call from gen_server:handle_msg/6 (gen_server.erl, line 735)
-    ancestors: [calcs_supervisor,<0.80.0>]
-    message_queue_len: 0
-    messages: []
-    links: [<0.92.0>]
-    dictionary: []
-    trap_exit: false
-    status: running
-    heap_size: 2072833
-    stack_size: 28
-    reductions: 3041790
-  neighbours:
-
-=SUPERVISOR REPORT==== 8-Dec-2020::15:23:18.847303 ===
-    supervisor: {local,calcs_supervisor}
-    errorContext: child_terminated
-    reason: {badarith,[{erlang,'div',[111,0],[]},
-                       {calcs,handle_call,3,[{file,"calcs.erl"},{line,70}]},
-                       {gen_server,try_handle_call,4,
-                                   [{file,"gen_server.erl"},{line,706}]},
-                       {gen_server,handle_msg,6,
-                                   [{file,"gen_server.erl"},{line,735}]},
-                       {proc_lib,init_p_do_apply,3,
-                                 [{file,"proc_lib.erl"},{line,226}]}]}
-    offender: [{pid,<0.93.0>},
-               {id,tag1},
-               {mfargs,{calcs,start_link,[]}},
-               {restart_type,permanent},
-               {shutdown,10000},
-               {child_type,worker}]
-
-** exception exit: {{badarith,
-                        [{erlang,'div',[111,0],[]},
-                         {calcs,handle_call,3,[{file,"calcs.erl"},{line,70}]},
-                         {gen_server,try_handle_call,4,
-                             [{file,"gen_server.erl"},{line,706}]},
-                         {gen_server,handle_msg,6,
-                             [{file,"gen_server.erl"},{line,735}]},
-                         {proc_lib,init_p_do_apply,3,
-                             [{file,"proc_lib.erl"},{line,226}]}]},
-                    {gen_server,call,[calcs,{divide,111,0}]}}
-     in function  gen_server:call/2 (gen_server.erl, line 238)
-			</code>
-		</pre>
-	</p>
-	<p>
-		If the supervisor restarted <kbd>calcs</kbd> it should be usable right now without starting anything back up. Let's give it a try.
-	</p>
-
-	<p>
-		<pre>
-			<code class="bash">7> calcs:add(lists:seq(1,1_000_000)).
-500000500000
-			</code>
-		</pre>
-	</p>
-	<p>
-		Victory!!!
+		Since run is just like any other recursive function, the number of parameters is up to you as are the types of those parameters. If you needed to, you could 
+		have parameters of type atom, tuple, list, numeric, or any other type. The set of parameters you use are usually referred to as the state of the process. 
 	</p>
 	<h2>Wrap Up</h2>
 	<p>
-		So there you have it. While there is a LOT more that can be done using <kbd>gen_server</kbd> and <kbd>supervisor</kbd> behaviors and a lot more yet to learn, these are the basics; the minimum needed to get a parallel system to work and run. Remember, however, that this design has the defects in it you read about earlier. Check out your task for this week for information on how to change the design to remove those defects.
+		So there you have it. While there is a LOT more that can be done using stateful and stateless processes, there is a lot more yet to learn (Search Erlang OTP online). You've read the basics; the minimum needed to get a parallel system to work and run. Remember, however, that this example has the same defects it had when you read about it in the week 4 material.
 	</p>
 	<p>
 		Congratulations. You've now seen how to use Erlang. Now it's up to you to build on this foundation and do some amazing, wonderful things.

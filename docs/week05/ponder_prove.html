@@ -17,7 +17,7 @@
     <header class="hero-image">
       <section class="hero-text">
         <h1>CSE 121e: Week 05</h1>
-        <p>Ponder and Prove</p>
+        <p>Tasks</p>
       </section>
     </header>
     <main>
@@ -25,31 +25,30 @@
       <section>
         <h3>Description</h3>
         <p>
-          What you want to accomplish with this task is to solve the design problems listed in the reading for this week so you can run a bunch of computations concurrently without one crash taking everything down. Also, you will use some of the Erlang programming principles learned earlier in the class to write easily read, understood, and, therefore, easily maintained code.
+          You have so many friends that you have a hard time keeping track of them. &#128521; Create a stateful process that tracks your amazing and abundant friends.
         </p>
       </section>
       <section>
         Before beginning this Task, make sure you have reviewed the
-            <a href="../week05/" target="_blank">gen_servers and supervisors</a>
+            <a href="../week05/" target="_blank">stateful processes</a>
             course content.
       </section>
       <section>
-        <h3>The gen_servers</h3>
+        <h3>The Process</h3>
         <h4>Complete the following steps</h4>
         <ol>
-          <li>Separate the add, multiply, and divide functionalities of the <kbd>calcs</kbd> module into three <kbd>gen_server</kbd> modules, one module per functionality.</li>
-          <li>Create modules for calculating a <a href="https://byjus.com/n-choose-k-formula/">binomial coefficient</a>, factorial, and generating all permutations of any list. Again, one module per functionality.</li>
-          <li>The factorial gen_server should use the same ideas for reducing computation that you used for last week's task.</li>
-        </ol>
-      </section>
-      <section>
-        <h3>The Supervisor</h3>
-        <h4>Complete the following steps</h4>
-        <ol>
-          <li>Write the code for a single supervisor called <kbd>calcs_supervisor</kbd> that supervises each of these <kbd>gen_servers</kbd> using the one_for_one supervision technique.</li>
-          <li>From within the REPL, run <kbd>calcs_supervisor</kbd> and exercise each of the <kbd>gen_servers</kbd> using client functions.</li>
+          <li>Create a module that has a <kbd>run/1</kbd> function that tracks the names of your friends.</li>
           <li>
-            Fix any bugs you find.
+            In the same module, write a <kbd>start/0</kbd> function that spawns the <kbd>run/1</kbd> function as a process and returns the the process' PID.
+          </li>
+          <li>
+            In the same module as the <kbd>run/1</kbd> function, write a client function that sends friend status change messages to the process and waits for a response.
+          </li>
+          <li>
+            Write the <kbd>run/1</kbd> function in such a way that, based on which message it receives, a friend can be added, removed, a check can be done to see if someone is your friend, or a list of your current friends can be retrieved. 
+          </li>
+          <li>
+            Make sure that unrecognized messages are also dealt with in such a way that the process doesn't crash.
           </li>
         </ol>
       </section>
@@ -57,18 +56,34 @@
         <h3>The Testing Driver</h3>
         <h4>Complete the following steps</h4>
         <ol>
-          <li>Create a module that contains one function per <kbd>gen_server</kbd>. Have each of these function spawn a call to the client function of the <kbd>gen_server</kbd> it is responsible for executing, and then wait for the response and print it out to the console.</li>
-          <li>Write an additional function, <kbd>driver/0</kbd>, as part of this module that calls each of the functions described in the previous item. Make sure that you make a call to divide that causes a crash after you have sent each of the list-type functions a list of 100,000,000 numbers.</li>
-          <li>From within the REPL, run <kbd>driver/0</kbd> and observe the results.</li>
+          <li>
+            Create a separate module containing a testing driver function, <kbd>driver/0</kbd>, that spawns at least two processes for the module and uses the modules' client functions. The testing driver function must make multiple calls to the <kbd>rpc</kbd> function. Make the driver interesting by adding, removing, and checking friends. Add at least 1,000 friends. Also include sending unrecognizable messages to the process.
+          </li>
+          <li>
+            From within the REPL, run <kbd>driver/0</kbd> and observe the results.
+          </li>
         </ol>
-        <p>
-          After you have a working solution, you should compare what you created with <a href="provided_solution.zip">another possible solution</a>.
-        </p>
+        
+  <section>
+      <h3>Review</h3>
+      <h4>After completing the previous steps:</h4>
+      <ol>
+          <li>Review one of the many <a href="https://byui-cse.github.io/cse121e-course/week04/provided_solution.zip">possible solutions</a> for this task,</li>
+          <li>Compare and contrast your code with the possible solutions&rsquo; code, and</li>
+          <li>Make note of any improvements you could make for future tasks.</li>
+      </ol>
+  </section>
         
       </section>
       <section>
         <h3>Stretch (optional)</h3>
-        <p>Apply your googling skills to see some ideas about how you can use a supervisor to supervise many running instances of the same gen_server module.</p>
+        <ol>
+          <li>Create a modified version of your solution so that the friend process runs in one instance of the erl REPL and the client in a separate erl REPL instance on the same machine.
+          </li>
+          <li>
+            Explore how to run the client on one machine and the spawned process on another. Create a modified version of you code to do so.
+          </li>
+        </ol>
       </section>
     </main>
     <footer>

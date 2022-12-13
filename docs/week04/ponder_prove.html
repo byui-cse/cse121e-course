@@ -25,7 +25,8 @@
       <section>
         <h3>Description</h3>
         <p>
-          What you want to accomplish with this task is to solve the design problems listed in the reading for this week so you can run a bunch of computations concurrently without one crash taking everything down. Also, you will use some of the Erlang programming principles learned earlier in the class to write easily read, understood, and, therefore, easily maintained code.
+          What you want to accomplish with this task is to solve a design problem. In the reading example, you can run a bunch of computations in a process, but if one request causes a crash, it takes everything down. This means that everyone else using that process for computations has a request fail. This is not good.
+          As part of this redesign, you will want to use the Erlang programming principles learned earlier in the class to write easily read, understood, and, therefore, easily maintained code.
         </p>
       </section>
       <section>
@@ -37,12 +38,15 @@
         <h3>The Process</h3>
         <h4>Complete the following steps</h4>
         <ol>
-          <li>Create a process that provides factorial for its functionality. The process must keep track of the last number it was sent and the factorial value calculated from that number and use these two values to minimize the computation required for the next time the factorial process is used. If it is not possible to re-use these values to reduce the required computation, then do as must be done.</li>
+          <li>Create a module that has a process providing factorial for its functionality.</li>
           <li>
             In the same module as the factorial function, write a <kbd>start/0</kbd> function that spawns the factorial function as a process and returns the factorial process' PID.
           </li>
           <li>
             In the same module as the factorial function, write a client function that sends an integer to the factorial process and waits for a response.
+          </li>
+          <li>
+            Divide up the <kbd>simple_calc</kbd> module into three distinct modules, each with one of the calculation behaviors. Include in each module a client function similar to the one from simple_calc.  
           </li>
         </ol>
       </section>
@@ -50,8 +54,12 @@
         <h3>The Testing Driver</h3>
         <h4>Complete the following steps</h4>
         <ol>
-          <li>Create a separate module containing a testing driver function, <kbd>driver/0</kbd>, that uses the spawned factorial process and calls client function you've written.  It must call the testing driver function described 1000 times. Make it interesting by asking for the factorial of numbers that are not too small but not too large either.</li>
-          <li>From within the REPL, run <kbd>driver/0</kbd> and observe the results.</li>
+          <li>
+            Create a separate module containing a testing driver function, <kbd>driver/0</kbd>, that spawns at least two processes for each of the four modules created earlier. The <kbd>driver/0</kbd> function must use the modules' client functions. It must call each client function 1000 times. Make it interesting by asking for the results from interesting numbers. Also include sending unrecognizable messages to each of the for process types.
+          </li>
+          <li>
+            From within the REPL, run <kbd>driver/0</kbd> and observe the results.
+          </li>
         </ol>
         
   <section>
