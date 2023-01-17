@@ -346,10 +346,9 @@ factorial(N,_accum) when N < 0 -> undefined.%Factorials of negative integers are
   </p>
   <p>
 <pre>
-<code class="Erlang">double([H|T]) ->
-    [2 * H | double(T)];
-double([]) ->
-    [].</code></pre>
+<code class="Erlang">double([]) -> [];
+double([H|T]) ->
+    [2 * H | double(T)].</code></pre>
   </p>
   <p>
     Also notice the use of the cons operator, <kbd>[H|T]</kbd>, to split the list passed to the function into the head of the list and the tail, the rest of the 
