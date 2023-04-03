@@ -298,7 +298,7 @@ More = lists:append(Customers,[grace]).
       </p>
       <p>
         Also notice that the result of <kbd>Mucho = [Customers ++ [grace]]</kbd> is <kbd>Mucho</kbd>. This means that both the <kbd>list:append(List1,List2)</kbd> 
-        function and the <kbd>[List1 ++ List2]</kbd> operators are both a non-destructive functions. They destroy the list <kbd>Customers</kbd> 
+        function and the <kbd>[List1 ++ List2]</kbd> operators are both a non-destructive functions. They do NOT destroy the list <kbd>Customers</kbd> 
         by modifying it. You may be tempted to think that <kbd>More</kbd> and <kbd>Mucho</kbd> are copies of <kbd>Customers</kbd> with <kbd>grace</kbd> added on. 
         This is not the case in 
         Erlang. Such a computational result would be very wasteful of memory. You may also think that return-by-reference and return-by-value are the only two options 

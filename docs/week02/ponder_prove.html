@@ -29,39 +29,46 @@
 	</p>
 	<h1>Your Task</h1>
 	<p>
-		Your boss needs help selecting good teams from persons that have been selected to be potential participants.
+		Your boss needs help selecting good teams from persons that have been selected to be potential participants. He has assigned you to help with this effort.
 	</p>
 		
 	<ol>
 	  <li>
 	  	<p>
-	  		Create a list containing 8 persons of each gender. Each element of the list must be 
-				a tuple that looks like this, <kbd>{Propensity, Name, gender_atom}</kbd>. The propensity to do well in the game is numeric with a scale of your choice. This list will be the data as if they had been pulled from a database. 
+	  		Being new to Erlang, you decide to start by doing some experimentation so you can see what to expect from Erlang lists and expressions. You have written some unit tests in the <kbd>build_teams.erl</kbd> file int the <a href="game_show.zip">game_show.zip</a> file you got from your team. You figured these would help you see what happens in various situations. Write code to complete the functions and tests in the <kbd>build_teams.erl</kbd> file. <a href="https://byui-cse.github.io/cse121e-course/week02/game_show.zip">Download the project you created</a>, unzip it, and finish the needed lines of code.
+			</p>
+			<p>
+				You found a <a href="https://www.erlang.org/doc/man/assert.hrl.html" target="_blank">web page</a> with list of all of the possible assertions availale
 			</p>
 	  </li>
-		<li>
-	  	<p>
-	  		Use the <kbd>shuffle/1</kbd> function in the <a href="provided_solution/list_lib.erl">provided list_lib</a> to scramble the list.
-	  	</p>
-	  </li>
-
-		  <li><p>
-          Use the provided <kbd>generate_teams/2</kbd> function in the provided list_lib to create teams of size 5. It will produce a list where each element of the list is a 
-			tuple following this format. <kbd>{total_propensity,[{name,gender},{name,gender},{name,gender},{name,gender}]}</kbd></p>
-		</li>
 	</ol>
-	<h1>Self-Challenge</h1>
+	<h1>Stretch Challenge (Optional)</h1>
 	<p>
-				Use list comprehensions to generate the list of contestants. You will need other BIF's described in the list API found in this week's reading to make this happen. Depending on how you approach the problem, you man kneed to know how to write a function.
-			</p>
+				Put the following in the REPL.
+	</p>
+	<kbd>1234567890123456789.0 - 1234567890123456788.0.</kbd>
+	<p>
+		The result is not <kbd>1.0</kbd>.
+	</p>
+	<p>
+		Put the following in the REPL.
+	</p>
+	<kbd>1234567890123456789123456789.0 - 123456789012345678912356788.0.</kbd>
+	<p>
+		The result is not <kbd>1.0</kbd>. See if you can figure out why this is so for both differences.
+	</p>
+	<p>
+		Suggestion: Take a look at <a href="https://www.baeldung.com/cs/floating-point-numbers-inaccuracy" target="_blank">Why are floating point numbers inaccurate?</a>
+	</p>
 
   <section>
       <h3>Review</h3>
-      <h4>After completing the previous steps:</h4>
+      <h4>After completing the previous tasks:</h4>
       <ol>
-          <li>Review one of the many <a href="https://byui-cse.github.io/cse121e-course/week02/provided_solution.zip">possible solutions</a> for this task,</li>
+          <li>Review one of the many <a href="https://byui-cse.github.io/cse121e-course/week02/team_builder.erl" target="_blank">possible solutions</a> for this task,</li>
           <li>Compare and contrast your code with the possible solutions&rsquo; code, and</li>
           <li>Make note of any improvements you could make for future tasks.</li>
+          <li>Make note of what your approach does well.</li>
       </ol>
   </section>
 

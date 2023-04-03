@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>CSE 121e: Week 05 | Tasks</title>
+    <title>CSE 121e: Week 04 | Tasks</title>
     <script type="text/javascript">
       var codeType = "JavaScript"
     </script>
@@ -16,7 +16,7 @@
   <body>
     <header class="hero-image">
       <section class="hero-text">
-        <h1>CSE 121e: Week 05</h1>
+        <h1>CSE 121e: Week 04</h1>
         <p>Tasks</p>
       </section>
     </header>
@@ -25,66 +25,45 @@
       <section>
         <h3>Description</h3>
         <p>
-          You have so many friends that you have a hard time keeping track of them. &#128521; Create a stateful process that tracks your amazing and abundant friends.
+          What you want to accomplish with this task is to solve a design problem. In the reading example, you can run a bunch of computations in a process, but if one request causes a crash, it takes everything down. This means that everyone else using that process for computations has a request fail. This is not good.
+          As part of this redesign, you will want to use the Erlang programming principles learned earlier in the class to write easily read, understood, and, therefore, easily maintained code.
         </p>
       </section>
       <section>
         Before beginning this Task, make sure you have reviewed the
-            <a href="../week05/" target="_blank">stateful processes</a>
+            <a href="../week04/" target="_blank">concurrent programming</a>
             course content.
       </section>
       <section>
         <h3>The Process</h3>
         <h4>Complete the following steps</h4>
         <ol>
-          <li>Create a module that has a <kbd>run/1</kbd> function that tracks the names of your friends.</li>
-          <li>
-            In the same module, write a <kbd>start/0</kbd> function that spawns the <kbd>run/1</kbd> function as a process and returns the the process' PID.
-          </li>
-          <li>
-            In the same module as the <kbd>run/1</kbd> function, write a client function that sends friend status change messages to the process and waits for a response.
-          </li>
-          <li>
-            Write the <kbd>run/1</kbd> function in such a way that, based on which message it receives, a friend can be added, removed, a check can be done to see if someone is your friend, or a list of your current friends can be retrieved. 
-          </li>
-          <li>
-            Make sure that unrecognized messages are also dealt with in such a way that the process doesn't crash.
+          <li>Download the task project, <a href="friends.zip">friends.zip</a>file. </li>
+          <li>Using the <kbd>ctemplate.erl</kbd> file as a template, complete the <kbd>run/1</kbd> function in the <kbd>friend_tracker.erl</kbd> file in such a way that it passes all of its unit tests. Pass each test, one at a time. Do NOT attempt to write code to pass them all before running the tests. Instead, 
+            use the provided unit tests in the <kbd>friend_tracker.erl</kbd> file to help you fill-in the code for each of the functions that are spawned.
           </li>
         </ol>
       </section>
+  
       <section>
-        <h3>The Testing Driver</h3>
-        <h4>Complete the following steps</h4>
+        <h3>Stretch Challenge (Optional)</h3>
         <ol>
           <li>
-            Create a separate module containing a testing driver function, <kbd>driver/0</kbd>, that spawns at least two processes for the module and uses the modules' client functions. The testing driver function must make multiple calls to the <kbd>rpc</kbd> function. Make the driver interesting by adding, removing, and checking friends. Add at least 1,000 friends. Also include sending unrecognizable messages to the process.
-          </li>
-          <li>
-            From within the REPL, run <kbd>driver/0</kbd> and observe the results.
+           Modify the <kbd>start/2</kbd> to register the processes. This way you won't ever need to know the PIDs of any of your processes. You can see an example of registering processes in the setup portion of the unit tests.
           </li>
         </ol>
-        
+      </section>
   <section>
       <h3>Review</h3>
       <h4>After completing the previous steps:</h4>
       <ol>
-          <li>Review one of the many <a href="https://byui-cse.github.io/cse121e-course/week05/provided_solution.zip">possible solutions</a> for this task,</li>
-          <li>Compare and contrast your code with the possible solutions&rsquo; code, and</li>
+          <li>Review one of the many <a href="https://byui-cse.github.io/cse121e-course/week05/friend_tracker.erl" target="_blank">possible solutions</a> for this task. Do not expect to have found this solution out of the many available.</li>
+          <li>Compare and contrast your code with the possible solutions&rsquo; code.</li>
           <li>Make note of any improvements you could make for future tasks.</li>
+          <li>Make note of what your approach does well.</li>
       </ol>
   </section>
         
-      </section>
-      <section>
-        <h3>Stretch (optional)</h3>
-        <ol>
-          <li>Create a modified version of your solution so that the friend process runs in one instance of the erl REPL and the client in a separate erl REPL instance on the same machine.
-          </li>
-          <li>
-            Explore how to run the client on one machine and the spawned process on another. Create a modified version of you code to do so.
-          </li>
-        </ol>
-      </section>
     </main>
     <footer>
       <a

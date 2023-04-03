@@ -47,22 +47,47 @@
 </figure>
 
 <h2>Installations</h2>
+	<h3>Windows Users</h3>
 	<p>
-		Before doing anything else, you will need to <a href="https://www.erlang.org"> download and install the Erlang compiler and tools for your OS.</a>
+		It is possible to do Erlang development directly on Windows. However, to make your life easier, <a href="https://youtu.be/wjbbl0TTMeo" target="_blank">install Windows Subsystem for Linux</a>. Then follow the linux instructions.
 	</p>
-	<h3>The IDE</h3>
-	<p>The Integrated Development Environment (IDE) selected for this course is 
-	<a href="https://code.visualstudio.com" target="_blank">Visual Studio Code</a>. Go to the 
-	<a href="https://code.visualstudio.com" target="_blank">site for Visual Studio Code</a> download the installer for your
-	operating system. When you start the download you will be taken to a page that will help you get started. Since you will 
-	be writting in Erlang, add <a href="https://marketplace.visualstudio.com/items?itemName=pgourlain.erlang" target="_blank">this plugin</a> to VSCode. Ignore all of the hints, steps, and photos on the plugin's page. Those are for using a tool called rebar3. We won't be using rebar3 in this introductory class, but feel free to explore it and the plugin's use of it you feel so inclined and have some spare time.
+	<h3>MacOS Users</h3>
+	<p>
+		There are many ways to install an Erlang development environment on your device. The easiest way is to use homebrew. If you don't have homebrew installed, <a href="https://youtu.be/G1BV-QyKa44" target="_blank">do it now.</a>
+	</p>
+	<p>
+		After completing the installation of homebrew, enter <kbd>brew install rebar3</kbd> in the terminal.
+	</p>
+	<h3>Linux Users</h3>
+	<p>
+		Open a terminal. Type <kbd> apt-install rebar3</kbd>.
+	</p>
+	<h3>Everybody</h3>
+	<p>
+		Your project creation and code compiler tools are now all set up and ready to go.
+	</p>
+	<h3>The Editor</h3>
+	<p>The editor selected for this course is 
+	<a href="https://code.visualstudio.com" target="_blank">Visual Studio Code</a>, but if you have a favorite text editor, not <kbd>Word</kbd> or <kbd>Pages</kbd>, feel free to use it. 
+	<h3>WSL and Linux Users</h3>
+	<p>
+		Follow the <a href="https://www.c-sharpcorner.com/article/how-to-install-visual-studio-code-on-wsl/" target="_blank"> <kbd>Ubuntu</kbd>installation and startup instructions</a>. You can ignore the rest.
+	</p>
+	<h3>MacOS Users</h3>
+	Go to the 
+	<a href="https://code.visualstudio.com" target="_blank">site for Visual Studio Code</a> download the installer.
+
+	<h3>Everybody</h3>
+	<p>
+	 Since you will 
+	be writting in Erlang, add <a href="https://marketplace.visualstudio.com/items?itemName=pgourlain.erlang" target="_blank">this plugin</a> to VSCode.
 	</p>
 	<p>Please realize that it's OK if you don't understand everything about VSCode and this plugin right off the bat. You'll 
 	gradually learn as you run into a need. The reason for adding the Erlang plugin is that it enables color coding for Erlang in VSCode and the showing of help docs for built-in Erlang functions (BIFs) when you move your mouse over a function and type <kbd>Command</kbd> (MacOS) or <kbd>control</kbd> (Windows).</p>
 	
 
 <h2>Test Your Tools</h2>
-	<p>Download and unzip this <a href="https://byui-cse.github.io/cse121e-course/week01/example_source/test.zip">directory</a> that contains a file you can use to test VSCode and and the plugin you installed on your machine. After going to where you 
+	<p>Download and unzip this <a href="https://byui-cse.github.io/cse121e-course/week01/example_source/intro.zip">directory</a> that contains a project you can use to test your rebar3 and Erlang installation, VSCode, and the plugin you installed in VSCode. After going to where you 
 	downloaded the file, select it and unzip it.</p>
 	<h3>How to Unzip</h3>
 	<ul>
@@ -71,36 +96,66 @@
 		<li><a href="https://www.hostingmanual.net/zipping-unzipping-files-unix/" target="_blank">Linux</a></li>
 	</ul>	
 	<h3>Testing VSCode</h3>
-	<p>After the folder is unzipped, run VSCode and select <kbd>File->Open Folder</kbd> from the pulldown menu at the top of your screen. Go to the folder, not the enclosed file, highlight it, and then click Open. You should now see this.</p>
+	<p>After the folder is unzipped, run VSCode and select <kbd>File->Open Folder</kbd> from the pulldown menu at the top of your screen. Go to the folder you unzipped, not the zipped file, highlight it, and then click Open. You should now see this.</p>
 	<img src="images/erlang_opened_folder.png" class="steps_image" alt="a view of the IDE window"/>
-	<p>On the left of the window under <kbd>test</kbd>, select <kbd>test.erl</kbd>. You will then see a few messages appear at the bottom of the screen you can safely ignore and the source code for the Erlang source file <kbd>test.erl</kbd>.<p>
-	<img src="images/erlang_opened_file.png" class="steps_image" alt="a view of the source code"/>
-	<p>When you reach this point, you are ready to use the Erlang tools to compile and run code. In this class, we will run all code in a <a href="https://en.wikipedia.org/wiki/Read–eval–print_loop">REPL</a> called erl. To do so, select the terminal tab near the bottom of the VSCode window. You should now see something like this.</p>
-	<img src="images/erlang_terminal.png" class="steps_image" alt="a view of the terminal"/>
-	<p>
-		Next, click and type <kbd>erl</kbd>, the REPL's name, in the terminal. You should now see this.
+	<p>Select "<kbd>Yes, I trust the authors</kbd>." On the left of the window under <kbd>intro</kbd>, select <kbd>src</kbd> and then <kbd>math.erl</kbd>. You will then see a new message pop up at the bottom of the screen. It looks like this.
+<img src="images/select_plugin.png" class="steps_image" alt="a view of the IDE window with an option to select a plugin in the lower-right"/>
+  Select "<kbd>Search Marketplace</kbd>."
+  </p>
+  <p>
+  	A new list appears in the left-hand view. It is a list of possible Erlang plugins for VSCode. Select the one named "<kbd>Erlang LS</kbd>." You will then see this.
+  </p>
+  <img src="images/installing_plugin.png" class="steps_image" alt="a view of the IDE window with an option to install the Erlang LS extenstion and the description of the extension"/>
+  <p>
+  	Select <kbd>install</kbd> near the top-center of the right-hand view in the IDE. There will be a short delay, depending on your internet speeds, and then you will see an option to <kbd>uninstall</kbd>. Do NOT select this option. Instead, select the <kbd>Explorer</kbd> icon in the upper-left of the window. You will be shown a list of what is in the project. Select <kbd>math.erl</kbd> from this list.
+  </p>
+  <p>
+  	You will now see the source code in the math.erl file. The code is colored to make it easier to read. You will also see two messages in the lower right courner of the screen. Both of these can be safely closed and ignored. VSCode now looks like this.
+  </p>
+  <img src="images/installation_complete.png" class="steps_image" alt="a view of the IDE window with the Erlang code colored and ready to edit if needed (Hint: it is not needed)"/>
+  <p>
+  	While this is a complicated VSCode installation process, you only have to do it once to get what you need for this course.
+  </p>
+	<p>Your editor is now all set up. Now lets see how to use the rebar3 and Erlang tools to compile and execute code in the project. In this class, we will run all code in a <a href="https://en.wikipedia.org/wiki/Read–eval–print_loop">REPL</a>. To do so, use the terminal and <a href="https://www.hostinger.com/tutorials/linux-commands" target="_blank"> <kbd>cd</kbd>, change directory,</a> into the <kbd>intro</kbd> directory. Then type <kbd>rebar3 shell</kbd>. If you have everything set up correctly, you should see this.
 	</p>
 	<img src="images/erlang_repl.png" class="steps_image" alt="a view of the running REPL"/>
 	<p>
-		Now, to compile and load the testing code into the REPL, type <kbd>c(test)</kbd>. including the trailing period. If everything goes right, you will see a new file, test.beam, on the left of the VSCode main window near the top and <kbd>{ok,test}</kbd> in the terminal window.
-	</p>
-	<img src="images/erlang_loaded.png" class="steps_image" alt="a view of the running REPL with the test file ready to run"/>
-	<p>
-		To run any module's function in the REPL, follow this pattern, <kbd>module_name:function_name(parameters_if_any).</kbd>
+		If you don't, contact your instructor for help. If you do, enter <kbd>q().</kbd> to exit the REPL.
 	</p>
 	<p>
-		Following this pattern, enter <kbd>test:print_hello().</kbd> in the REPL. When everything works correctly, you will see the appropriate output in the REPL.
+		The course heavily uses Unit Tests and <a href="https://youtu.be/ln4WnxX-wrw" target="_blank"> Test Driven Development (TDD).</a> Your weekly tasks will be to write code that passes a set of prewritten Unit Tests for that week. Let's make sure the unit testing portion of <kbd>rebar3</kbd>,<kbd>EUnit</kbd>, is set up correctly. To do this, stay in the <kbd>intro</kbd> directory in your terminal. Enter <kbd>rebar3 eunit</kbd>. You should see this.
 	</p>
-	<img src="images/erlang_ran.png" class="steps_image" alt="a view of the running REPL diplaying hello everybody! and this is so cool!"/>
+	<img src="images/fib_eunit.png" class="steps_image" alt="a view of the terminal after running an example set of seven unit tests. It concludes by printing, seven tests, zero failures."/>
+	<p>
+		If you don't see this message, contact your instructor for help.
+	</p>
+	<p>
+		If you want to, you can also run code directly from the REPL. Here is an example. Type <kbd>rebar3 shell</kbd> again. Once it has started and you see evidence of a successful setup, enter <kbd>math:fib(10).</kbd> Make sure you include the period at the end. When you do this, the 10th Fibonacci number is calculated amd you should see this.
+	</p>
 
-	<iframe width="560" height="315" src="https://www.youtube.com/embed/SCANNlUpAf4" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+	<img src="images/repl_fib.png" class="steps_image" alt="a view of the terminal after running math colon fib open parentheses 10 close parenthesis period. It concludes by printing fifty five."/>
+
+	<p>
+		If you don't, contact your instructor for help.
+	</p>
+	<p>
+		Now for the final test. Enter "<kbd>first:printout().</kbd>", including the period, in the REPL. It should print out "It worked!!" in the REPL with "ok" on the line after.
+	</p>
+
+	<p>
+		If you don't see this, contact your instructor for help.
+	</p>
 
 
 <h2>Workflow</h2>
-	<p>The work you do using these two tools will flow like this. Each time you are asked to do an assignment, you will create a directory named for the assignment. For example, if you were asked for your assignment to write code that calculated loan payments, you could create a folder called loan_pay_calc. Then, using VSCode,
-       	create an appropriately named .erl, Erlang, file. Then add the functions as instructed. Each time you have a function somewhat completed, use the erl REPL to load, compile it, and run it. Then use the output of the function to debug it.
-    </p>
-	<p>If you follow this pattern for each assignment, you will reduce your workload.</p>
+	<p>
+		The work you do using these two tools will flow like this. Each time you are asked to do an assignment, you will download a zip file containing an Erlang project. You will unzip it and then use your text editor, VSCode or some other of your choice, to open the project and write code. You will write the code is such a way that a set of Unit Tests passes. After you learn how to write functions, you will write functions as part of your task from scratch. Prior to learning to write functions, you will be given a stubbed-out fuctions and all you will need to do is fill in the needed code.
+  </p>
+  <p>
+  	Write the code to pass one test at a time! Do NOT try to write code that passes all of the tests at once. That will take you longer.
+  </p>
+
+	<p>If you follow this pattern for each assignment, you will reduce your workload and increase your learning.</p>
 	</main>
 
 	<footer>

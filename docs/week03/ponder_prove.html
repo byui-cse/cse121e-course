@@ -23,9 +23,31 @@
   </div>
 </div>
 <h1>Introduction</h1>
+<p>
+	You have two major task groups this week. The first is to rework a few of the functions from 
+	last week to deal with zeros. The second is to do calculations relative to an ice cream shop.
+</p>
+<h1>Introduction</h1>
+	
+
+	<h1>Your Tasks</h1>
+	<h2>Task Group 1</h2>
+	<p>
+		Last week, there were a few situations that could not be put into the unit tests until you learned how to 
+		create and write functions. This week's project has modified unit tests for those functions involving division. You will find those functions and their unit tests in the <kbd>team_builder.erl</kbd> file.
+	</p>
+	<ol>
+		<li>Download the <a href="shop.zip">shop.zip</a> file. Edit the <kbd>cone_combination_builder.erl</kbd> file such that you </li>
+		<ol>
+			<li>Re-create the <kbd>divide/2</kbd> funciton in such a way that it passes its updated unit tests.</li>
+			<li>Re-create the <kbd>lower_divide/2</kbd> funciton in such a way that it passes its updated unit tests.</li>
+			<li>Re-create the <kbd>remainder/2</kbd> funciton in such a way that it passes its unit updated tests.</li>
+		</ol>
+	</ol>
+	<h2>Task Group 2</h2>
 	<p>You own an ice cream shop, The Double Dip, that only offers two-scoop
 		cones. Based on previous data collected regarding your customers, to reduce waste and increase
-		profitability, you have two lists customers can select from.</p>
+		profitability, you have decided on having two lists customers can select from.</p>
 	<p> List one is:
 	<ul>
 		<li>Vanilla,</li>
@@ -41,18 +63,13 @@
 	<p>Data collected by your staff indicates that Chocolate is your
 	customers&rsquo; preferred flavor from list one. To aid you in deciding how to plan
 	your ice cream purchases in future weeks, you need to know what all the
-	possible combinations of flavors given that customers can select one flavor from list one and one flavor from list two. </p>
-
-	<h1>Your Task</h1>
+	possible combinations of flavors customers can choose. Customers can select one flavor from list one and one flavor from list two. </p>
 	<p>
-		Depending on how you design your task solutions, you may need some <a href="http://erlang.org/doc/man/lists.html#foldl-3">list BIF's</a> not covered in the reading.
+		Depending on how you design your task solutions, you may need some <a href="http://erlang.org/doc/man/lists.html">list BIF's</a> not covered in the reading.
 	</p>
 	<ol>
 		  <li><p>
-          Write a function that
-		prints all possible combinations of flavors
-		for your two-scoop cones as a list of lists where one of the flavors in all
-		the sub-lists is Chocolate.</p></li>
+          Complete the stubbed-out <kbd>cone_combinations/2</kbd> function in the <kbd>cone_combination_builder.erl</kbd> file so it passes all of its unit tests.</p></li>
 		  <li><p>
           AFTER completing the code for (1) and examining the generated list,
 			you realize your customers might want to combine any flavor in a list with
@@ -61,26 +78,19 @@
 			with instructions for the customer to &ldquo;select a flavor for each
 			scoop&rdquo;.</p>
 
-			    <p>Print out all
-       			double-dipper cones that have Chocolate as the first or second scoop type, including chocolate-chocolate.
+			    <p>
+			    	Complete the stubbed-out <kbd>cone_combinations/1</kbd> function in <kbd>cone_builder.erl</kbd> so it passes all of its unit tests.
        		</p>
       </li>
       <li>
       	<p>
-      		You decide you also need a list of all possible combinations of flavors in addition to those that have chocolate as the first flavor. Print out all possible scoop combinations.
-      	</p>
-      </li>
-      <li>
-      	<p>
-      		You decide to gather data about the popularity of all of these combinations. After having done so, you decide to print out a sorted list of all the combinations with those that are the most popular first. Use the <a href="">rand:uniform/0</a> BIF to simulate this collected data. You can use any scale you would like for the popularity data.
+      		You become curious regarding how popular the top 10 cone combinations are. You decide to gather data about the popularity of all of these cone combinations. After having done so, you create a list of 2-tuples. Each 2-tuple consists of the number of purchases of that combination followed by a 2-tuple that consists of the flavors for the top and bottom scoops, <kbd>{purchase_count,{top_flavor,bottom_flavor}}</kbd>.
       	</p>
       	<p>
-      		Print out the entire list.
+      		You decide to print an advertisement extolling the availability of these top 10 cone combinations.
       	</p>
-      </li>
-      <li>
       	<p>
-      		You become curious regarding how popular the top 10 combinations are. Print out the top ten most popular combinations, each with its popularity. Also calculate and print the total popularity of these top 10 combinations and the total popularity of the rest, not including the top 10, of the combinations so you can compare the popularity of the two groups.
+      		Complete the stubbed-out <kbd>most_popular_combinations/1</kbd> function in <kbd>cone_builder.erl</kbd> so it passes all of its unit tests.
       	</p>
       </li>
 	</ol>
@@ -93,9 +103,11 @@
 	</ul>
 
 	<section>
-		<h2>Optional Challenge</h2>
+		<h2>Stretch Challenge (Optional)</h2>
 		<p>
-			Copy your code from last week's task solution. Modify it so it generates all possible combinations of teams and selects the four team combinations with the highest propensity for success.
+			Find and read several postings online about map, filter, and reduce. Go back to a part of an assignment from a previous class that used loops and lists or arrays. Rewrite that portion of the assignment in Erlang
+			using only <kbd>map/2</kbd>, <kbd>filter/2</kbd>, and <kbd>foldl/2</kbd>. When appropriate, feel free 
+			to use <kbd>mapfoldl/3</kbd> or any other <a href="https://www.erlang.org/doc/man/lists.html">function from the lists module</a>. You should also feel free to use list comprehensions.
 		</p>
 	</section>
 
@@ -106,6 +118,7 @@
           <li>Review one of the many <a href="https://byui-cse.github.io/cse121e-course/week03/provided_solution.zip">possible solutions</a> for this task,</li>
           <li>Compare and contrast your code with the possible solutions&rsquo; code, and</li>
           <li>Make note of any improvements you could make for future tasks.</li>
+          <li>Make note of what your approach does well.</li>
       </ol>
   </section>
 
