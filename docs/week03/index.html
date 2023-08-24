@@ -56,7 +56,7 @@
       <h3>Functions - a fundamental organization concept of Erlang</h3>
       <p>
         Python and Erlang, being related languages, both have functions as a
-        fundimental organizational structure. In Erlang this organization is so 
+        fundamental organizational structure. In Erlang this organization is so 
         strong a principle that you can't put code in a file unless it is 
         a function or in a function.
         </p>
@@ -94,7 +94,7 @@
       The second line is a function call, <kbd>-export</kbd>, that is passed a list of functions that are made available 
       for use outside of the <kbd>funcs</kbd> module. Each entry in the export list consists of two parts, 
       1)the atom that is the name of the function to export, and 2) the number of parameters that function has. 
-      These two parts are always seperated by the <kbd>/</kbd> character. Just so you understand, the use of 
+      These two parts are always separated by the <kbd>/</kbd> character. Just so you understand, the use of 
       <kbd>/</kbd> here does NOT indicate division.
       </p>
       <p>
@@ -127,7 +127,7 @@
       </p>
       <p>
         Single line functions are nice, but not everything should be done using single line functions. As a simple example, 
-        here is some code to print out the head and the tail of a list on seperate lines in the REPL. Yes, there are 
+        here is some code to print out the head and the tail of a list on separate lines in the REPL. Yes, there are 
         better ways to perform this behavior. That isn't the point of this code snippet. The point is to see what 
         multi-line functions look like syntax-wise.
       </p>
@@ -142,16 +142,16 @@
     Just as before, the code to be executed bounded by the <kbd>-></kbd> and <kbd>.</kbd> operators. All of the other lines 
     end with the <kbd>,</kbd> operator. This is, once again, similar to <a href="https://owl.purdue.edu/owl/general_writing/punctuation/commas/extended_rules_for_commas.html"
           target="_blank"
-          rel="noreferrer">English punctuation rules</a>. In English, all sentances 
-    end with a period, and any independent clauses in the sentance that are joined by a coordinating conjunction (and, but, or, etc.) end in a comma. 
+          rel="noreferrer">English punctuation rules</a>. In English, all sentences 
+    end with a period, and any independent clauses in the sentence that are joined by a coordinating conjunction (and, but, or, etc.) end in a comma. 
     Here is a simple English sentence that illustrates this punctuation rule. 
   </p>
   <p>
     The dog barked, and the wolf howled.
   </p>
   <p>
-    Notice that this could have been written as, "The dog barked. The wolf howled." The two clauses are independent since they are gramatically 
-    correct when written seperately. The Erlang example, above, follows this English punctuation rule. The body of the function has two independent 
+    Notice that this could have been written as, "The dog barked. The wolf howled." The two clauses are independent since they are grammatically 
+    correct when written separately. The Erlang example, above, follows this English punctuation rule. The body of the function has two independent 
     functions. They are combined together using the <kbd>,</kbd> operator and an implied <kbd>and</kbd>. "Print the head, and print the tail." 
     The concept and punctuation/grammar rules of combining dependent clauses in some spoken languages drove the selection of this syntactical choice
     for Erlang. Why reinvent the wheel?
@@ -182,10 +182,10 @@ print_parts([H|T]) ->
     does NOT end in a period. That's why the first use of <kbd>print_parts</kbd> can NOT be a function all by itself. Instead of a period, the body of 
     the first use of <kbd>print_parts</kbd> ends in a semicolon. 
     The <kbd>print_parts</kbd> function starts with the first use of <kbd>print_parts</kbd> and ends with a period. The <kbd>print_parts</kbd> function 
-    consists of two dependent clauses seperated by a semicolon. Once again, 
+    consists of two dependent clauses separated by a semicolon. Once again, 
     Erlang is following <a href="https://www.econtentpro.com/blog/when-to-use-a-semicolon/7"
           target="_blank"
-          rel="noreferrer">the grammar/punctuation rules for depented clauses 
+          rel="noreferrer">the grammar/punctuation rules for dependent clauses 
     of some spoken languages</a>.
   </p>
   <p>
@@ -218,7 +218,7 @@ print_parts([H|T]) ->
     green-code. In other words, they will have bugs in them. So, with Erlang, you write less code which leads, always, to fewer bugs created.
    </p>
    <p>
-     There is another benefit, amoung many others that you will see, of this clause/pattern matching approach to functions. Take a look at how the factorial behavior 
+     There is another benefit, among many others that you will see, of this clause/pattern matching approach to functions. Take a look at how the factorial behavior 
      from mathematics can be written using two clauses, one when the function is passed <kbd>0</kbd>, and the other when it is passed a non-zero value.
    </p>
   <p>
@@ -237,16 +237,16 @@ factorial(N) -> N * factorial(N-1).
     There are some <a href="https://erlang.org/doc/efficiency_guide/myths.html"
           target="_blank"
           rel="noreferrer">false beliefs about Erlang</a> running around the internet. One of them is that you should always use tail-recursion in Erlang. Not so. First of all, tail-recursion isn't always faster. Another myth is that if you don't use tail-recursion, you'll end up 
-    having a stack overflow happen at runtime. Not so. Erlang is desgned so that you will run out of RAM instead of getting a stack overflow. These statements 
+    having a stack overflow happen at runtime. Not so. Erlang is designed so that you will run out of RAM instead of getting a stack overflow. These statements 
     don't mean you can ignore tail-recursion, it just means you don't have to go through contortions to make all your functions tail-recursive. I like 
     <a href="https://ferd.ca/erlang-s-tail-recursion-is-not-a-silver-bullet.html"
           target="_blank"
           rel="noreferrer">this statement by Fred Herbert</a> .
 
-    "Writing clean code generally leads to better performance. This is something that many languages can not claim as true, but Erlang certainly can. In the general case, the optimisations in the Erlang VM come from observing idiomatic code in production, and clean [code] at that. This is why body recursion might be better, and why many other optimizations were made...Clean code is the best code."
+    "Writing clean code generally leads to better performance. This is something that many languages can not claim as true, but Erlang certainly can. In the general case, the optimizations in the Erlang VM come from observing idiomatic code in production, and clean [code] at that. This is why body recursion might be better, and why many other optimizations were made...Clean code is the best code."
   </p>
   <p>
-    The point he is making is that sometimes, in Erlang, body-recursive functions, those that are non-tail-recusive, can sometimes be better. So what would the 
+    The point he is making is that sometimes, in Erlang, body-recursive functions, those that are non-tail-recursive, can sometimes be better. So what would the 
     <kbd>factorial</kbd> function look like if it was written using tail-recursion? Like this.
   </p>
   <p>
@@ -259,7 +259,7 @@ factorial(N,Accum)-> factorial(N-1,Accum*N).
   </pre>
   </p>
   <p>
-    Notice that there are two functions here, both named factorial. One of them has a single paramter. The other has two parameters. I've seperated them 
+    Notice that there are two functions here, both named factorial. One of them has a single parameter. The other has two parameters. I've separated them 
     by a blank line of code so they are easier to see as being distinct. The <kbd>factorial(N)</kbd> function is the only one that should be exported 
     from the module <kbd>-export([factorial/1]).</kbd> That way people using the module don't have to think about how you are doing factorial, just that 
     it works. (Thinking in functions!!)
@@ -285,7 +285,7 @@ factorial(N,Accum)-> factorial(N-1,Accum*N).
   <p class="callout">
     <span>Interesting Info:</span><br>
         Another great result of Erlang's being a functional programming language and functional programming languages' affinity with Mathematics is the 
-        similarity between the Erlang version of multi-part functions and how you describe them in Mathematics. Take a look and compare the Erlang body-recusive 
+        similarity between the Erlang version of multi-part functions and how you describe them in Mathematics. Take a look and compare the Erlang body-recursive 
         version of <kbd>factorial</kbd> with the mathematical version of factorial you see here.<br>
       <img src="images/fact.png" alt="the bipartite representation of the factorial function" alt="The mathematical representation of the factorial function.">
       <br>
@@ -298,7 +298,7 @@ factorial(N,Accum)-> factorial(N-1,Accum*N).
     This can be problematic when you have functions containing many clauses or when the pattern matching isn't as simple as factorial. Erlang's solution 
     to these problems is called a <a href="https://en.citizendium.org/wiki/Erlang_(programming_language)/Tutorials/guards">guard</a>. The keyword for a guard is <kbd>when</kbd>. Here is a code snippet example of a factorial function that 
     not only uses guards, but adds another clause so if factorial is called with a negative number, a situation which is undefined in Mathematics, the function 
-    retuns an atom representing a failure.
+    returns an atom representing a failure.
   </p>
   <p>
     <pre>
@@ -343,7 +343,7 @@ factorial(N,_accum) when N < 0 -> undefined.%Factorials of negative integers are
           target="_blank"
           rel="noreferrer">last week</a>  are a better way to do this upcoming example. You'll also see 
     some other better ways in a bit, but let's take a look at how to build a new list that is the numbers in a list multiplied by <kbd>2</kbd>. In the code snippet below you see a function called <kbd>double</kbd>. Notice that in this case we don't need to worry about the order of the clauses 
-    since there is no way for the pattern matcher to fail. That is also why no guards are needed. Eiter a list has elements and matches the first clause, or 
+    since there is no way for the pattern matcher to fail. That is also why no guards are needed. Either a list has elements and matches the first clause, or 
     the list is empty and matches the last clause. Those are the only two options.
   </p>
   <p>
@@ -397,7 +397,7 @@ double([H|T]) ->
       <p>
         Consider a situation where you have been hired to write code for a
         social media site. You have been asked to write code to count up the
-        total number of 'likes' postings that a single customer has recieved.
+        total number of 'likes' postings that a single customer has received.
         Existing code that others have written puts a likes count for each
         posting in an list in a variable called <kbd>Like_counts</kbd> for you.
       </p>
@@ -444,7 +444,7 @@ double([H|T]) ->
       </p>
       <p>
         You would usually use the <kbd>foldl/3</kbd> function. It has three parameters, the first is a
-        fun with two paramters, the second is the accumulator's initial value, 0 in the example below since addition is being done. This initial  value is used,
+        fun with two parameters, the second is the accumulator's initial value, 0 in the example below since addition is being done. This initial  value is used,
         modified, and returned to accumulate the final result. In this case the
         the final result is the summation of the likes. The third parameter is the list to reduce.
       </p>
@@ -482,7 +482,7 @@ double([H|T]) ->
 </code>
   </pre>
   <p>
-    Notice the <kbd>_</kbd> operator IN FRONT of the <kbd>Big_likes</kbd> variable name. Any time an atom or varible name begins with <kbd>_</kbd>, you are 
+    Notice the <kbd>_</kbd> operator IN FRONT of the <kbd>Big_likes</kbd> variable name. Any time an atom or variable name begins with <kbd>_</kbd>, you are 
     telling Erlang you don't want that value and to please ignore it.
   </p>
       
