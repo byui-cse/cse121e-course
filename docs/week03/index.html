@@ -178,14 +178,14 @@ print_parts([H|T]) ->
   </pre>
   </p>
   <p>
-    At first it may seem that the fix creates two functions but it does not. Notice that the end of the body for the fist use of <kbd>print_parts</kbd> 
+    At first it may seem that the fix creates two functions but it does not. Notice that the end of the body for the first use of <kbd>print_parts</kbd> 
     does NOT end in a period. That's why the first use of <kbd>print_parts</kbd> can NOT be a function all by itself. Instead of a period, the body of 
     the first use of <kbd>print_parts</kbd> ends in a semicolon. 
     The <kbd>print_parts</kbd> function starts with the first use of <kbd>print_parts</kbd> and ends with a period. The <kbd>print_parts</kbd> function 
-    consists of two dependent clauses separated by a semicolon. Once again, 
+    consists of two independent clauses separated by a semicolon. Once again, 
     Erlang is following <a href="https://www.econtentpro.com/blog/when-to-use-a-semicolon/7"
           target="_blank"
-          rel="noreferrer">the grammar/punctuation rules for dependent clauses 
+          rel="noreferrer">the grammar/punctuation rules for independent clauses 
     of some spoken languages</a>.
   </p>
   <p>
@@ -268,7 +268,7 @@ factorial(N,Accum)-> factorial(N-1,Accum*N).
     The biggest question, however, is this. Is the extra code in the tail recursive version of <kbd>factorial</kbd> worth the effort of writing, debugging, and maintaining it? I ran a few simple tests on my machine (6 core i5 32Gb RAM under MacOS) and found the answer to the question is 'maybe'. The test consisted 
     of running each version of <kbd>factorial</kbd> 8 times using the <a href="https://erlang.org/doc/man/timer.html#tc-3"
           target="_blank"
-          rel="noreferrer"><kbd>time:tc/3</kbd> function</a>. 
+          rel="noreferrer"><kbd>timer:tc/3</kbd> function</a>. 
     Then the results for each of the two sets of 8 runs were averaged. Tests like this are <a href="https://www.dictionary.com/browse/indicative"
           target="_blank"
           rel="noreferrer">indicative</a>, 
@@ -294,7 +294,7 @@ factorial(N,Accum)-> factorial(N-1,Accum*N).
   </p>
   <h2>Guards, Guards!</h2>
   <p>
-    In the factorial example, above, it was very important to get the order of the function's clauses correct so that the function would execute as expected. 
+    In the factorial example above, it was very important to get the order of the function's clauses correct so that the function would execute as expected. 
     This can be problematic when you have functions containing many clauses or when the pattern matching isn't as simple as factorial. Erlang's solution 
     to these problems is called a <a href="https://en.citizendium.org/wiki/Erlang_(programming_language)/Tutorials/guards">guard</a>. The keyword for a guard is <kbd>when</kbd>. Here is a code snippet example of a factorial function that 
     not only uses guards, but adds another clause so if factorial is called with a negative number, a situation which is undefined in Mathematics, the function 
@@ -336,15 +336,15 @@ factorial(N,_accum) when N < 0 -> undefined.%Factorials of negative integers are
 
   <h2>Recursion and Lists</h2>
   <p>
-    A <a href="https://erlangbyexample.org/list-comprehension"
+    <a href="https://erlangbyexample.org/list-comprehension"
           target="_blank"
-          rel="noreferrer">list comprehension</a> like those you saw 
+          rel="noreferrer">List comprehensions</a> like those you saw 
     <a href="file:///Volumes/File%20Drive/lee/cse121e-course/docs/week02/index.html"
           target="_blank"
           rel="noreferrer">last week</a>  are a better way to do this upcoming example. You'll also see 
     some other better ways in a bit, but let's take a look at how to build a new list that is the numbers in a list multiplied by <kbd>2</kbd>. In the code snippet below you see a function called <kbd>double</kbd>. Notice that in this case we don't need to worry about the order of the clauses 
-    since there is no way for the pattern matcher to fail. That is also why no guards are needed. Either a list has elements and matches the first clause, or 
-    the list is empty and matches the last clause. Those are the only two options.
+    since there is no way for the pattern matcher to fail. That is also why no guards are needed. Either a list has elements and matches the last clause, or 
+    the list is empty and matches the first clause. Those are the only two options.
   </p>
   <p>
 <pre>
@@ -369,7 +369,7 @@ double([H|T]) ->
     print out the values of <kbd>H</kbd> and <kbd>T</kbd>? Try out a few other changes you dream up. This exploration process should help you understand the 
     list disassembly-reassembly precess that is a major part of writing Erlang code.
   </p>  
-  <h2>The Better Way; Map, Filter, and Reduce</h2>
+  <h2>The Better Way: Map, Filter, and Reduce</h2>
     In Erlang, as in most languages, it is important not to write code
         that duplicates fundamental parts of the standard language library. Think about the <a href="file:///Volumes/File%20Drive/lee/cse121e-course/docs/week02/index.html"
           target="_blank"
@@ -392,14 +392,14 @@ double([H|T]) ->
         modify, or select some elements of an array, you should not. Instead you
         should use the built-in <kbd>map</kbd> (convert all), <kbd>filter/2</kbd> (select some),
         <kbd>foldl/3</kbd> (left-to-right), or <kbd>foldr/3</kbd>  (right-to-left) functions. The <kbd>foldl/3</kbd> and <kbd>foldr/3</kbd> functions 
-        are Erlang's way of doing the what is called reduce in other languages. Use them to average, sum, get the product product, etc. of lists.
+        are Erlang's way of doing the what is called reduce in other languages. Use them to average, sum, get the product, etc. of lists.
       </p>
       <p>
         Consider a situation where you have been hired to write code for a
         social media site. You have been asked to write code to count up the
         total number of 'likes' postings that a single customer has received.
         Existing code that others have written puts a likes count for each
-        posting in an list in a variable called <kbd>Like_counts</kbd> for you.
+        posting in a list in a variable called <kbd>Like_counts</kbd> for you.
       </p>
       <p>
         Suppose you were told to filter out all the like counts that are less
