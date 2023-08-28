@@ -50,7 +50,7 @@
 
 	<h1>Stateful Erlang Processes</h1>
 		There are two things you should understand about the code for the process you saw in the previous reading. There is nothing special about the <kbd>run/0</kbd> function. It's just a function. You could name it anything you want, <kbd>again</kbd>, <kbd>wait</kbd>, or even something as silly as <kbd>skip_down_the_road</kbd>. 
-		The name the function is unimportant. Also, the <kbd>run/0</kbd> function you saw was stateless. This means it has no data carried over from one invocation to the next. 
+		The name of the function is unimportant. Also, the <kbd>run/0</kbd> function you saw was stateless. This means it has no data carried over from one invocation to the next. 
 	</p>
 	<p>Say there <span font-style:italic>was</span> some data, a state, you wanted the process to 
 		continue to use between times when it receives a request. All you have to do is add one or more parameters and pass the data. If, for some reason, you needed to track how many times the 
@@ -73,7 +73,7 @@
     run(Count+1).
 </code></pre></p>
 	<p>
-		Since run is just like any other recursive function, the number of parameters is up to you as are the types of those parameters. If you needed to, you could 
+		Since <kbd>run</kbd> is just like any other recursive function, the number of parameters is up to you as are the types of those parameters. If you needed to, you could 
 		have parameters of type atom, tuple, list, numeric, or any other type. The set of parameters you use are usually referred to as the state of the process. 
 	</p>
 	<h2>Wrap Up</h2>
