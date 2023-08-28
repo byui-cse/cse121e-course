@@ -26,7 +26,7 @@
 	<h1>Beyond Sequential</h1>
 	<p><a href="https://www.merriam-webster.com/dictionary/sequential"
           target="_blank"
-          rel="noreferrer"></a> Sequential computing is a good thing. It's easy to think about. It's easy to debug. It's lots of good things.But 
+          rel="noreferrer"></a> Sequential computing is a good thing. It's easy to think about. It's easy to debug. It's lots of good things. But 
 		there is something it isn't good at. It can't maximize the computing power of a multi-core computer. And since 
 		<a href="https://www.cnet.com/news/moores-law-is-dead-nvidias-ceo-jensen-huang-says-at-ces-2019/"
           target="_blank"
@@ -58,7 +58,7 @@
       </p>
       <p>
       	You may have heard of threads and how hard it is to write multi-threaded code. Don't fuss about it. Being designed from the ground up as a concurrent language, Erlang doesn't have you create threads at all. It manages all the threading for you. And, by the way, it does it much more efficiently than you would have.
-      	Instead of threads, Erlang let's you create Erlang processes. Now, please don't misunderstand. These are not operating system processes (separate running applications on your system). The 
+      	Instead of threads, Erlang lets you create Erlang processes. Now, please don't misunderstand. These are not operating system processes (separate running applications on your system). The 
       	creators of Erlang were much smarter than to fall back on that 1970's approach. They did something very different.
       </p>
       <h2>Processes</h2>
@@ -79,7 +79,7 @@
 		</p>
 		<h3>Getting Started with Processes</h3>
 		<p>
-			First things first. Just like each student here at BYU-Idaho has an ID, each Erlang process has an ID, called its Proccess id (Pid). Also, Erlang uses a message passing design to 
+			First things first. Just like each student here at BYU-Idaho has an ID, each Erlang process has an ID, called its Process id (Pid). Also, Erlang uses a message passing design to 
 			to accomplish concurrency. Let's look at a real-world example of ID's, message passing, and concurrency.
 		</p>
 		<p>
@@ -88,7 +88,7 @@
 			together. Since they have very limited experience cooking compared to you, they need your help. What to do? 
 		</p>
 		<p>
-			Here is the solution you come up with. You text a another friend of yours with cooking experience who has previously volunteered to help make the 
+			Here is the solution you come up with. You text another friend of yours with cooking experience who has previously volunteered to help make the 
 			dinner and ask them to help your first friend purchase the groceries. You also text your friend that needs the help letting them know of the change 
 			in plans. They work out the details and do the shopping while you help finish your team's project. You later get a text from each of these two 
 			people. The first is from your friend who stepped in. It says they helped purchase the groceries and got everything on the list. 
@@ -164,7 +164,7 @@
 			the 6 is waiting in the queue of the REPL process for you to retrieve it. Think about texting your friends again. Usually when you send a text, 
 			you get some sort of message like 'delivered' after you tell the system to send the message. Your friend can then reply, but until you actually read 
 			their response, it hasn't been received by you. You need one more line of code to get the response so you can work with it. That line of code 
-			uses the <kbd>receive</kbd> and <kbd>end</kbd> keywords. It put's the 6 in the variable <kbd>Resp</kbd> and looks like this.
+			uses the <kbd>receive</kbd> and <kbd>end</kbd> keywords. It puts the 6 in the variable <kbd>Resp</kbd> and looks like this.
 		</p>
 		<p>
 		<pre>
@@ -221,7 +221,7 @@ run()-&gt;
 		<kbd>end</kbd> keywords just like the code that sent the message. Also notice that it isn't a loop. It is a tail-recursive function. The <kbd>receive</kbd> keyword causes 
 		the process to pause until a message is received. Between the <kbd>receive</kbd> and <kbd>end</kbd> keywords you'll see several options for the incoming 
 		message. When a pattern match is found, the code in the <kbd>-></kbd> block is executed. The code executed in each of these blocks are examples of things learned 
-		in previous weeks. If you don't recognize them, please dgo back and review. 
+		in previous weeks. If you don't recognize them, please go back and review. 
 	</p>
 	<p>
 		In its current form, if no match is made no response message is sent, so any waiting receive will hang. We'll learn how to deal with this later.
@@ -271,7 +271,7 @@ run()-&gt;
 </code></pre></p>
 <p>
 	As mentioned, it sends the message to the process who's id is <kbd>Pid</kbd>, waits for the response, and then uses the <kbd>Response_handler</kbd> <kbd>fun</kbd> passed in as a parameter to deal 
-	with the response after it shows up. As a reminder, a <kbd>fun</kbd> is passed in so there is no hard-coding needed in the <kbd>calculate</kbd>function to deal with it. That's 
+	with the response after it shows up. As a reminder, a <kbd>fun</kbd> is passed in so there is no hard-coding needed in the <kbd>calculate</kbd> function to deal with it. That's 
 	a GOOD thing.
 </p>
 
