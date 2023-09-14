@@ -77,8 +77,7 @@
       <p>
         Because Python and Erlang are different languages and the creators
         of Erlang had different opinions than those who created Python,
-        there are a few of the Python operators that are different or missing in
-        Erlang. They are:
+        there are some Python operators that you should expect to be different and others will be missing in Erlang. They are:
       </p>
       <ul>
         <li>// - the floor division operator</li>
@@ -379,7 +378,7 @@ Names = ["Bob","Sue","Jorge","Svetlana"].
         1, 2, and 3 as a list of tuples. Try it out in your REPL and look at the results.
       </p>
       <pre><code>
-Combinations = [{X, Y, Z} || X &lt;- [1,2,3], Y &lt;- [1,2,3], Z &lt;- [1,2,3]].
+Combinations = [{X, Y, Z} || X <- [1,2,3], Y <- [1,2,3], Z <- [1,2,3]].
   </code></pre>
       <p>
         Let's break this syntax down. The <kbd>{X,Y,Z}</kbd> on the left indicate that the resulting list will contain tuples where the first element of the tuple is 
@@ -412,7 +411,7 @@ lists:seq(1,100).
         It is very common to use the <kbd>lists:seq(From,To)</kbd> function as part of a list comprehension. Here is an example.
       </p>
             <pre><code>
-Evens = [X || X &lt;- lists:seq(1,100), X rem 2 == 0].
+Evens = [X || X <- lists:seq(1,100), X rem 2 == 0].
   </code></pre>
       <p>
         Let me translate the Erlang to English for you.
