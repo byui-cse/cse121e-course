@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>CSE 121e: Week 02 | Fundamentals</title>
+    <link rel="shortcut icon"
+        href="https://byui-cse.github.io/Language-Courses/site/images/fav.ico"
+        type="image/x-icon" />
+    <script type="text/javascript">
+        var codeType = "Erlang";
+    </script>
+    <script src="https://byui-cse.github.io/Language-Courses/site/highlight.pack.js"></script>
+    <link rel="stylesheet"
+        href="https://byui-cse.github.io/Language-Courses/site/highlight_styles/xcode.css" />
+    <link rel="stylesheet" href="https://byui-cse.github.io/Language-Courses/site/weekly.css" />
+    <script type="text/javascript"
+        src="https://byui-cse.github.io/Language-Courses/site/weekly.js"></script>
+    <style>
+        table.blueTable {
+            width: 100%;
+        }
+
+        table.blueTable tbody th {
+            font-size: 1em;
+        }
+
+        table.blueTable tbody td {
+            font-size: 1em;
+            font-family: monospace;
+        }
+
+        table.blueTable tbody td.description {
+            font-family: serif;
+            font-size: 0.8em;
+        }
+    </style>
+</head>
+
+<body onload="fetchSource()">
+    <header class="hero-image">
+        <section class="hero-text">
+            <h1>CSE 121e: Week 02</h1>
+            <p>The Fundamentals</p>
+        </section>
+    </header>
+    <main>
+
+        <h2>Erlang vs. Python Operators</h2>
+
+        <table id="table1" class="blueTable">
+            <caption>
+                Table 1: Erlang Equivalents of Python Operators
+            </caption>
+            <tr>
+                <th>Python Operator</th>
+                <th>Erlang Operator</th>
+                <th>Description</th>
+                <th>Erlang Example</th>
+            </tr>
+            <tr>
+                <td>==</td>
+                <td>==</td>
+                <td class="description">Equal to</td>
+                <td>5 == 5</td>
+            </tr>
+            <tr>
+                <td>!= or &lt;&gt;</td>
+                <td>/=</td>
+                <td class="description">Not equal to</td>
+                <td>7 /= 4</td>
+            </tr>
+            <tr>
+                <td>&lt;=</td>
+                <td>=&lt;</td>
+                <td class="description">Less than or equal to</td>
+                <td>3 =&lt; 4</td>
+            </tr>
+            <tr>
+                <td>&lt;</td>
+                <td>&lt;</td>
+                <td class="description">Less than</td>
+                <td>2 &lt; 3</td>
+            </tr>
+            <tr>
+                <td>&gt;=</td>
+                <td>&gt;=</td>
+                <td class="description">Greater than or equal to</td>
+                <td>6 &gt;= 2</td>
+            </tr>
+            <tr>
+                <td>&gt;</td>
+                <td>&gt;</td>
+                <td class="description">Greater than</td>
+                <td>9 &gt; 5</td>
+            </tr>
+            <tr>
+                <td>None</td>
+                <td>=:=</td>
+                <td class="description">Exactly equal to. Compares values and types.</td>
+                <td>1 =:= 1.0.<br>false<br>1 == 1.0.<br>true</td>
+            </tr>
+            <tr>
+                <td>None</td>
+                <td>=/=</td>
+                <td class="description">Exactly not equal to. Compares values and types.</td>
+                <td>A =/= B</td>
+            </tr>
+            <tr>
+                <td>+</td>
+                <td>+</td>
+                <td class="description">Addition</td>
+                <td>3 + 4</td>
+            </tr>
+            <tr>
+                <td>-</td>
+                <td>-</td>
+                <td class="description">Subtraction</td>
+                <td>8 - 2</td>
+            </tr>
+            <tr>
+                <td>*</td>
+                <td>*</td>
+                <td class="description">Multiplication</td>
+                <td>5 * 6</td>
+            </tr>
+            <tr>
+                <td>/</td>
+                <td>/</td>
+                <td class="description">Floating point division</td>
+                <td>10 / 2</td>
+            </tr>
+            <tr>
+                <td>//</td>
+                <td>div</td>
+                <td class="description">Integer division</td>
+                <td>13 div 3</td>
+            </tr>
+            <tr>
+                <td>%</td>
+                <td>rem</td>
+                <td class="description">Integer remainder of X/Y</td>
+                <td>11 rem 3</td>
+            </tr>
+            <tr>
+                <td>**</td>
+                <td>Math:pow(A,B)</td>
+                <td class="description">Exponentiation</td>
+                <td>Math:pow(A,B)</td>
+            </tr>
+            <tr>
+                <td>+=, -=, *=, **=</td>
+                <td>None</td>
+                <td class="description">Assignment </td>
+                <td>N/A</td>
+            </tr>
+            <tr>
+                <td>not</td>
+                <td>not</td>
+                <td class="description">Unary logical NOT</td>
+                <td>not true</td>
+            </tr>
+            <tr>
+                <td>and</td>
+                <td>and</td>
+                <td class="description">Logical AND</td>
+                <td>true and false</td>
+            </tr>
+            <tr>
+                <td>or</td>
+                <td>or</td>
+                <td class="description">Logical OR</td>
+                <td>true or false</td>
+            </tr>
+            <tr>
+                <td>None</td>
+                <td>xor</td>
+                <td class="description">Logical XOR</td>
+                <td>true xor false</td>
+            </tr>
+        </table>
+    </main>
+</body>
+
+</html>

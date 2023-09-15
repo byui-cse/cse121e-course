@@ -1,13 +1,13 @@
 <!-- uses https://highlightjs.org/
 -->
-
+<!doctype html>
 <html>
   <head>
     <title>CSE 121e: Week 02 | Fundamentals</title>
     <link
       rel="shortcut icon"
       href="https://byui-cse.github.io/Language-Courses/site/images/fav.ico"
-      type="image/x-i        con"
+      type="image/x-icon"
     />
     <script type="text/javascript">
       var codeType = "Erlang";
@@ -25,6 +25,22 @@
       type="text/javascript"
       src="https://byui-cse.github.io/Language-Courses/site/weekly.js"
     ></script>
+    <style>
+      table.blueTable {
+          width: 100%;
+      }
+      table.blueTable tbody th {
+          font-size: 1em;
+      }
+      table.blueTable tbody td {
+          font-size: 1em;
+          font-family: monospace;
+      }
+      table.blueTable tbody td.description {
+          font-family: serif;
+          font-size: 0.8em;
+      }
+  </style>
   </head>
 
   <body onload="fetchSource()">
@@ -40,10 +56,10 @@
       <p>
         Remember, both Python and Erlang have Modula as one of their ancestors.
         Because of this, it is not shocking to find out that they share many of
-        the same operators as Modula. These include +, -, /, *, ==, !=, &lt, &gt,
-        etc. By going to these two sites, you can compare the operators for the
+        the same operators as Modula. These include +, -, /, *, ==, !=, &lt;, &gt;,
+        etc. By looking at <a href="#table1">Table 1</a> below, you can compare the operators for the
         two languages.
-        <a
+        <!-- <a
           href="https://www.tutorialspoint.com/python/python_basic_operators.htm"
           target="_blank"
           >Python's list of operators</a
@@ -53,15 +69,15 @@
           href="https://www.tutorialspoint.com/erlang/erlang_operators.htm"
           target="_blank"
           >Erlang's list of operators</a
-        >. When you do so, you will find that Python has a few that Erlang
+        >.  -->
+        When you do so, you will find that Python has a few that Erlang
         does not. You will also see that the logical operators exist in both languages with Erlang having one more.
       </p>
       <h3>Erlang's missing operators</h3>
       <p>
         Because Python and Erlang are different languages and the creators
         of Erlang had different opinions than those who created Python,
-        there are a few of the Python operators you should not expect to find in
-        Erlang. They are:
+        there are some Python operators that you should expect to be different and others will be missing in Erlang. They are:
       </p>
       <ul>
         <li>// - the floor division operator</li>
@@ -77,7 +93,7 @@
         Table 1 to see how a few of these are done.
       </p>
 
-      <table class="blueTable">
+      <!-- <table class="blueTable">
         <caption>
           Table 1: Erlang Equivalents of Python Operators
         </caption>
@@ -109,12 +125,143 @@
             <td>A rem B</td>
           </tr>
         </tbody>
-      </table>
+      </table> -->
+      <table id="table1" class="blueTable">
+        <caption>
+          Table 1: Erlang Equivalents of Python Operators
+        </caption>
+        <tr>
+            <th>Python Operator</th>
+            <th>Erlang Operator</th>
+            <th>Description</th>
+            <th>Erlang Example</th>
+        </tr>
+        <tr>
+            <td>==</td>
+            <td>==</td>
+            <td class="description">Equal to</td>
+            <td>5 == 5</td>
+        </tr>
+        <tr>
+            <td>!= or &lt;&gt;</td>
+            <td>/=</td>
+            <td class="description">Not equal to</td>
+            <td>7 /= 4</td>
+        </tr>
+        <tr>
+            <td>&lt;=</td>
+            <td>=&lt;</td>
+            <td class="description">Less than or equal to</td>
+            <td>3 =&lt; 4</td>
+        </tr>
+        <tr>
+            <td>&lt;</td>
+            <td>&lt;</td>
+            <td class="description">Less than</td>
+            <td>2 &lt; 3</td>
+        </tr>
+        <tr>
+            <td>&gt;=</td>
+            <td>&gt;=</td>
+            <td class="description">Greater than or equal to</td>
+            <td>6 &gt;= 2</td>
+        </tr>
+        <tr>
+            <td>&gt;</td>
+            <td>&gt;</td>
+            <td class="description">Greater than</td>
+            <td>9 &gt; 5</td>
+        </tr>
+        <tr>
+            <td>None</td>
+            <td>=:=</td>
+            <td class="description">Exactly equal to. Compares values and types.</td>
+            <td>1 =:= 1.0.<br>false<br>1 == 1.0.<br>true</td>
+        </tr>
+        <tr>
+            <td>None</td>
+            <td>=/=</td>
+            <td class="description">Exactly not equal to. Compares values and types.</td>
+            <td>A =/= B</td>
+        </tr>
+        <tr>
+            <td>+</td>
+            <td>+</td>
+            <td class="description">Addition</td>
+            <td>3 + 4</td>
+        </tr>
+        <tr>
+            <td>-</td>
+            <td>-</td>
+            <td class="description">Subtraction</td>
+            <td>8 - 2</td>
+        </tr>
+        <tr>
+            <td>*</td>
+            <td>*</td>
+            <td class="description">Multiplication</td>
+            <td>5 * 6</td>
+        </tr>
+        <tr>
+            <td>/</td>
+            <td>/</td>
+            <td class="description">Floating point division</td>
+            <td>10 / 2</td>
+        </tr>
+        <tr>
+            <td>//</td>
+            <td>div</td>
+            <td class="description">Integer division</td>
+            <td>13 div 3</td>
+        </tr>
+        <tr>
+            <td>%</td>
+            <td>rem</td>
+            <td class="description">Integer remainder of X/Y</td>
+            <td>11 rem 3</td>
+        </tr>
+        <tr>
+            <td>**</td>
+            <td>Math:pow(A,B)</td>
+            <td class="description">Exponentiation</td>
+            <td>Math:pow(A,B)</td>
+        </tr>
+        <tr>
+            <td>+=, -=, *=, **=</td>
+            <td>None</td>
+            <td class="description">Assignment </td>
+            <td>N/A</td>
+        </tr>
+        <tr>
+            <td>not</td>
+            <td>not</td>
+            <td class="description">Unary logical NOT</td>
+            <td>not true</td>
+        </tr>
+        <tr>
+            <td>and</td>
+            <td>and</td>
+            <td class="description">Logical AND</td>
+            <td>true and false</td>
+        </tr>
+        <tr>
+            <td>or</td>
+            <td>or</td>
+            <td class="description">Logical OR</td>
+            <td>true or false</td>
+        </tr>
+        <tr>
+            <td>None</td>
+            <td>xor</td>
+            <td class="description">Logical XOR</td>
+            <td>true xor false</td>
+        </tr>
+    </table>
 
       <p>
         Erlang has
         <a
-          href="https://www.tutorialspoint.com/erlang/erlang_operators.htm"
+          href="https://www.erlang.org/doc/reference_manual/expressions.html#arithmetic-expressions"
           target="_blank"
           >other operators</a
         >
@@ -179,11 +326,11 @@ age = 'old'</code>
         start with a lowercase letter. There are a few atoms built in to the Erlang language. Enter the following 
         code into the erl REPL.
       </p>
-       <p>
+
       <pre>
 <code class="Erlang">Height = 4.5.</code>
   </pre>
-  </p>
+
     <p>
       The result printed in the REPL is <kbd>true</kbd>. Notice the lowercase starting letter. Therefore, <kbd>true</kbd> is 
       an atom. So is <kbd>false</kbd>. Neither <kbd>true</kbd> nor <kbd>false</kbd> have a value in Erlang. They 
@@ -195,11 +342,11 @@ age = 'old'</code>
       Like Python, the Erlang language embraces the concept of a <a href="https://www.tutorialspoint.com/erlang/erlang_tuples.htm">tuple</a>. The syntax is a little different when you declare one. 
       In Erlang you do it like this.
     </p>
-    <p>
+
       <pre>
 <code class="Erlang">Success = {ok,"Bob"}.</code>
   </pre>
-  </p>
+
   <p>
     <kbd>Success</kbd> is now usable as the tuple <kbd>{ok,"Bob"}</kbd>.</p>
   <p> 
@@ -217,9 +364,9 @@ age = 'old'</code>
       <p>Functional programming languages are <a href="https://riptutorial.com/erlang/example/3711/lists">list</a> generation and manipulation languages. This is the result of these languages' strong 
       link to mathematics. Don't let this background fool you. You can do everything in functional programming languages that you do 
       in other types of languages. In Erlang, you can declare lists like this.</p>
-      <p><pre><code>
+<pre><code>
 Names = ["Bob","Sue","Jorge","Svetlana"].
-	</code></pre></p>
+	</code></pre>
       <p>This should look very familiar to you.</p>
       <p>Unlike some other languages, there is no random access operator <kbd>[]</kbd> for Erlang lists. That's because you don't need them. 
         Why don't you need them? Because you will never write any type of <kbd>for</kbd> loop in Erlang. There is no such thing. There is also 
@@ -230,13 +377,13 @@ Names = ["Bob","Sue","Jorge","Svetlana"].
         Another way to declare lists in Erlang is <a href="https://erlang.org/documentation/doc-6.1/doc/programming_examples/list_comprehensions.html">list comprehensions</a>. This concept should be familiar to you if you have Python experience, but the syntax is different due to Erlang's operators. Here is the code to produce all the combinations of the numbers 
         1, 2, and 3 as a list of tuples. Try it out in your REPL and look at the results.
       </p>
-      <p><pre><code>
-Combinations = [{X, Y, Z} || X <- [1,2,3], Y <- [1,2,3], Z<-[1,2,3]].
-  </code></pre></p>
+      <pre><code>
+Combinations = [{X, Y, Z} || X <- [1,2,3], Y <- [1,2,3], Z <- [1,2,3]].
+  </code></pre>
       <p>
         Let's break this syntax down. The <kbd>{X,Y,Z}</kbd> on the left indicate that the resulting list will contain tuples where the first element of the tuple is 
         one of the values of the first list, the second value is one of the values from the second list, and the third value of the tuple is one of the 
-        values from the third list. The <kbd>||</kbd> operator can be read as 'where' and the <kbd><-</kbd> operator can be read as 'comes from.' Let me 
+        values from the third list. The <kbd>||</kbd> operator can be read as 'where' and the <kbd>&lt;-</kbd> operator can be read as 'comes from.' Let me 
         translate the Erlang to English for you.
         "Create a list of tuples each consisting of X, Y, and Z where X comes from the list <kbd>1,2,3</kbd>, Y comes from the list <kbd>1,2,3</kbd>, and Z 
         comes from the list <kbd>1,2,3</kbd>."
@@ -244,28 +391,28 @@ Combinations = [{X, Y, Z} || X <- [1,2,3], Y <- [1,2,3], Z<-[1,2,3]].
       <p>
         There is yet one more way to generate a list. To do so you use the <kbd>lists:seq(From,To)</kbd> function to generate a sequence of list elements. For example, 
       </p>
-      <p><pre><code>
+      <pre><code>
 lists:seq(1,100).
-  </code></pre></p>
+  </code></pre>
       <p>
         generates the list of numbers 1 through 100. You can also use the <kbd>lists:seq(From,To)</kbd> function to generate a string that is a sequence of characters since strings are actually lists of numbers.
       </p>
-            <p><pre><code>
+            <pre><code>
 66> lists:seq($ ,$z+4).
-  </code></pre></p>
+  </code></pre>
       <p>
         The <kbd>$</kbd> used in front of both the space character and the <kbd>z</kbd> is an operator stating that what is wanted is the numeric value of the following 
         item, in this case a space or the <kbd>z</kbd>. This code produces all of the characters between space and <kbd>~</kbd>. So does the code below.
       </p>
-                  <p><pre><code>
+                  <pre><code>
 66> lists:seq($ ,$~).
-  </code></pre></p>
+  </code></pre>
       <p>
         It is very common to use the <kbd>lists:seq(From,To)</kbd> function as part of a list comprehension. Here is an example.
       </p>
-            <p><pre><code>
+            <pre><code>
 Evens = [X || X <- lists:seq(1,100), X rem 2 == 0].
-  </code></pre></p>
+  </code></pre>
       <p>
         Let me translate the Erlang to English for you.
         "Create a list of <kbd>X</kbd> values where <kbd>X</kbd> comes from the list <kbd>1,2,3&hellip;100</kbd>, and where the remainder of X divided by 2 is 0."
@@ -278,9 +425,9 @@ Evens = [X || X <- lists:seq(1,100), X rem 2 == 0].
         up in the order they arrived. You need to know who is last in line so you can give them some sort of reward for waiting. 
         In Erlang you do this using the <a href="https://erlang.org/doc/man/lists.html#last-1"><kbd>last(List)</kbd></a> function.  
       </p>
-            <p><pre><code>
+            <pre><code>
 Person = lists:last(Customers).
-  </code></pre></p>
+  </code></pre>
       <p>
         If Bob, Sue, Jorge, and Svetlana were already waiting in line for the
         show in that order, and then Grace showed up too, you would use <a href="https://www.tutorialspoint.com/erlang/erlang_append.htm"><kbd>append(List1,List2)</kbd></a> to
@@ -303,7 +450,6 @@ More = lists:append(Customers,[grace]).
 Mucho = Customers ++ [grace]
         </code>
       </pre>
-        9
       <p>
         Notice that the result of <kbd>Mucho = Customers ++ [grace]</kbd> is <kbd>Mucho</kbd>. This means that both the <kbd>list:append(List1,List2)</kbd> 
         function and the <kbd>[List1 ++ List2]</kbd> operators are non-destructive functions. They do NOT destroy the list <kbd>Customers</kbd> 
@@ -331,9 +477,9 @@ Mucho = Customers ++ [grace]
       <p>
         Now lets use the <kbd>cons</kbd> operator. Consider the situation where Aurelie needs to be prepended to the <kbd>More</kbd> list. The code to do so looks like this.
       </p>
-            <p><pre><code>
+            <pre><code>
 Persons = [aurelie|More].
-  </code></pre></p>
+  </code></pre>
   <p>
     That's it. That's all the code you have to write. So much going on for such a small cost! So, not only is prepending to a list more computationally efficient, it is also much more efficient when you 
     write your code since you don't have to type so much. It is also very clear. It reflects <a href="https://www.quora.com/What-is-the-best-way-to-explain-cons-operator-in-Erlang-or-other-functional-programming-languages">the concept of <kbd>cons</kbd> directly</a>. Another great 
@@ -341,9 +487,9 @@ Persons = [aurelie|More].
     For example, If we wanted to have two variables <kbd>H</kbd> and <kbd>T</kbd> where <kbd>H</kbd> was <kbd>aurelie</kbd> and <kbd>T</kbd> was 
     <kbd>[bob,sue,jorge,svetlana,grace]</kbd>, we can do that in one line of code.
   </p>
-              <p><pre><code>
+              <pre><code>
 [H|T] = Persons.
-  </code></pre></p>
+  </code></pre>
   <p>
     It is traditional, in this situation, to use the variable name <kbd>H</kbd> for the head and <kbd>T</kbd> for the tail. Please remember that <kbd>Persons</kbd> 
     has not been changed. It still contains all of its elements. Also, <kbd>H</kbd> and <kbd>T</kbd> are NOT copies. They refer to an element and a sub-list within 
@@ -354,9 +500,9 @@ Persons = [aurelie|More].
   	Since prepending to build a list and then reversing it is so fundamental to Erlang applications, let's take a look at <kbd>lists:reverse(List)</kbd>. 
   	Here is a Code snippet that reverses the <kbd>Persons</kbd> list.
   </p>
-  <p><pre><code>
+  <pre><code>
 lists:reverse(Persons).
-  </code></pre></p>
+  </code></pre>
   <h3>Wrap Up</h3>
 
       <p>
