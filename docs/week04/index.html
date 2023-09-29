@@ -270,13 +270,13 @@ run()-&gt;
      end.
 </code></pre></p>
 <p>
-	As mentioned, it sends the message to the process who's id is <kbd>Pid</kbd>, waits for the response, and then uses the <kbd>Response_handler</kbd> <kbd>fun</kbd> passed in as a parameter to deal 
+	As mentioned, it sends the message to the process whose id is <kbd>Pid</kbd>, waits for the response, and then uses the <kbd>Response_handler</kbd> <kbd>fun</kbd> passed in as a parameter to deal 
 	with the response after it shows up. As a reminder, a <kbd>fun</kbd> is passed in so there is no hard-coding needed in the <kbd>calculate</kbd> function to deal with it. That's 
 	a GOOD thing.
 </p>
 
 Here is a code snippet showing the use of <kbd>calculate</kbd> in the REPL. I put it in a module with the ridiculous name <kbd>calc_it</kbd>.
-<p><pre><code class="Erlang">Pid = spawn(simp_calc,loop,[]).
+<p><pre><code class="Erlang">Pid = spawn(simp_calc,run,[]).
 calc_it:calculate(Pid,{add, [1,2,3,4,5]},fun(R) -> io:format("Response: ~p~n",[R]) end).
 </code></pre></p>
 <p>
