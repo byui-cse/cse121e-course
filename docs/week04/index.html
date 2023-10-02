@@ -1,11 +1,11 @@
 <!-- uses https://highlightjs.org/
 -->
-
+<!DOCTYPE html>
 <html>
 
 <head>
 		<title>CSE 121e: Week 04 | Concurrent Programming</title>
-         <link rel="shortcut icon" href="https://byui-cse.github.io/Language-Courses/site/images/fav.ico" type="image/x-i        con">
+         <link rel="shortcut icon" href="https://byui-cse.github.io/Language-Courses/site/images/fav.ico" type="image/x-icon">
         <script type="text/javascript">
                  var codeType = "JavaScript"
         </script>
@@ -283,6 +283,20 @@ calc_it:calculate(Pid,{add, [1,2,3,4,5]},fun(R) -> io:format("Response: ~p~n",[R
 	Notice that in the <kbd>fun</kbd> passed in, all I'm doing is printing out the result. I just wanted to keep the example simple. You could do things that are a lot more 
 	interesting.
 </p>
+<p>As one last step, let's update the <kdb>run/0</kdb> function slightly to make it easier to pass in a Message. </p>
+<pre><code class="Erlang">run()-&gt;
+    receive
+        {Pid, {multiply,List}} ->
+              Pid ! {ok,lists:foldl(fun(X,Y)->X*Y end,1,List)};
+        {Pid, {add,List}} ->
+              Pid ! {ok,lists:foldl(fun(X,Y)->X+Y end,0,List)};
+        {Pid, {divide,Dividend,Divisor}} -> 
+              Pid ! {ok,Dividend div Divisor};
+        {Pid, _Other} ->
+              Pid ! {fail, unrecognized_message}
+    end,
+    run().
+</code></pre>
 <h2>Client-Server</h2>
 <p>
 	So, unbeknownst to you, the two modules you just saw fall into a class of computing called <kbd>client-server</kbd>. The process in the <kbd>simple_calc</kbd> 
