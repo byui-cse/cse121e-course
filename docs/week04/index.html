@@ -327,7 +327,7 @@ rpc(Pid, Request) -> %no response handler parameter. You probably want one
 	Pid ! {self(),Request},
 	receive
 		{Pid,Response} ->
-			Response %ignoring the response
+			Response %ignoring the Pid
 	end.
 
 loop()->
