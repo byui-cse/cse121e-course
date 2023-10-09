@@ -58,11 +58,11 @@
 	</p>
 	<p><pre><code class="Erlang">run(Count)-&gt;
     receive
-        {Pid,multiply,List} ->
+        {Pid,{multiply,List}} ->
               Pid ! {ok,lists:foldl(fun(X,Y)->X*Y end,1,List)};
-        {Pid,add,List} ->
+        {Pid,{add,List}} ->
               Pid ! {ok,lists:foldl(fun(X,Y)->X+Y end,0,List)};
-        {Pid,divide,Dividend,Divisor} -> 
+        {Pid,{divide,Dividend,Divisor}} -> 
               Pid ! {ok,Dividend div Divisor};
         {Pid,shutdown} ->
               io:format("shutting down after ~p uses.~n",[Count]),
