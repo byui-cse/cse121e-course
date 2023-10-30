@@ -64,7 +64,9 @@
 
 
 	<p>
-		After WSL installation completes, type <kbd>wsl</kbd> in the command line to enter an Ubuntu Linux command line.
+		After WSL installation completes, you will be prompted to reboot your laptop.</p>
+		
+		<p>After you finish rebooting, open a Command Prompt and type <kbd>wsl</kbd> in the command line to enter an Ubuntu Linux command line.
 	</p>
 
 	<code class="language-bash dark-code">
@@ -114,6 +116,9 @@
 	<p>
 		Follow the <a href="https://www.c-sharpcorner.com/article/how-to-install-visual-studio-code-on-wsl/" target="_blank"> <kbd>Ubuntu</kbd> installation and startup instructions</a>. You can ignore the rest.
 	</p>
+	<p>To open VS Code under WSL, open a WSL command line to the directory you are developing in. Then type <kbd>code .</kbd> as shown below.</p>
+	<code class="language-bash dark-code">$ code .</code>
+	<p></p>
 	<h3>MacOS Users</h3>
 	<p>
 		Go to the
@@ -202,7 +207,7 @@
 
 	<h2>Creating a new project</h2>
 	<p>Most of the work you do for this class will be in existing projects provided by your instructor. If you need to create a project from scratch, you can use <kbd>rebar3</kbd> to setup up your project like this.</p>
-	<code class="language-bash">rebar3 new lib &lt;name_of_project&gt;</code>
+	<code class="language-bash dark-code">$ rebar3 new lib &lt;name_of_project&gt;</code>
 	<p>This command will create a new Erlang project. The source files for your new project will be stored in the <kbd>src</kbd> directory. You won't need to do that for this week, but keep it in mind for future projects or if you would like to experiment with Erlang.</p>
 	</main>
 
