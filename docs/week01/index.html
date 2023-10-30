@@ -1,6 +1,6 @@
 <!-- uses https://highlightjs.org/
 -->
-
+<!DOCTYPE html>
 <html>
 
 <head>
@@ -50,15 +50,40 @@
 
 <h2>Installations</h2>
 	<h3>Windows Users</h3>
+	<p>It is possible to do Erlang development directly on Windows. However, to make your life easier, we will install <a href="https://learn.microsoft.com/en-us/windows/wsl/install">Windows Subsystem for Linux (WSL)</a>.</p>
+	<p>First, check your version of Windows.</p>
+	<p>Press <kbd>Win+R</kbd> and type <kbd>winver</kbd>. </p>
+	<p>In the window that pops up, check your version of Windows.</p>
 	<p>
-		It is possible to do Erlang development directly on Windows. However, to make your life easier, install <a href="https://learn.microsoft.com/en-us/windows/wsl/install">Windows Subsystem for Linux (WSL)</a>.</p>
-		<p>To install WSL, open a command line and type the following command:</p>
-		<code class="language-bash">
-			wsl --install -d Ubuntu-22.04
-		</code>
+		If your OS is <strong>Windows 10 version 2004 and higher or Windows 11</strong>, open a Windows Command Prompt or Powershell window and type the following command:</p>
+	<code class="language-bash dark-code">
+		C:\> wsl --install -d Ubuntu-22.04
+	</code>
+
+	<p>Otherwise, if you are on earlier versions of Windows, follow the instructions on <a href="https://learn.microsoft.com/en-us/windows/wsl/install-manual">the manual install page</a>.</p>
+
+
 	<p>
-		After WSL installation completes, type <kbd>wsl</kbd> in the command line to enter a Linux command line and follow the remaining Linux instructions below.
+		After WSL installation completes, type <kbd>wsl</kbd> in the command line to enter an Ubuntu Linux command line.
 	</p>
+
+	<code class="language-bash dark-code">
+		C:\> wsl
+	</code>
+	<p>Notice your command prompt changes to a Linux-style bash prompt, ending in a $-sign:</p>
+	<code class="language-bash dark-code">
+		&lt;username&gt;@&lt;computername&gt;:~$
+	</code>
+	<p>Type the following command to update the Ubuntu package manager with the latest list of packages from its software repositories:</p>
+		
+	<code class="language-bash dark-code">$ sudo apt update</code>
+
+	<p>After this command completes, type the following to install Erlang and the rebar3 Erlang build tool:</p>
+
+	<code class="language-bash dark-code">$ sudo apt install rebar3</code>
+
+	<p></p>
+
 	<h3>MacOS Users</h3>
 	<p>
 		There are many ways to install an Erlang development environment on your device. The easiest way is to use homebrew. If you don't have homebrew installed, <a href="https://youtu.be/G1BV-QyKa44" target="_blank">do it now.</a>
@@ -68,15 +93,16 @@
 	</p>
 	<h3>Linux Users</h3>
 	<p>
-		Open a terminal and type the following command to update the Ubuntu package manager with the latest repositories:</p>
+		Open a terminal and type the following command to update the Ubuntu package manager with the latest list of packages from its software repositories:</p>
 		
-		<code class="language-bash">sudo apt update</code>
+		<code class="language-bash dark-code">$ sudo apt update</code>
 
 		<p>After this command completes, type the following to install Erlang and the rebar3 Erlang build tool:</p>
 
-		<code class="language-bash">sudo apt install rebar3</code>
+		<code class="language-bash dark-code">$ sudo apt install rebar3</code>
 
-	</p>
+		<p></p>
+
 	<h3>Everybody</h3>
 	<p>
 		Your project creation and code compiler tools are now all set up and ready to go.
@@ -104,7 +130,7 @@
 	
 
 <h2>Test Your Tools</h2>
-	<p>Download and unzip this <a href="https://byui-cse.github.io/cse121e-course/week01/intro.zip">directory</a> that contains a project you can use to test your rebar3 and Erlang installation, VSCode, and the plugin you installed in VSCode. After going to where you 
+	<p>Download and unzip <a href="https://byui-cse.github.io/cse121e-course/week01/intro.zip">this directory</a> that contains a project you can use to test your rebar3 and Erlang installation, VSCode, and the plugin you installed in VSCode. After going to where you 
 	downloaded the file, select it and unzip it.</p>
 	<h3>How to Unzip</h3>
 	<ul>
@@ -140,11 +166,11 @@
 		If you don't, contact your instructor for help. If you do, enter <kbd>q().</kbd> to exit the REPL.
 	</p>
 	<p>
-		The course heavily uses Unit Tests and <a href="https://youtu.be/ln4WnxX-wrw" target="_blank"> Test Driven Development (TDD).</a> Your weekly tasks will be to write code that passes a set of pre-written Unit Tests for that week. Let's make sure the unit testing portion of <kbd>rebar3</kbd>, <kbd>EUnit</kbd>, is set up correctly. To do this, stay in the <kbd>intro</kbd> directory in your terminal. Enter <kbd>rebar3 eunit</kbd>. You should see this.
+		The course heavily uses Unit Tests and <a href="https://youtu.be/ln4WnxX-wrw" target="_blank"> Test Driven Development (TDD).</a> Your weekly tasks will be to write code that passes a set of pre-written Unit Tests for that week. Let's make sure the unit testing portion of <kbd>rebar3</kbd>, <kbd>EUnit</kbd>, is set up correctly. To do this, stay in the <kbd>intro</kbd> directory in your terminal. Enter <kbd>rebar3 eunit</kbd>. You should see this. 
 	</p>
 	<img src="images/fib_eunit.png" class="steps_image" alt="a view of the terminal after running an example set of seven unit tests. It concludes by printing, seven tests, zero failures."/>
 	<p>
-		If you don't see this message, contact your instructor for help.
+		Make sure you see 7 tests, 0 failures. If you do, you are all set up. If you don't see this message, make sure you are in the <kbd>intro</kbd> directory when you run the <kbd>rebar3 eunit</kbd> command. If you still don't see this message, contact your instructor for help.
 	</p>
 	<p>
 		If you want to, you can also run code directly from the REPL. Here is an example. Type <kbd>rebar3 shell</kbd> again. Once it has started and you see evidence of a successful setup, enter <kbd>math:fib(10).</kbd> Make sure you include the period at the end. When you do this, the 10th Fibonacci number is calculated amd you should see this.
@@ -173,6 +199,11 @@
   </p>
 
 	<p>If you follow this pattern for each assignment, you will reduce your workload and increase your learning.</p>
+
+	<h2>Creating a new project</h2>
+	<p>Most of the work you do for this class will be in existing projects provided by your instructor. If you need to create a project from scratch, you can use <kbd>rebar3</kbd> to setup up your project like this.</p>
+	<code class="language-bash">rebar3 new lib &lt;name_of_project&gt;</code>
+	<p>This command will create a new Erlang project. The source files for your new project will be stored in the <kbd>src</kbd> directory. You won't need to do that for this week, but keep it in mind for future projects or if you would like to experiment with Erlang.</p>
 	</main>
 
 	<footer>
