@@ -51,7 +51,13 @@
 <h2>Installations</h2>
 	<h3>Windows Users</h3>
 	<p>
-		It is possible to do Erlang development directly on Windows. However, to make your life easier, <a href="https://youtu.be/wjbbl0TTMeo" target="_blank">install Windows Subsystem for Linux</a>. Then follow the linux instructions.
+		It is possible to do Erlang development directly on Windows. However, to make your life easier, install <a href="https://learn.microsoft.com/en-us/windows/wsl/install">Windows Subsystem for Linux (WSL)</a>.</p>
+		<p>To install WSL, open a command line and type the following command:</p>
+		<code class="language-bash">
+			wsl --install -d Ubuntu-22.04
+		</code>
+	<p>
+		After WSL installation completes, type <kbd>wsl</kbd> in the command line to enter a Linux command line and follow the remaining Linux instructions below.
 	</p>
 	<h3>MacOS Users</h3>
 	<p>
@@ -62,8 +68,14 @@
 	</p>
 	<h3>Linux Users</h3>
 	<p>
-		Open a terminal. Type <kbd>sudo apt update</kbd>.
-		After this command completes, type <kbd>sudo apt install rebar3</kbd>.
+		Open a terminal and type the following command to update the Ubuntu package manager with the latest repositories:</p>
+		
+		<code class="language-bash">sudo apt update</code>
+
+		<p>After this command completes, type the following to install Erlang and the rebar3 Erlang build tool:</p>
+
+		<code class="language-bash">sudo apt install rebar3</code>
+
 	</p>
 	<h3>Everybody</h3>
 	<p>
