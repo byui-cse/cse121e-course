@@ -50,29 +50,30 @@
 
 <h2>Installations</h2>
 	<h3>Windows Users</h3>
-	<p>It is possible to do Erlang development directly on Windows. However, to make your life easier, we will install <a href="https://learn.microsoft.com/en-us/windows/wsl/install">Windows Subsystem for Linux (WSL)</a>.</p>
+	<p>It is possible to do Erlang development directly on Windows. However, to make your life easier, we will install <a href="https://learn.microsoft.com/en-us/windows/wsl/install">Windows Subsystem for Linux (WSL)</a> and use Ubuntu Linux.</p>
+	<p>Follow the steps below. If you get stuck, check out the <a href="#videos">videos</a> at the bottom of the page.</p>
 	<p>First, check your version of Windows.</p>
 	<p>Press <kbd>Win+R</kbd> and type <kbd>winver</kbd>. </p>
 	<p>In the window that pops up, check your version of Windows.</p>
 	<p>
 		If your OS is <strong>Windows 10 version 2004 and higher or Windows 11</strong>, open a Windows Command Prompt or Powershell window and type the following command:</p>
 	<code class="language-bash dark-code">
-		C:\> wsl --install -d Ubuntu-22.04
+		C:\> wsl --install -d Ubuntu
 	</code>
 
 	<p>Otherwise, if you are on earlier versions of Windows, follow the instructions on <a href="https://learn.microsoft.com/en-us/windows/wsl/install-manual">the manual install page</a>.</p>
 
 
 	<p>
-		After WSL installation completes, you will be prompted to reboot your laptop.</p>
+		After WSL installation completes, you may be prompted to reboot your laptop.</p>
 		
-		<p>After you finish rebooting, open a Command Prompt and type <kbd>wsl</kbd> in the command line to enter an Ubuntu Linux command line.
+		<p>After you finish rebooting, open a Command Prompt and type <kbd>wsl</kbd> to enter an Ubuntu Linux command line.
 	</p>
 
 	<code class="language-bash dark-code">
 		C:\> wsl
 	</code>
-	<p>Notice your command prompt changes to a Linux-style bash prompt, ending in a $-sign:</p>
+	<p>Notice your command prompt changes to a Linux-style bash prompt, ending in a $-sign. This lets you know you are in an Ubuntu Linux shell.</p>
 	<code class="language-bash dark-code">
 		&lt;username&gt;@&lt;computername&gt;:~$
 	</code>
@@ -84,7 +85,9 @@
 
 	<code class="language-bash dark-code">$ sudo apt install rebar3</code>
 
-	<p></p>
+	<p>Finally, open VS Code in WSL mode by typing the following command.</p>
+	<code class="language-bash dark-code">$ code .</code>
+	<p>Note the single period "." at the end of the command. The single period is a symbol used on the command line to mean the "current working directory", i.e., the directory that you are in right now.</p>
 
 	<h3>MacOS Users</h3>
 	<p>
@@ -136,7 +139,7 @@
 
 <h2>Test Your Tools</h2>
 	<p>Download and unzip <a href="https://byui-cse.github.io/cse121e-course/week01/intro.zip">this directory</a> that contains a project you can use to test your rebar3 and Erlang installation, VSCode, and the plugin you installed in VSCode. After going to where you 
-	downloaded the file, select it and unzip it.</p>
+	downloaded the file, select it and unzip it. (<a href="#wsl-filesystem">Note for WSL users about where to store your files</a>.)</p>
 	<h3>How to Unzip</h3>
 	<ul>
 		<li><a href="https://support.microsoft.com/en-us/help/14200/windows-compress-uncompress-zip-files" target="_blank">Windows</a></li>
@@ -209,6 +212,17 @@
 	<p>Most of the work you do for this class will be in existing projects provided by your instructor. If you need to create a project from scratch, you can use <kbd>rebar3</kbd> to setup up your project like this.</p>
 	<code class="language-bash dark-code">$ rebar3 new lib &lt;name_of_project&gt;</code>
 	<p>This command will create a new Erlang project. The source files for your new project will be stored in the <kbd>src</kbd> directory. You won't need to do that for this week, but keep it in mind for future projects or if you would like to experiment with Erlang.</p>
+
+	<h2 id="videos">Helpful Videos (optional)</h2>
+	<p>These videos are optional walkthroughs of how to install Windows Subsystem for Linux (WSL) and the rebar3 build tool.</p>
+	<h3>Installing Windows Subsystem for Linux (WSL) and rebar3</h3>
+	<iframe id="kaltura_player" src="https://cdnapisec.kaltura.com/p/1157612/sp/115761200/embedIframeJs/uiconf_id/41338032/partner_id/1157612?iframeembed=true&playerId=kaltura_player&entry_id=1_rxaghxel&flashvars[localizationCode]=en&amp;flashvars[sideBarContainer.plugin]=true&amp;flashvars[sideBarContainer.position]=left&amp;flashvars[sideBarContainer.clickToClose]=true&amp;flashvars[chapters.plugin]=true&amp;flashvars[chapters.layout]=vertical&amp;flashvars[chapters.thumbnailRotator]=false&amp;flashvars[streamSelector.plugin]=true&amp;flashvars[EmbedPlayer.SpinnerTarget]=videoHolder&amp;flashvars[dualScreen.plugin]=true&amp;flashvars[Kaltura.addCrossoriginToIframe]=true&amp;&wid=1_ybaezuyi" width="608" height="402" allowfullscreen webkitallowfullscreen mozAllowFullScreen allow="autoplay *; fullscreen *; encrypted-media *" sandbox="allow-downloads allow-forms allow-same-origin allow-scripts allow-top-navigation allow-pointer-lock allow-popups allow-modals allow-orientation-lock allow-popups-to-escape-sandbox allow-presentation allow-top-navigation-by-user-activation" frameborder="0" title="CSE 121E Erlang: Installing WSL"></iframe>
+	<p></p>
+	<h3>Opening VS Code in WSL Mode and Testing rebar3 Installation</h3>
+	<iframe id="kaltura_player" src="https://cdnapisec.kaltura.com/p/1157612/sp/115761200/embedIframeJs/uiconf_id/41338032/partner_id/1157612?iframeembed=true&playerId=kaltura_player&entry_id=1_u0jio0ik&flashvars[localizationCode]=en&amp;flashvars[sideBarContainer.plugin]=true&amp;flashvars[sideBarContainer.position]=left&amp;flashvars[sideBarContainer.clickToClose]=true&amp;flashvars[chapters.plugin]=true&amp;flashvars[chapters.layout]=vertical&amp;flashvars[chapters.thumbnailRotator]=false&amp;flashvars[streamSelector.plugin]=true&amp;flashvars[EmbedPlayer.SpinnerTarget]=videoHolder&amp;flashvars[dualScreen.plugin]=true&amp;flashvars[Kaltura.addCrossoriginToIframe]=true&amp;&wid=1_72js2ful" width="608" height="402" allowfullscreen webkitallowfullscreen mozAllowFullScreen allow="autoplay *; fullscreen *; encrypted-media *" sandbox="allow-downloads allow-forms allow-same-origin allow-scripts allow-top-navigation allow-pointer-lock allow-popups allow-modals allow-orientation-lock allow-popups-to-escape-sandbox allow-presentation allow-top-navigation-by-user-activation" frameborder="0" title="CSE 121E Erlang: Tesing Rebar3"></iframe>
+
+	<!-- <h2 id="wsl-filesystem">WSL Filesystem Performance</h2> -->
+	
 	</main>
 
 	<footer>
