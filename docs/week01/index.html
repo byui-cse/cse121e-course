@@ -167,12 +167,14 @@
   <p>
   	While this is a complicated VSCode installation process, you only have to do it once to get what you need for this course.
   </p>
-	<p>Your editor is now all set up. Now lets see how to use the rebar3 and Erlang tools to compile and execute code in the project. In this class, we will run all code in a <a href="https://en.wikipedia.org/wiki/Read–eval–print_loop">REPL</a>. To do so, use the terminal and <a href="https://www.hostinger.com/tutorials/linux-commands" target="_blank"> <kbd>cd</kbd>, change directory,</a> into the <kbd>intro</kbd> directory. Then type <kbd>rebar3 shell</kbd>. If you have everything set up correctly, you should see this.
+	<p>Your editor is now all set up. Now lets see how to use the rebar3 and Erlang tools to compile and execute code in the project. In this class, we will run all code in a <a href="https://en.wikipedia.org/wiki/Read–eval–print_loop">REPL</a>. To do so, use the terminal and <a href="https://www.hostinger.com/tutorials/linux-commands" target="_blank"> <kbd>cd</kbd>, change directory,</a> into the <kbd>intro</kbd> directory. Then type <kbd>rebar3 shell</kbd>. If you have everything set up correctly, you should see this. 
 	</p>
 	<img src="images/erlang_repl.png" class="steps_image" alt="a view of the running REPL"/>
 	<p>
-		If you don't, contact your instructor for help. If you do, enter <kbd>q().</kbd> to exit the REPL.
+		If you don't see this, contact your instructor for help. If you do, enter <kbd>q().</kbd> to exit the REPL.
 	</p>
+	<aside class="left_wide">Note that the green text says <strong><kbd>Compiling intro</kbd></strong> and <strong><kbd>Booted intro</kbd></strong>. This means that when you type <kbd>rebar3 shell</kbd>, the <kbd>rebar3</kbd> build tool is finding the source code contained underneath the <kbd>intro</kbd> directory and compiling it for you. Erlang is a <a href="https://www.freecodecamp.org/news/compiled-versus-interpreted-languages/">compiled language</a>, as opposed to Python, which is an interpreted language. This means that if you ever make a change to your source code, you will need to compile it again before running it or the changes you make will not take effect.</aside>
+	<p>&nbsp;</p>
 	<p>
 		The course heavily uses Unit Tests and <a href="https://youtu.be/ln4WnxX-wrw" target="_blank"> Test Driven Development (TDD).</a> Your weekly tasks will be to write code that passes a set of pre-written Unit Tests for that week. Let's make sure the unit testing portion of <kbd>rebar3</kbd>, <kbd>EUnit</kbd>, is set up correctly. To do this, stay in the <kbd>intro</kbd> directory in your terminal. Enter <kbd>rebar3 eunit</kbd>. You should see this. 
 	</p>
@@ -197,6 +199,11 @@
 		If you don't see this, contact your instructor for help.
 	</p>
 
+	<p>If you make a change to a source code file, you'll need to re-compile the source code before you try to run it. To compile a module, type <kbd>c(module_name).</kbd> in the REPL, like this:</p>
+	<code class="language-bash">
+		1> c(math).
+	</code>
+	<p>Note the period at the and of the line.</p>
 
 <h2>Workflow</h2>
 	<p>
