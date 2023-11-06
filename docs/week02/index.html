@@ -280,7 +280,7 @@ age = 'old'</code>
 	</pre>
       <p>
         Erlang variables behave quite differently. Just like in Python,
-        they can hold any type but, not only can't the type can change, but the value can't either. 
+        they can hold any type but, not only can't the type change, but <strong>the value can't change either</strong>. 
         Don't panic. Just because you can't change a variable's value doesn't limit Erlang at all. 
         Not being able to change a variable's value actually makes many things much easier. &#128513; 
         Also, all Erlang variable names must begin with a Capital letter. Like this:
@@ -309,7 +309,7 @@ age = 'old'</code>
 
       <p>
         Which operator set to use in a language often depends on the languages
-        that the language creators like and dislike. As with all things, the creators' choices have plusses and minuses. Both the creators of Python
+        that the language creators like and dislike. As with all things, the creators' choices have pros and cons. Both the creators of Python
         and Erlang preferred the syntax of Modula so they adopted its <kbd>and</kbd>, <kbd>or</kbd>, and <kbd>not</kbd> operators. 
         Their preference is an opinion and, as such, it and the alternative operators used in
         C based languages, &&, ||, !, are just as valid. Don't get caught up in the
@@ -351,7 +351,7 @@ age = 'old'</code>
     <kbd>Success</kbd> is now usable as the tuple <kbd>{ok,"Bob"}</kbd>.</p>
   <p> 
     Last week you saw a tuple, probably without recognizing it. 
-    When you complied the test module using <kbd>c(test).</kbd> you saw <kbd>{ok,test)</kbd> printed in the REPL. This tuple contained 
+    When you complied the test module using <kbd>c(test).</kbd> you saw <kbd>{ok,test}</kbd> printed in the REPL. This tuple contained 
     two atoms, <kbd>ok</kbd> and <kbd>test</kbd>. Whenever you execute something in the REPL, the result of that execution is printed in 
     the REPL. When the compilation function <kbd>c(module_name)</kbd> is successful, it returns <kbd>{ok,module_name}</kbd>.
   </p>
