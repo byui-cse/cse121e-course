@@ -220,7 +220,8 @@
 	<code class="language-bash dark-code">$ rebar3 new lib &lt;name_of_project&gt;</code>
 	<p>This command will create a new Erlang project. The source files for your new project will be stored in the <kbd>src</kbd> directory. You won't need to do that for this week, but keep it in mind for future projects or if you would like to experiment with Erlang.</p>
 
-	<h2 id="videos">Helpful Videos (optional)</h2>
+
+	<h2 id="videos">Additional Help for Students Using WSL</h2>
 	<p>These videos are optional walkthroughs of how to install Windows Subsystem for Linux (WSL) and the rebar3 build tool.</p>
 	<h3>Installing Windows Subsystem for Linux (WSL) and rebar3</h3>
 	<iframe id="kaltura_player" src="https://cdnapisec.kaltura.com/p/1157612/sp/115761200/embedIframeJs/uiconf_id/41338032/partner_id/1157612?iframeembed=true&playerId=kaltura_player&entry_id=1_rxaghxel&flashvars[localizationCode]=en&amp;flashvars[sideBarContainer.plugin]=true&amp;flashvars[sideBarContainer.position]=left&amp;flashvars[sideBarContainer.clickToClose]=true&amp;flashvars[chapters.plugin]=true&amp;flashvars[chapters.layout]=vertical&amp;flashvars[chapters.thumbnailRotator]=false&amp;flashvars[streamSelector.plugin]=true&amp;flashvars[EmbedPlayer.SpinnerTarget]=videoHolder&amp;flashvars[dualScreen.plugin]=true&amp;flashvars[Kaltura.addCrossoriginToIframe]=true&amp;&wid=1_ybaezuyi" width="608" height="402" allowfullscreen webkitallowfullscreen mozAllowFullScreen allow="autoplay *; fullscreen *; encrypted-media *" sandbox="allow-downloads allow-forms allow-same-origin allow-scripts allow-top-navigation allow-pointer-lock allow-popups allow-modals allow-orientation-lock allow-popups-to-escape-sandbox allow-presentation allow-top-navigation-by-user-activation" frameborder="0" title="CSE 121E Erlang: Installing WSL"></iframe>
@@ -228,8 +229,39 @@
 	<h3>Opening VS Code in WSL Mode and Testing rebar3 Installation</h3>
 	<iframe id="kaltura_player" src="https://cdnapisec.kaltura.com/p/1157612/sp/115761200/embedIframeJs/uiconf_id/41338032/partner_id/1157612?iframeembed=true&playerId=kaltura_player&entry_id=1_u0jio0ik&flashvars[localizationCode]=en&amp;flashvars[sideBarContainer.plugin]=true&amp;flashvars[sideBarContainer.position]=left&amp;flashvars[sideBarContainer.clickToClose]=true&amp;flashvars[chapters.plugin]=true&amp;flashvars[chapters.layout]=vertical&amp;flashvars[chapters.thumbnailRotator]=false&amp;flashvars[streamSelector.plugin]=true&amp;flashvars[EmbedPlayer.SpinnerTarget]=videoHolder&amp;flashvars[dualScreen.plugin]=true&amp;flashvars[Kaltura.addCrossoriginToIframe]=true&amp;&wid=1_72js2ful" width="608" height="402" allowfullscreen webkitallowfullscreen mozAllowFullScreen allow="autoplay *; fullscreen *; encrypted-media *" sandbox="allow-downloads allow-forms allow-same-origin allow-scripts allow-top-navigation allow-pointer-lock allow-popups allow-modals allow-orientation-lock allow-popups-to-escape-sandbox allow-presentation allow-top-navigation-by-user-activation" frameborder="0" title="CSE 121E Erlang: Tesing Rebar3"></iframe>
 
-	<!-- <h2 id="wsl-filesystem">WSL Filesystem Performance</h2> -->
+	<p></p>
+
+	<h3 id="wsl-filesystem">WSL Filesystem Performance</h2>
+	<p>Note that using WSL and keeping your files on the Windows filesystem can result in poor performance for filesystem intensive operations. That will not be a problem for this class, but if you write code that reads/writes frequently to the filesystem, it is recommended that you keep your files in the Linux filesystem, not the Windows filesystem.</p>
 	
+	<p>If you would like to keep your files in the Linux filesystem, you should create a directory in your Linux home directory for your Erlang work. You can then access that directory from VSCode in WSL mode. To do this, follow these steps.</p>
+	<ol>
+		<li>Open a WSL command line by typing <kbd>wsl</kbd> in a Windows command prompt.</li>
+		<li>Enter <kbd>cd ~</kbd> to go to your home directory. Note that this will go to your Linux home directory under the Linux filesystem.</li>
+		<li>Enter <kbd>mkdir erlang</kbd> to create a directory named <kbd>erlang</kbd>.</li>
+		<li>Enter <kbd>cd erlang</kbd> to go to your <kbd>erlang</kbd> directory.</li>
+		<li>Enter <kbd>code .</kbd> to open VSCode in WSL mode with your <kbd>erlang</kbd> directory as the current working directory.</li>
+	</ol>
+	<pre><code class="language-bash">
+C:\> wsl
+
+$ wsl
+$ cd ~
+$ mkdir erlang
+$ cd erlang
+$ code .
+	</code></pre>
+	
+	<p>You can now use VSCode to create new projects in your <kbd>erlang</kbd> directory.</p>
+
+	<p>When you are done, you can exit VSCode and then <kbd>exit</kbd> from the WSL command line.</p>
+
+	<p>When you want to work on your Erlang projects, open a WSL command line and enter <kbd>cd ~/erlang</kbd>. Then enter <kbd>code .</kbd> to open VSCode in WSL mode with your <kbd>erlang</kbd> directory as the current working directory.</p>
+	<pre><code class="language-bash">
+C:\> wsl
+$ cd ~/erlang
+$ code .
+	</code></pre>
 	</main>
 
 	<footer>
