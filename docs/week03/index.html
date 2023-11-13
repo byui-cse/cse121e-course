@@ -8,7 +8,7 @@
     <link
       rel="shortcut icon"
       href="https://byui-cse.github.io/Language-Courses/site/images/fav.ico"
-      type="image/x-i        con"
+      type="image/x-icon"
     />
     <script type="text/javascript">
       var codeType = "JavaScript";
@@ -304,7 +304,7 @@ factorial(N,Accum)-> factorial(N-1,Accum*N).
     <pre>
 <code class="Erlang">factorial(N) when N > 0 -> N * factorial(N-1);
 factorial(N) when N == 0 -> 1;
-factorial(N) when N < 0 -> undefined.%Factorials of negative integers are not defined. Therefore return the atom undefined.
+factorial(N) when N < 0 -> undefined. %Factorials of negative integers are not defined. Therefore return the atom undefined.
 </code>
   </pre>
   </p>
@@ -320,7 +320,7 @@ factorial(N) when N < 0 -> undefined.%Factorials of negative integers are not de
 
 factorial(N,Accum) when N > 0 -> factorial(N-1,Accum*N);
 factorial(N,Accum) when N == 0 -> Accum;
-factorial(N,_accum) when N < 0 -> undefined.%Factorials of negative integers are not defined. Therefore return the atom undefined.
+factorial(N,_Accum) when N < 0 -> undefined. %Factorials of negative integers are not defined. Therefore return the atom undefined.
 </code>
 </pre>
   </p>
@@ -430,7 +430,7 @@ double([H|T]) ->
         'bonus likes' that are to be added to each posting.
       </p>
 
-      <p>How should the likes in the list be used to crete this new list?</p>
+      <p>How should the likes in the list be used to create this new list?</p>
       <p>
         Like this.
       </p>
@@ -444,9 +444,9 @@ double([H|T]) ->
       </p>
       <p>
         You would usually use the <kbd>foldl/3</kbd> function. It has three parameters, the first is a
-        fun with two parameters, the second is the accumulator's initial value, 0 in the example below since addition is being done. This initial  value is used,
+        <kbd>fun</kbd> with two parameters, the second is the accumulator's initial value, 0 in the example below since addition is being done. This initial  value is used,
         modified, and returned to accumulate the final result. In this case the
-        the final result is the summation of the likes. The third parameter is the list to reduce.
+        final result is the summation of the likes. The third parameter is the list to reduce.
       </p>
       <pre>
 <code class="Erlang">Total_likes = lists:foldl(fun(X,Accumulator)-> Accumulator + X end, 0, Like_counts).
