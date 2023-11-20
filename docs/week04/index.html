@@ -123,7 +123,7 @@
 		</p>
 		<p>
 		<pre>
-		<code class="Erlang">Calc_pid = spawn(simple_calc,run,[]).
+		<code class="Erlang">1> Calc_pid = spawn(simple_calc,run,[]).
 </code></pre></p>
 		<p>
 			The three parameters for spawn are; 1) the name of the module containing the function, the name of the function to start up, and the list of parameters that function needs. 
@@ -140,7 +140,7 @@
 		</p>
 		<p>
 		<pre>
-		<code class="Erlang">Calc_pid ! {self(),add,[1,2,3]}.
+		<code class="Erlang">2> Calc_pid ! {self(),add,[1,2,3]}.
 </code></pre></p>
 		<p>
 			On the left of the <kbd>!</kbd> operator you see the process ID for the process the message is being sent to. On the right is the message tuple that 
@@ -168,26 +168,26 @@
 		</p>
 		<p>
 		<pre>
-		<code class="Erlang">receive Resp -> Resp end.
+		<code class="Erlang">3> receive Resp -> Resp end.
 </code></pre></p>
 		<p>
 			This line of code says,"Wait until you receive a message. When you get a message, put it in Resp. Then stop waiting."
 		</p>
 		<p>
 			So there you've seen the basics of starting a process, sending it messages, and getting response messages. A little later in this reading you'll see 
-			how to automate this to make it even easier, but right now it's a good idea to see how to write the code for a process. We'll use the <kbd>simp_calc</kbd> 
+			how to automate this to make it even easier, but right now it's a good idea to see how to write the code for a process. We'll use the <kbd>simple_calc</kbd> 
 			process since you're already a little familiar with it. This example covers the basics.
 		</p>
 		<p>
 			So, then what does creating, starting, and using a process look like in Erlang? Well, just like your friends, an Erlang process needs to have some 
 			way to receive a message, make sure it understands the message, and then send a response. Also, just like your friends, the process shouldn't die 
 			after it helps you out. &#128519; Let's start by looking at the code for an Erlang process that performs simple tasks that won't distract from 
-			learning process structure and use. Let's create a ridiculously simple calculator process called <kbd>simp_calc</kbd> by putting functions in a 
-			<kbd>simp_calc</kbd> module, including documentation.
+			learning process structure and use. Let's create a ridiculously simple calculator process called <kbd>simple_calc</kbd> by putting functions in a 
+			<kbd>simple_calc</kbd> module, including documentation.
 		</p>
 		<p>
 		<pre>
-		<code class="Erlang">-module(simp_calc).
+		<code class="Erlang">-module(simple_calc).
 -export([run/0]).
 
 %% @doc The &lt;kbd&gt;run/0&lt;/kbd&gt; function is the service keep-alive function. 
@@ -236,23 +236,24 @@ run()-&gt;
 	</p>
 	<p><pre><code class="Erlang">run()-&gt;
     receive
-        {Pid,multiply,List} ->
+        {Pid, {multiply,List}} ->
               Pid ! {ok,lists:foldl(fun(X,Y)->X*Y end,1,List)};
-        {Pid,add,List} ->
+        {Pid, {add,List}} ->
               Pid ! {ok,lists:foldl(fun(X,Y)->X+Y end,0,List)};
-        {Pid,divide,Dividend,Divisor} -> 
+        {Pid, {divide,Dividend,Divisor}} -> 
               Pid ! {ok,Dividend div Divisor};
-        {Pid,_Other} ->
+        {Pid, _Other} ->
               Pid ! {fail, unrecognized_message}
     end,
     run().
 </code></pre></p>
+<p>Notice how we've changed the pattern slightly so each <kbd>receive</kbd> clause has exactly two things in the tuple, a Pid and a tuple indicating the command. The last pattern will handle any message that does not include a valid command (i.e., multiply, add, divide).</p>
 	<p>
 		You may be thinking, "But what if they don't send a process ID to respond too?" Good question. Don't put in an error handling match for that. Let them 
 		be responsible for their own actions. &#128519; Besides, you couldn't tell them they did it wrong anyway. They will get a message that says something 
 		like this.
 	</p>
-	<p><pre><code class="Erlang">{badarg,[{simp_calc,run,0,[{file,"simp_calc.erl"},{line,33}]}]}
+	<p><pre><code class="Erlang">{badarg,[{simple_calc,run,0,[{file,"simple_calc.erl"},{line,33}]}]}
 </code></pre></p>
 	<p>
 		If you get a message that looks like that when you send a message to a process, you know you didn't put the message together correctly.
@@ -276,15 +277,18 @@ run()-&gt;
 </p>
 
 Here is a code snippet showing the use of <kbd>calculate</kbd> in the REPL. I put it in a module with the ridiculous name <kbd>calc_it</kbd>.
-<p><pre><code class="Erlang">Pid = spawn(simp_calc,run,[]).
-calc_it:calculate(Pid,{add, [1,2,3,4,5]},fun(R) -> io:format("Response: ~p~n",[R]) end).
+<p><pre><code class="Erlang">1> Pid = spawn(simple_calc,run,[]).
+2> calc_it:calculate(Pid,{add, [1,2,3,4,5]},fun(R) -> io:format("Response: ~p~n",[R]) end).
 </code></pre></p>
 <p>
 	Notice that in the <kbd>fun</kbd> passed in, all I'm doing is printing out the result. I just wanted to keep the example simple. You could do things that are a lot more 
 	interesting.
 </p>
-<p>As one last step, let's update the <kdb>run/0</kdb> function slightly to make it easier to pass in a Message. </p>
-<pre><code class="Erlang">run()-&gt;
+<p>To recap, here's all the code for the simple_calc module and the calc_it module.</p>
+<pre><code class="Erlang">-module(simple_calc).
+-export([run/0]).
+	
+run()->
     receive
         {Pid, {multiply,List}} ->
               Pid ! {ok,lists:foldl(fun(X,Y)->X*Y end,1,List)};
@@ -297,12 +301,63 @@ calc_it:calculate(Pid,{add, [1,2,3,4,5]},fun(R) -> io:format("Response: ~p~n",[R
     end,
     run().
 </code></pre>
+<pre><code class="Erlang">-module(calc_it).
+-export([calculate/3]).
+
+calculate(Pid, Message, Response_handler) ->
+    Pid ! {self(), Message},
+    receive
+        Response ->
+            Response_handler(Response)
+    end.
+</code></pre>
 <h2>Client-Server</h2>
 <p>
 	So, unbeknownst to you, the two modules you just saw fall into a class of computing called <kbd>client-server</kbd>. The process in the <kbd>simple_calc</kbd> 
 	module is a server, and the code in the <kbd>calc_it</kbd> module is a client for that server. It is important to know that a server is a piece of software. 
 	Sometimes we use the term to refer to the hardware, virtual or not, that the server runs on, but the reason we do that is because of the SOFTWARE!
 </p>
+
+<h2>Putting it all together</h2>
+<p>Now that you've seen how to implement a simple concurrent calculator using two modules, <kbd>simple_calc</kbd> and <kbd>calc_it</kbd>, let's combine the client and server code into a single module following a pattern you'll see repeatedly in Erlang.</p>
+<p>We'll add a function called <kbd>start/0</kbd> which will take care of spawning the server process for us. Then we'll add the client function <kbd>calculate/3</kbd>.</p>
+<pre><code class="Erlang">-module(simple_calc_1).
+-export([start/0, run/0, calculate/3]).
+
+% We can add a start() function so we don't have to spawn it manually from the
+% REPL
+start() -> 
+	spawn(?MODULE, run, []).
+
+run() ->
+	receive
+		{From, {add, Arguments}} -> 
+			Result = lists:foldl(fun(X, Acc) -> X + Acc end, 0, Arguments),
+			From ! {ok, Result};
+		{From, {multiply, Arguments}} -> 
+			Result = lists:foldl(fun(X, Acc) -> X * Acc end, 1, Arguments),
+			From ! {ok, Result};
+		{From, {divide, Dividend, Divisor}} -> 
+			Result = Dividend div Divisor,
+			From ! {ok, Result};
+		{From, Message} ->
+			From ! {fail, Message}
+	end,
+	run().
+
+
+calculate(Pid, Message, Response_handler) ->
+	Pid ! {self(), Message},
+	receive
+		Response ->
+			Response_handler(Response)
+	end.	
+</code></pre>
+<p>To use the calculator, we first start the server, then send messages to the server using the <kbd>calculate/3</kbd> function.</p>
+<pre><code class="Erlang">1> Pid = simple_calc_1:start().
+2> simple_calc_1:calculate(Pid, {add, [1,2,3,4,5]}, fun(R) -> io:format("Response: ~p~n", [R]) end).
+</code></pre>
+
 
 <h2>Wrap Up</h2>
 <p>
