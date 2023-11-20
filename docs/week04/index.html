@@ -4,190 +4,274 @@
 <html>
 
 <head>
-		<title>CSE 121e: Week 04 | Concurrent Programming</title>
-         <link rel="shortcut icon" href="https://byui-cse.github.io/Language-Courses/site/images/fav.ico" type="image/x-icon">
-        <script type="text/javascript">
-                 var codeType = "JavaScript"
-        </script>
-        <script src="https://byui-cse.github.io/Language-Courses/site/highlight.pack.js"></script>
-        <link rel="stylesheet" href="https://byui-cse.github.io/Language-Courses/site/highlight_styles/xcode.css">
-        <link rel="stylesheet" href="https://byui-cse.github.io/Language-Courses/site/weekly.css">
-        <script type="text/javascript" src="https://byui-cse.github.io/Language-Courses/site/weekly.js"></script>
+    <title>CSE 121e: Week 04 | Concurrent Programming</title>
+    <link rel="shortcut icon"
+        href="https://byui-cse.github.io/Language-Courses/site/images/fav.ico"
+        type="image/x-icon">
+    <script type="text/javascript">
+        var codeType = "JavaScript"
+    </script>
+    <script src="https://byui-cse.github.io/Language-Courses/site/highlight.pack.js"></script>
+    <link rel="stylesheet"
+        href="https://byui-cse.github.io/Language-Courses/site/highlight_styles/xcode.css">
+    <link rel="stylesheet" href="https://byui-cse.github.io/Language-Courses/site/weekly.css">
+    <script type="text/javascript"
+        src="https://byui-cse.github.io/Language-Courses/site/weekly.js"></script>
 
 </head>
 
 <body onload="fetchSource()">
-<header class="hero-image">
-  <section class="hero-text">
-    <h1>CSE 121e: Week 04</h1>
-    <p>Concurrent Programming</p>
-  </section>
-</header>
-	<h1>Beyond Sequential</h1>
-	<p><a href="https://www.merriam-webster.com/dictionary/sequential"
-          target="_blank"
-          rel="noreferrer"></a> Sequential computing is a good thing. It's easy to think about. It's easy to debug. It's lots of good things. But 
-		there is something it isn't good at. It can't maximize the computing power of a multi-core computer. And since 
-		<a href="https://www.cnet.com/news/moores-law-is-dead-nvidias-ceo-jensen-huang-says-at-ces-2019/"
-          target="_blank"
-          rel="noreferrer">Moore's law is dead</a>, we programmers and software engineers can't rely on hardware speed ups to make our applications 
-          run faster...or can we? &#129320;
-      </p>
-      <p>
-      	These days, nearly all computers have multiple cores. But how do we leverage them so that our applications complete tasks sooner? 
-      	We make it happen by doing <a href="https://dictionary.cambridge.org/us/dictionary/english/concurrent"
-          target="_blank"
-          rel="noreferrer">concurrent</a> programming and software design instead of sequential programming and software design. 
-      	That way, we can run our application on multiple cores or on multiple distinct computers, or both, and have our app do 
-      	many, and even massively many, things at the same time!
-      </p>
-      <p>
-      	But wait a minute, you think. "Don't our computers do this for us already? Can't I write sequential code like I've always done and it will still run faster if there are multiple cores on my machine?" Sorry, it doesn't work that way. Except in some very rare cases, if you want to use more than one core on your computer, you have to make it happen by changing the way you write and design your code.
+    <header class="hero-image">
+        <section class="hero-text">
+            <h1>CSE 121e: Week 04</h1>
+            <p>Concurrent Programming</p>
+        </section>
+    </header>
+    <h1>Beyond Sequential</h1>
+    <p><a href="https://www.merriam-webster.com/dictionary/sequential" target="_blank"
+            rel="noreferrer"></a> Sequential computing is a good thing. It's easy to think
+        about. It's easy to debug. It's lots of good things. But
+        there is something it isn't good at. It can't maximize the computing power of a
+        multi-core computer. And since
+        <a href="https://www.cnet.com/news/moores-law-is-dead-nvidias-ceo-jensen-huang-says-at-ces-2019/"
+            target="_blank" rel="noreferrer">Moore's law is dead</a>, we programmers and
+        software engineers can't rely on hardware speed ups to make our applications
+        run faster...or can we? &#129320;
+    </p>
+    <p>
+        These days, nearly all computers have multiple cores. But how do we leverage them so
+        that our applications complete tasks sooner?
+        We make it happen by doing <a
+            href="https://dictionary.cambridge.org/us/dictionary/english/concurrent"
+            target="_blank" rel="noreferrer">concurrent</a> programming and software design
+        instead of sequential programming and software design.
+        That way, we can run our application on multiple cores or on multiple distinct
+        computers, or both, and have our app do
+        many, and even massively many, things at the same time!
+    </p>
+    <p>
+        But wait a minute, you think. "Don't our computers do this for us already? Can't I write
+        sequential code like I've always done and it will still run faster if there are multiple
+        cores on my machine?" Sorry, it doesn't work that way. Except in some very rare cases,
+        if you want to use more than one core on your computer, you have to make it happen by
+        changing the way you write and design your code.
 
 
-      	You may also think, "There has to be a penalty to pay, right? Nothing comes for free. It must be harder to do." You are correct. It can be much more complicated and nasty if the language you have chosen isn't designed to do concurrent programming (yes I'm looking at you C, C++, JavaScript, Clojure, and many, many others). 
-      	</p> 
-      	<p>
-      		But Erlang was specifically designed for concurrent programming. Because of that, the biggest traps programmers fall into when they 
-      	write concurrent applications, <a href="https://stackoverflow.com/questions/34510/what-is-a-race-condition"
-          target="_blank"
-          rel="noreferrer">race conditions</a> and <a href="https://www.cis.upenn.edu/~milom/cis501-Fall10/lectures/09_multicore-4up.pdf">cross locks</a>, are impossible to create in Erlang. You probably have never created these monsters and had to try to fix them, 
-          so you might not appreciate not falling in a trap 
-          that no longer exists (in Erlang at least). Yet, if you choose Erlang, you application will never 'lock up'. Every time any app you've used locks up, it is a cross lock 
-          bug in the code written in some non-concurrent language. Think how often you've experienced your app locking up as a user. Wow! We programmers have GOT to do a better job.
-      </p>
-      <p>
-      	You may have heard of threads and how hard it is to write multi-threaded code. Don't fuss about it. Being designed from the ground up as a concurrent language, Erlang doesn't have you create threads at all. It manages all the threading for you. And, by the way, it does it much more efficiently than you would have.
-      	Instead of threads, Erlang lets you create Erlang processes. Now, please don't misunderstand. These are not operating system processes (separate running applications on your system). The 
-      	creators of Erlang were much smarter than to fall back on that 1970's approach. They did something very different.
-      </p>
-      <h2>Processes</h2>
-      	<p>
-      		Erlang processes are not the same thing as an operating system process. OS processes are things like applications and 
-      		<a href="https://www.webopedia.com/TERM/D/daemon.html"
-          		target="_blank"
-          		rel="noreferrer">daemon's</a> running on your computer. One difference between OS processes running on your computer and an Erlang process is that 
-          	Each OS process has its own chunk of memory. <a href="https://www.skcript.com/svr/concurrency-in-the-erlang-vm/"
-          		target="_blank"
-          		rel="noreferrer">Erlang processes</a> do not since they are small pieces of a single OS process all running at the same time.
-      	</p>
-		<p>
-			The Erlang virtual machine, <a href="https://en.wikipedia.org/wiki/BEAM_(Erlang_virtual_machine)"
-          		target="_blank"
-          		rel="noreferrer">BEAM</a>, is highly efficient at using the OS's exposure of multiple cores through these processes. There is actually little you 
-          		need to worry about as a programmer creating concurrent applications in Erlang.
-		</p>
-		<h3>Getting Started with Processes</h3>
-		<p>
-			First things first. Just like each student here at BYU-Idaho has an ID, each Erlang process has an ID, called its Process id (Pid). Also, Erlang uses a message passing design to 
-			to accomplish concurrency. Let's look at a real-world example of ID's, message passing, and concurrency.
-		</p>
-		<p>
-			Imagine you are working with a team for one of your classes. You are all sitting together working on a project. It becomes apparent to you that you 
-			are going to have to stay a little longer to wrap things up. You had promised to go with one of your friends to buy some food for a dinner they were putting 
-			together. Since they have very limited experience cooking compared to you, they need your help. What to do? 
-		</p>
-		<p>
-			Here is the solution you come up with. You text another friend of yours with cooking experience who has previously volunteered to help make the 
-			dinner and ask them to help your first friend purchase the groceries. You also text your friend that needs the help letting them know of the change 
-			in plans. They work out the details and do the shopping while you help finish your team's project. You later get a text from each of these two 
-			people. The first is from your friend who stepped in. It says they helped purchase the groceries and got everything on the list. 
-			The second comes from your friend who asked for help saying the dinner is ready to start being cooked when you are.
-		</p>
-		<p>
-			In this example, each of your friends are separate and distinct from each other and from you. The three of you are similar to Erlang processes. 
-			You accomplished what needed to be done by sending a message to each of them. They then did what needed to be done, and sent you back a message 
-			reporting so. This is a real-life example of concurrency using processes and message passing. 
-		</p>
-		<p>
-			There are a couple of things about this process that you haven't thought about because you use texting technology so much and so often. First, 
-			in order to send your friends texts you need to know their ID. For texting, the ID you have to have is their phone number. Also, when they 
-			get a text from you, they need to have your ID, phone number, so they can respond to you. If you don't sent them your ID, they can't respond, and 
-			if you don't have their ID, you can't make a request.
-		</p> 
-		<p>
-			So it turns out you use concurrency all the time in your life. Don't think because this idea is part of an Erlang class, that concurrency and message 
-			passing is more complicated than what you've seen in this example. It isn't. Don't let your brain trick you into thinking it is! All we need to do is 
-			see how to convert these ideas into Erlang code. &#128515;
-		</p>
-		<p>
-			Imagine, for a moment, that you have already created a module called <kbd>simple_calc</kbd>. It houses the code for a process that lets you do simple 
-			calculator stuff like, addition, multiplication, and division. It has one function called <kbd>run/0</kbd> that starts up the process and keeps 
-			it from dying. For now, don't worry about the code in <kbd>simple_calc</kbd> that does the calculations. We'll look at that later. What we should look at first, is how to start up 
-			<kbd>simple_calc</kbd>, get its Pid, and send it a message to add a list of numbers together.
-		</p>
-		<p>
-			Let's start by starting the <kbd>simple_calc</kbd> process and getting its process ID. To do this, use the <a href="https://erlang.org/doc/man/erlang.html#spawn-3"
-          		target="_blank"
-          		rel="noreferrer"><kbd>spawn/3</kbd></a> BIF. It will spawn the process for you.
-		</p>
-		<p>
-		<pre>
-		<code class="Erlang">1> Calc_pid = spawn(simple_calc,run,[]).
-</code></pre></p>
-		<p>
-			The three parameters for spawn are; 1) the name of the module containing the function, the name of the function to start up, and the list of parameters that function needs. 
-			For this example, the name of the module is <kbd>simple_calc</kbd>, the name of the function is <kbd>run</kbd>, and <kbd>run</kbd> has no 
-			parameters, so an empty list is passed as the last parameter of <kbd>spawn/3</kbd>. The <kbd>spawn/3</kbd> function returns the id of the process just created, so we 
-			keep that in <kbd>Pid</kbd> for this example.
-		</p>
-		<p>
-			Ok, we've got the process running. How do we send it a message? Sending messages is so fundamental to Erlang that we use an operator to send 
-			messages rather than a function call. The send-message operator is <kbd>!</kbd> and messages are usually sent as tuples, so let's send a 
-			message to the <kbd>simple_calc:run/0</kbd> process asking it to add together a list of numbers for us. Now remember, just like texting, the 
-			<kbd>simple_calc:run/0</kbd> process has to have an ID to respond to, just like your texting buddies know your phone number. Use the <kbd>self/0</kbd> function to 
-			get the process ID of where the response should sent. Here is the code to send that message.
-		</p>
-		<p>
-		<pre>
-		<code class="Erlang">2> Calc_pid ! {self(),add,[1,2,3]}.
-</code></pre></p>
-		<p>
-			On the left of the <kbd>!</kbd> operator you see the process ID for the process the message is being sent to. On the right is the message tuple that 
-			has all the parts needed so the process can determine what to do and respond with a result.
-		</p> 
-		<p>The first element of the message is the process ID where the response should be sent. 
-			The second element is the atom telling the calculator what you want done (addition), and the third element is the list of numbers to add. You 
-			can have as many elements as you need. Erlang has no requirement for the number of elements in a message, nor what they should be. If, however, 
-			you start sending messages with a lot of elements, you've probably got something wrong in the design of the process. The reason we know to send 
-			these three elements for this example, is we have read the documentation for the process. It told us what to send when we want to add stuff up.
-		</p>
-		<p>
-			When this line of code runs in the REPL, you get a message like this.
-		</p>
-		<p>
-		<pre>
-		<code class="Erlang">{<0.80.0>,add,[1,2,3]}
-</code></pre></p>
-		<p>
-			I'd bet you expected to see a 6 instead. What's up with this? Where did the 6 go? Great questions! What you are seeing is what has been done, and 
-			the 6 is waiting in the queue of the REPL process for you to retrieve it. Think about texting your friends again. Usually when you send a text, 
-			you get some sort of message like 'delivered' after you tell the system to send the message. Your friend can then reply, but until you actually read 
-			their response, it hasn't been received by you. You need one more line of code to get the response so you can work with it. That line of code 
-			uses the <kbd>receive</kbd> and <kbd>end</kbd> keywords. It puts the 6 in the variable <kbd>Resp</kbd> and looks like this.
-		</p>
-		<p>
-		<pre>
-		<code class="Erlang">3> receive Resp -> Resp end.
-</code></pre></p>
-		<p>
-			This line of code says,"Wait until you receive a message. When you get a message, put it in Resp. Then stop waiting."
-		</p>
-		<p>
-			So there you've seen the basics of starting a process, sending it messages, and getting response messages. A little later in this reading you'll see 
-			how to automate this to make it even easier, but right now it's a good idea to see how to write the code for a process. We'll use the <kbd>simple_calc</kbd> 
-			process since you're already a little familiar with it. This example covers the basics.
-		</p>
-		<p>
-			So, then what does creating, starting, and using a process look like in Erlang? Well, just like your friends, an Erlang process needs to have some 
-			way to receive a message, make sure it understands the message, and then send a response. Also, just like your friends, the process shouldn't die 
-			after it helps you out. &#128519; Let's start by looking at the code for an Erlang process that performs simple tasks that won't distract from 
-			learning process structure and use. Let's create a ridiculously simple calculator process called <kbd>simple_calc</kbd> by putting functions in a 
-			<kbd>simple_calc</kbd> module, including documentation.
-		</p>
-		<p>
-		<pre>
-		<code class="Erlang">-module(simple_calc).
+        You may also think, "There has to be a penalty to pay, right? Nothing comes for free. It
+        must be harder to do." You are correct. It can be much more complicated and nasty if the
+        language you have chosen isn't designed to do concurrent programming (yes I'm looking at
+        you C, C++, JavaScript, Clojure, and many, many others).
+    </p>
+    <p>
+        But Erlang was specifically designed for concurrent programming. Because of that, the
+        biggest traps programmers fall into when they
+        write concurrent applications, <a
+            href="https://stackoverflow.com/questions/34510/what-is-a-race-condition"
+            target="_blank" rel="noreferrer">race conditions</a> and <a
+            href="https://www.cis.upenn.edu/~milom/cis501-Fall10/lectures/09_multicore-4up.pdf">cross
+            locks</a>, are impossible to create in Erlang. You probably have never created these
+        monsters and had to try to fix them,
+        so you might not appreciate not falling in a trap
+        that no longer exists (in Erlang at least). Yet, if you choose Erlang, you application
+        will never 'lock up'. Every time any app you've used locks up, it is a cross lock
+        bug in the code written in some non-concurrent language. Think how often you've
+        experienced your app locking up as a user. Wow! We programmers have GOT to do a better
+        job.
+    </p>
+    <p>
+        You may have heard of threads and how hard it is to write multi-threaded code. Don't
+        fuss about it. Being designed from the ground up as a concurrent language, Erlang
+        doesn't have you create threads at all. It manages all the threading for you. And, by
+        the way, it does it much more efficiently than you would have.
+        Instead of threads, Erlang lets you create Erlang processes. Now, please don't
+        misunderstand. These are not operating system processes (separate running applications
+        on your system). The
+        creators of Erlang were much smarter than to fall back on that 1970's approach. They did
+        something very different.
+    </p>
+    <h2>Processes</h2>
+    <p>
+        Erlang processes are not the same thing as an operating system process. OS processes are
+        things like applications and
+        <a href="https://www.webopedia.com/TERM/D/daemon.html" target="_blank"
+            rel="noreferrer">daemon's</a> running on your computer. One difference between OS
+        processes running on your computer and an Erlang process is that
+        Each OS process has its own chunk of memory. <a
+            href="https://www.skcript.com/svr/concurrency-in-the-erlang-vm/" target="_blank"
+            rel="noreferrer">Erlang processes</a> do not since they are small pieces of a single
+        OS process all running at the same time.
+    </p>
+    <p>
+        The Erlang virtual machine, <a
+            href="https://en.wikipedia.org/wiki/BEAM_(Erlang_virtual_machine)" target="_blank"
+            rel="noreferrer">BEAM</a>, is highly efficient at using the OS's exposure of
+        multiple cores through these processes. There is actually little you
+        need to worry about as a programmer creating concurrent applications in Erlang.
+    </p>
+    <h3>Getting Started with Processes</h3>
+    <p>
+        First things first. Just like each student here at BYU-Idaho has an ID, each Erlang
+        process has an ID, called its Process id (Pid). Also, Erlang uses a message passing
+        design to
+        to accomplish concurrency. Let's look at a real-world example of ID's, message passing,
+        and concurrency.
+    </p>
+    <p>
+        Imagine you are working with a team for one of your classes. You are all sitting
+        together working on a project. It becomes apparent to you that you
+        are going to have to stay a little longer to wrap things up. You had promised to go with
+        one of your friends to buy some food for a dinner they were putting
+        together. Since they have very limited experience cooking compared to you, they need
+        your help. What to do?
+    </p>
+    <p>
+        Here is the solution you come up with. You text another friend of yours with cooking
+        experience who has previously volunteered to help make the
+        dinner and ask them to help your first friend purchase the groceries. You also text your
+        friend that needs the help letting them know of the change
+        in plans. They work out the details and do the shopping while you help finish your
+        team's project. You later get a text from each of these two
+        people. The first is from your friend who stepped in. It says they helped purchase the
+        groceries and got everything on the list.
+        The second comes from your friend who asked for help saying the dinner is ready to start
+        being cooked when you are.
+    </p>
+    <p>
+        In this example, each of your friends are separate and distinct from each other and from
+        you. The three of you are similar to Erlang processes.
+        You accomplished what needed to be done by sending a message to each of them. They then
+        did what needed to be done, and sent you back a message
+        reporting so. This is a real-life example of concurrency using processes and message
+        passing.
+    </p>
+    <p>
+        There are a couple of things about this process that you haven't thought about because
+        you use texting technology so much and so often. First,
+        in order to send your friends texts you need to know their ID. For texting, the ID you
+        have to have is their phone number. Also, when they
+        get a text from you, they need to have your ID, phone number, so they can respond to
+        you. If you don't sent them your ID, they can't respond, and
+        if you don't have their ID, you can't make a request.
+    </p>
+    <p>
+        So it turns out you use concurrency all the time in your life. Don't think because this
+        idea is part of an Erlang class, that concurrency and message
+        passing is more complicated than what you've seen in this example. It isn't. Don't let
+        your brain trick you into thinking it is! All we need to do is
+        see how to convert these ideas into Erlang code. &#128515;
+    </p>
+    <p>
+        Imagine, for a moment, that you have already created a module called
+        <kbd>simple_calc</kbd>. It houses the code for a process that lets you do simple
+        calculator stuff like, addition, multiplication, and division. It has one function
+        called <kbd>run/0</kbd> that starts up the process and keeps
+        it from dying. For now, don't worry about the code in <kbd>simple_calc</kbd> that does
+        the calculations. We'll look at that later. What we should look at first, is how to
+        start up
+        <kbd>simple_calc</kbd>, get its Pid, and send it a message to add a list of numbers
+        together.
+    </p>
+    <p>
+        Let's start by starting the <kbd>simple_calc</kbd> process and getting its process ID.
+        To do this, use the <a href="https://erlang.org/doc/man/erlang.html#spawn-3"
+            target="_blank" rel="noreferrer"><kbd>spawn/3</kbd></a> BIF. It will spawn the
+        process for you.
+    </p>
+    <p>
+    <pre><code class="Erlang">1> Calc_pid = spawn(simple_calc,run,[]).
+</code></pre>
+    </p>
+    <p>
+        The three parameters for spawn are; 1) the name of the module containing the function,
+        the name of the function to start up, and the list of parameters that function needs.
+        For this example, the name of the module is <kbd>simple_calc</kbd>, the name of the
+        function is <kbd>run</kbd>, and <kbd>run</kbd> has no
+        parameters, so an empty list is passed as the last parameter of <kbd>spawn/3</kbd>. The
+        <kbd>spawn/3</kbd> function returns the id of the process just created, so we
+        keep that in <kbd>Pid</kbd> for this example.
+    </p>
+    <p>
+        Ok, we've got the process running. How do we send it a message? Sending messages is so
+        fundamental to Erlang that we use an operator to send
+        messages rather than a function call. The send-message operator is <kbd>!</kbd> and
+        messages are usually sent as tuples, so let's send a
+        message to the <kbd>simple_calc:run/0</kbd> process asking it to add together a list of
+        numbers for us. Now remember, just like texting, the
+        <kbd>simple_calc:run/0</kbd> process has to have an ID to respond to, just like your
+        texting buddies know your phone number. Use the <kbd>self/0</kbd> function to
+        get the process ID of where the response should sent. Here is the code to send that
+        message.
+    </p>
+    <p>
+    <pre>
+    <code class="Erlang">2> Calc_pid ! {self(),add,[1,2,3]}.
+</code></pre>
+    </p>
+    <p>
+        On the left of the <kbd>!</kbd> operator you see the process ID for the process the
+        message is being sent to. On the right is the message tuple that
+        has all the parts needed so the process can determine what to do and respond with a
+        result.
+    </p>
+    <p>The first element of the message is the process ID where the response should be sent.
+        The second element is the atom telling the calculator what you want done (addition), and
+        the third element is the list of numbers to add. You
+        can have as many elements as you need. Erlang has no requirement for the number of
+        elements in a message, nor what they should be. If, however,
+        you start sending messages with a lot of elements, you've probably got something wrong
+        in the design of the process. The reason we know to send
+        these three elements for this example, is we have read the documentation for the
+        process. It told us what to send when we want to add stuff up.
+    </p>
+    <p>
+        When this line of code runs in the REPL, you get a message like this.
+    </p>
+    <p>
+    <pre>
+    <code class="Erlang">{<0.80.0>,add,[1,2,3]}
+</code></pre>
+    </p>
+    <p>
+        I'd bet you expected to see a 6 instead. What's up with this? Where did the 6 go? Great
+        questions! What you are seeing is what has been done, and
+        the 6 is waiting in the queue of the REPL process for you to retrieve it. Think about
+        texting your friends again. Usually when you send a text,
+        you get some sort of message like 'delivered' after you tell the system to send the
+        message. Your friend can then reply, but until you actually read
+        their response, it hasn't been received by you. You need one more line of code to get
+        the response so you can work with it. That line of code
+        uses the <kbd>receive</kbd> and <kbd>end</kbd> keywords. It puts the 6 in the variable
+        <kbd>Resp</kbd> and looks like this.
+    </p>
+    <p>
+    <pre>
+        <code class="Erlang">3> receive Resp -> Resp end.
+</code></pre>
+    </p>
+    <p>
+        This line of code says,"Wait until you receive a message. When you get a message, put it
+        in Resp. Then stop waiting."
+    </p>
+    <p>
+        So there you've seen the basics of starting a process, sending it messages, and getting
+        response messages. A little later in this reading you'll see
+        how to automate this to make it even easier, but right now it's a good idea to see how
+        to write the code for a process. We'll use the <kbd>simple_calc</kbd>
+        process since you're already a little familiar with it. This example covers the basics.
+    </p>
+    <p>
+        So, then what does creating, starting, and using a process look like in Erlang? Well,
+        just like your friends, an Erlang process needs to have some
+        way to receive a message, make sure it understands the message, and then send a
+        response. Also, just like your friends, the process shouldn't die
+        after it helps you out. &#128519; Let's start by looking at the code for an Erlang
+        process that performs simple tasks that won't distract from
+        learning process structure and use. Let's create a ridiculously simple calculator
+        process called <kbd>simple_calc</kbd> by putting functions in a
+        <kbd>simple_calc</kbd> module, including documentation.
+    </p>
+    <p>
+    <pre><code class="Erlang">-module(simple_calc).
 -export([run/0]).
 
 %% @doc The &lt;kbd&gt;run/0&lt;/kbd&gt; function is the service keep-alive function. 
@@ -214,27 +298,36 @@ run()-&gt;
               Pid ! {ok,Dividend div Divisor}
     end,
     run().
-</code></pre></p>
+</code></pre>
+    </p>
 
-	<p>
-		Take a good look at the <kbd>run/0</kbd> function. You'll find it right after its documentation. Notice that it also uses the <kbd>receive</kbd> and 
-		<kbd>end</kbd> keywords just like the code that sent the message. Also notice that it isn't a loop. It is a tail-recursive function. The <kbd>receive</kbd> keyword causes 
-		the process to pause until a message is received. Between the <kbd>receive</kbd> and <kbd>end</kbd> keywords you'll see several options for the incoming 
-		message. When a pattern match is found, the code in the <kbd>-></kbd> block is executed. The code executed in each of these blocks are examples of things learned 
-		in previous weeks. If you don't recognize them, please go back and review. 
-	</p>
-	<p>
-		In its current form, if no match is made no response message is sent, so any waiting receive will hang. We'll learn how to deal with this later.
-	</p>
-	<p>
-		In this code, the <kbd>Pid</kbd> is the process ID of the process to which the response message is to be sent and the <kbd>!</kbd> operator is used here to send a message. 
-		Nothing new to learn on this end to send a message back! &#129395;&#128526;
-	</p>
+    <p>
+        Take a good look at the <kbd>run/0</kbd> function. You'll find it right after its
+        documentation. Notice that it also uses the <kbd>receive</kbd> and
+        <kbd>end</kbd> keywords just like the code that sent the message. Also notice that it
+        isn't a loop. It is a tail-recursive function. The <kbd>receive</kbd> keyword causes
+        the process to pause until a message is received. Between the <kbd>receive</kbd> and
+        <kbd>end</kbd> keywords you'll see several options for the incoming
+        message. When a pattern match is found, the code in the <kbd>-></kbd> block is executed.
+        The code executed in each of these blocks are examples of things learned
+        in previous weeks. If you don't recognize them, please go back and review.
+    </p>
+    <p>
+        In its current form, if no match is made no response message is sent, so any waiting
+        receive will hang. We'll learn how to deal with this later.
+    </p>
+    <p>
+        In this code, the <kbd>Pid</kbd> is the process ID of the process to which the response
+        message is to be sent and the <kbd>!</kbd> operator is used here to send a message.
+        Nothing new to learn on this end to send a message back! &#129395;&#128526;
+    </p>
 
-	<p>
-		So let's solve that problem of not finding a match. Below is an updated code snippet that shows the code that solves this problem for us.
-	</p>
-	<p><pre><code class="Erlang">run()-&gt;
+    <p>
+        So let's solve that problem of not finding a match. Below is an updated code snippet
+        that shows the code that solves this problem for us.
+    </p>
+    <p>
+    <pre><code class="Erlang">run()-&gt;
     receive
         {Pid, {multiply,List}} ->
               Pid ! {ok,lists:foldl(fun(X,Y)->X*Y end,1,List)};
@@ -246,48 +339,70 @@ run()-&gt;
               Pid ! {fail, unrecognized_message}
     end,
     run().
-</code></pre></p>
-<p>Notice how we've changed the pattern slightly so each <kbd>receive</kbd> clause has exactly two things in the tuple, a Pid and a tuple indicating the command. The last pattern will handle any message that does not include a valid command (i.e., multiply, add, divide).</p>
-	<p>
-		You may be thinking, "But what if they don't send a process ID to respond too?" Good question. Don't put in an error handling match for that. Let them 
-		be responsible for their own actions. &#128519; Besides, you couldn't tell them they did it wrong anyway. They will get a message that says something 
-		like this.
-	</p>
-	<p><pre><code class="Erlang">{badarg,[{simple_calc,run,0,[{file,"simple_calc.erl"},{line,33}]}]}
-</code></pre></p>
-	<p>
-		If you get a message that looks like that when you send a message to a process, you know you didn't put the message together correctly.
-	</p>
-	<h3>Sending Messages Made Easy</h3>
-	<p>
-		You are going to be sending a lot of messages to any process you create. Wouldn't it be great to write a function that would make it easier to send all these messages, wait for the response, and then give us the response? Let's do that! It's 
-		going to look a lot like the <kbd>run/0</kbd> function internally, thank heavens. Here is a code snippet for just such a function.
-	</p>
-<p><pre><code class="Erlang">calculate(Pid,Message,Response_handler)->
+</code></pre>
+    </p>
+    <p>Notice how we've changed the pattern slightly so each <kbd>receive</kbd> clause has
+        exactly two things in the tuple, a Pid and a tuple indicating the command. The last
+        pattern will handle any message that does not include one of the three valid commands
+        (multiply, add, divide).</p>
+    <p>
+        You may be thinking, "But what if they don't send a process ID to respond too?" Good
+        question. Don't put in an error handling match for that. Let them
+        be responsible for their own actions. &#128519; Besides, you couldn't tell them they did
+        it wrong anyway. They will get a message that says something
+        like this.
+    </p>
+    <p>
+    <pre><code class="Erlang">{badarg,[{simple_calc,run,0,[{file,"simple_calc.erl"},{line,33}]}]}
+</code></pre>
+    </p>
+    <p>
+        If you get a message that looks like that when you send a message to a process, you know
+        you didn't put the message together correctly.
+    </p>
+    <h3>Sending Messages Made Easy</h3>
+    <p>
+        You are going to be sending a lot of messages to any process you create. Wouldn't it be
+        great to write a function that would make it easier to send all these messages, wait for
+        the response, and then give us the response? Let's do that! It's
+        going to look a lot like the <kbd>run/0</kbd> function internally, thank heavens. Here
+        is a code snippet for just such a function.
+    </p>
+    <p>
+    <pre><code class="Erlang">calculate(Pid,Message,Response_handler)->
      Pid ! {self(),Message},
      receive
          Response ->
              Response_handler(Response)
      end.
-</code></pre></p>
-<p>
-	As mentioned, it sends the message to the process whose id is <kbd>Pid</kbd>, waits for the response, and then uses the <kbd>Response_handler</kbd> <kbd>fun</kbd> passed in as a parameter to deal 
-	with the response after it shows up. As a reminder, a <kbd>fun</kbd> is passed in so there is no hard-coding needed in the <kbd>calculate</kbd> function to deal with it. That's 
-	a GOOD thing.
-</p>
+</code></pre>
+    </p>
+    <p>
+        As mentioned, it sends the message to the process whose id is <kbd>Pid</kbd>, waits for
+        the response, and then uses the <kbd>Response_handler</kbd> <kbd>fun</kbd> passed in as
+        a parameter to deal
+        with the response after it shows up. As a reminder, a <kbd>fun</kbd> is passed in so
+        there is no hard-coding needed in the <kbd>calculate</kbd> function to deal with it.
+        That's
+        a GOOD thing.
+    </p>
 
-Here is a code snippet showing the use of <kbd>calculate</kbd> in the REPL. I put it in a module with the ridiculous name <kbd>calc_it</kbd>.
-<p><pre><code class="Erlang">1> Pid = spawn(simple_calc,run,[]).
+    Here is a code snippet showing the use of <kbd>calculate</kbd> in the REPL. I put it in a
+    module with the ridiculous name <kbd>calc_it</kbd>.
+    <p>
+    <pre><code class="Erlang">1> Pid = spawn(simple_calc,run,[]).
 2> calc_it:calculate(Pid,{add, [1,2,3,4,5]},fun(R) -> io:format("Response: ~p~n",[R]) end).
-</code></pre></p>
-<p>
-	Notice that in the <kbd>fun</kbd> passed in, all I'm doing is printing out the result. I just wanted to keep the example simple. You could do things that are a lot more 
-	interesting.
-</p>
-<p>To recap, here's all the code for the simple_calc module and the calc_it module.</p>
-<pre><code class="Erlang">-module(simple_calc).
+</code></pre>
+    </p>
+    <p>
+        Notice that in the <kbd>fun</kbd> passed in, all I'm doing is printing out the result. I
+        just wanted to keep the example simple. You could do things that are a lot more
+        interesting.
+    </p>
+    <p>To recap, here's all the code for the simple_calc module and the calc_it module.</p>
+    <pre><code class="Erlang">-module(simple_calc).
 -export([run/0]).
-	
+    
 run()->
     receive
         {Pid, {multiply,List}} ->
@@ -301,7 +416,7 @@ run()->
     end,
     run().
 </code></pre>
-<pre><code class="Erlang">-module(calc_it).
+    <pre><code class="Erlang">-module(calc_it).
 -export([calculate/3]).
 
 calculate(Pid, Message, Response_handler) ->
@@ -311,105 +426,117 @@ calculate(Pid, Message, Response_handler) ->
             Response_handler(Response)
     end.
 </code></pre>
-<h2>Client-Server</h2>
-<p>
-	So, unbeknownst to you, the two modules you just saw fall into a class of computing called <kbd>client-server</kbd>. The process in the <kbd>simple_calc</kbd> 
-	module is a server, and the code in the <kbd>calc_it</kbd> module is a client for that server. It is important to know that a server is a piece of software. 
-	Sometimes we use the term to refer to the hardware, virtual or not, that the server runs on, but the reason we do that is because of the SOFTWARE!
-</p>
+    <h2>Client-Server</h2>
+    <p>
+        So, unbeknownst to you, the two modules you just saw fall into a class of computing
+        called <kbd>client-server</kbd>. The process in the <kbd>simple_calc</kbd>
+        module is a server, and the code in the <kbd>calc_it</kbd> module is a client for that
+        server. It is important to know that a server is a piece of software.
+        Sometimes we use the term to refer to the hardware, virtual or not, that the server runs
+        on, but the reason we do that is because of the SOFTWARE!
+    </p>
 
-<h2>Putting it all together</h2>
-<p>Now that you've seen how to implement a simple concurrent calculator using two modules, <kbd>simple_calc</kbd> and <kbd>calc_it</kbd>, let's combine the client and server code into a single module following a pattern you'll see repeatedly in Erlang.</p>
-<p>We'll add a function called <kbd>start/0</kbd> which will take care of spawning the server process for us. Then we'll add the client function <kbd>calculate/3</kbd>.</p>
-<pre><code class="Erlang">-module(simple_calc_1).
+    <h2>Putting it all together</h2>
+    <p>Now that you've seen how to implement a simple concurrent calculator using two modules,
+        <kbd>simple_calc</kbd> and <kbd>calc_it</kbd>, let's combine the client and server code
+        into a single module following a pattern you'll see repeatedly in Erlang.
+    </p>
+    <p>We'll add a function called <kbd>start/0</kbd> which will take care of spawning the
+        server process for us. Then we'll add the client function <kbd>calculate/3</kbd>.</p>
+    <pre><code class="Erlang">-module(simple_calc_1).
 -export([start/0, run/0, calculate/3]).
 
 % We can add a start() function so we don't have to spawn it manually from the
 % REPL
 start() -> 
-	spawn(?MODULE, run, []).
+    spawn(?MODULE, run, []).
 
 run() ->
-	receive
-		{From, {add, Arguments}} -> 
-			Result = lists:foldl(fun(X, Acc) -> X + Acc end, 0, Arguments),
-			From ! {ok, Result};
-		{From, {multiply, Arguments}} -> 
-			Result = lists:foldl(fun(X, Acc) -> X * Acc end, 1, Arguments),
-			From ! {ok, Result};
-		{From, {divide, Dividend, Divisor}} -> 
-			Result = Dividend div Divisor,
-			From ! {ok, Result};
-		{From, Message} ->
-			From ! {fail, Message}
-	end,
-	run().
+    receive
+        {From, {add, Arguments}} -> 
+            Result = lists:foldl(fun(X, Acc) -> X + Acc end, 0, Arguments),
+            From ! {ok, Result};
+        {From, {multiply, Arguments}} -> 
+            Result = lists:foldl(fun(X, Acc) -> X * Acc end, 1, Arguments),
+            From ! {ok, Result};
+        {From, {divide, Dividend, Divisor}} -> 
+            Result = Dividend div Divisor,
+            From ! {ok, Result};
+        {From, Message} ->
+            From ! {fail, Message}
+    end,
+    run().
 
 
 calculate(Pid, Message, Response_handler) ->
-	Pid ! {self(), Message},
-	receive
-		Response ->
-			Response_handler(Response)
-	end.	
+    Pid ! {self(), Message},
+    receive
+        Response ->
+            Response_handler(Response)
+    end.
 </code></pre>
-<p>To use the calculator, we first start the server, then send messages to the server using the <kbd>calculate/3</kbd> function.</p>
-<pre><code class="Erlang">1> Pid = simple_calc_1:start().
+    <p>To use the calculator, we first start the server, then send messages to the server using
+        the <kbd>calculate/3</kbd> function.</p>
+    <pre><code class="Erlang">1> Pid = simple_calc_1:start().
 2> simple_calc_1:calculate(Pid, {add, [1,2,3,4,5]}, fun(R) -> io:format("Response: ~p~n", [R]) end).
 </code></pre>
 
 
-<h2>Wrap Up</h2>
-<p>
-	Now that you have seen how to do basic client-server processes, you are ready, next week, to learn to take it one step further. You'll learn how to make what is called a stateful-process. 
-</p>
+    <h2>Wrap Up</h2>
+    <p>
+        Now that you have seen how to do basic client-server processes, you are ready, next
+        week, to learn to take it one step further. You'll learn how to make what is called a
+        stateful-process.
+    </p>
 
-<h2>Appendix: A Template</h2>
-<p>
-	Here is a template suggested by Joe Armstrong, one of the creators of Erlang, as being a good place to start when you are creating processes. The 
-	code comes from </p>
-<iframe type="text/html" width="336" height="550" frameborder="0" allowfullscreen style="max-width:100%" src="https://read.amazon.com/kp/card?asin=B00I9GR4TW&preview=inline&linkCode=kpe&ref_=cm_sw_r_kb_dp_5qzTFbKCFS400" ></iframe>
-<p>
-	The template has the client and server code in one module, but doesn't use a <kbd>fun</kbd> as a response handler for the client function. 
-	You could add that. &#128521; The function name <kbd>rpc</kbd> is short hand for 'remote procedure call.' A term you will hear in computing a lot. He also named his recursive function <kbd>loop</kbd> instead of <kbd>run</kbd>. A file with the code in it is available for <a href="example_source/ctemplate.erl">download</a>.
-</p>
-<p><pre><code class="Erlang">-module(ctemplate).
+    <h2>Appendix: A Template</h2>
+    <p>
+        Here is a template suggested by Joe Armstrong, one of the creators of Erlang, as being a
+        good place to start when you are creating processes. The
+        code comes from </p>
+    <iframe type="text/html" width="336" height="550" frameborder="0" allowfullscreen
+        style="max-width:100%"
+        src="https://read.amazon.com/kp/card?asin=B00I9GR4TW&preview=inline&linkCode=kpe&ref_=cm_sw_r_kb_dp_5qzTFbKCFS400"></iframe>
+    <p>
+        The template has the client and server code in one module, but doesn't use a
+        <kbd>fun</kbd> as a response handler for the client function.
+        You could add that. &#128521; The function name <kbd>rpc</kbd> is short hand for 'remote
+        procedure call.' A term you will hear in computing a lot. He also named his recursive
+        function <kbd>loop</kbd> instead of <kbd>run</kbd>. A file with the code in it is
+        available for <a href="example_source/ctemplate.erl">download</a>.
+    </p>
+    <p>
+    <pre><code class="Erlang">-module(ctemplate).
 -export([start/0,rpc/2,loop/0]).%loop must be exported so it can be spawned.
 start() ->
-	spawn(?MODULE,loop,[]).%this is a very effective way of not having to type this over and over in your code.
+    spawn(?MODULE,loop,[]).%this is a very effective way of not having to type this over and over in your code.
 
 rpc(Pid, Request) -> %no response handler parameter. You probably want one
-	Pid ! {self(),Request},
-	receive
-		{Pid,Response} ->
-			Response %ignoring the Pid
-	end.
+    Pid ! {self(),Request},
+    receive
+        {Pid,Response} ->
+            Response %ignoring the Pid
+    end.
 
 loop()->
-	receive
-		Any ->
-			io:format("Received:~p~n",[Any]),%empty looping. does not send a response.
-			loop()
-	end.
+    receive
+        Any ->
+            io:format("Received:~p~n",[Any]),%empty looping. does not send a response.
+            loop()
+    end.
 
-</code></pre></p>
+</code></pre>
+    </p>
 
-<footer>
-      <a
-        rel="license"
-        href="http://creativecommons.org/licenses/by/4.0/"
-        target="_blank"
-        ><img
-          alt="This work is licensed under a Creative Commons Attribution 4.0 International License"
-          style="border-width: 0;"
-          src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a
-      ><br />This work is licensed under a
-      <a
-        rel="license"
-        href="http://creativecommons.org/licenses/by/4.0/"
-        target="_blank"
-        >Creative Commons Attribution 4.0 International License</a
-      >.
+    <footer>
+        <a rel="license" href="http://creativecommons.org/licenses/by/4.0/" target="_blank"><img
+                alt="This work is licensed under a Creative Commons Attribution 4.0 International License"
+                style="border-width: 0;"
+                src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a><br />This work is
+        licensed under a
+        <a rel="license" href="http://creativecommons.org/licenses/by/4.0/"
+            target="_blank">Creative Commons Attribution 4.0 International License</a>.
     </footer>
 </body>
+
 </html>
