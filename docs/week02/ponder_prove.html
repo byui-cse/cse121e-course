@@ -6,72 +6,78 @@
 <head>
 	<title>CSE 121e: Week 02 | Tasks</title>
 	<link rel="shortcut icon" href="https://byui-cse.github.io/Language-Courses/site/images/fav.ico" type="image/x-icon">
-    <script type="text/javascript">
-                 var codeType = "Erlang"
-    </script>
-    <script src="https://byui-cse.github.io/Language-Courses/site/highlight.pack.js"></script>
-    <link rel="stylesheet" href="https://byui-cse.github.io/Language-Courses/site/highlight_styles/xcode.css">
+	<script type="text/javascript">
+		var codeType = "Erlang"
+	</script>
+	<script src="https://byui-cse.github.io/Language-Courses/site/highlight.pack.js"></script>
+	<link rel="stylesheet" href="https://byui-cse.github.io/Language-Courses/site/highlight_styles/xcode.css">
 	<link rel="stylesheet" href="../site/styles.css">
-    <script type="text/javascript" src="https://byui-cse.github.io/Language-Courses/site/weekly.js"></script>
+	<script type="text/javascript" src="https://byui-cse.github.io/Language-Courses/site/weekly.js"></script>
 
 </head>
 
 <body onload="fetchSource()">
-<div class="hero-image">
-  <div class="hero-text">
-    <h1>CSE 121e: Week 02</h1>
-    <p>Ponder and Prove</p>
-  </div>
-</div>
-<h1>Introduction</h1>
+	<div class="hero-image">
+		<div class="hero-text">
+			<h1>CSE 121e: Week 02</h1>
+			<p>Ponder and Prove</p>
+		</div>
+	</div>
+	<h2>Introduction</h2>
+	<p>For this week's task, you will practice using basic Erlang syntax by modifying an existing project. <strong>The goal is to make sure all the unit tests pass</strong>. As you work on these, make sure to read through all the code in the <kbd>team_builder.erl</kbd> file. That is where all your code will go. You should also read through the unit tests in the bottom portion of that file and try to understand how they work.</p>
+	<ul>
+		<li>There are four functions that you need to complete in the <kbd>team_builder.erl</kbd> file. These functions are <kbd>add</kbd>, <kbd>divide</kbd>, <kbd>lower_divide</kbd>, <kbd>remainder</kbd>, and <kbd>difference</kbd>.</li>
+		<li>There are three unit tests at the end of the file that you'll need to fix. These unit tests will require you to insert some code in order for them to work correctly. Read the code and comments that are provided to help you figure out what you need to do.</li>
+	</ul>
 	<p>
-		You work for a TV production company. The Show is a program that has, as a major design component, competition between teams and cooperation within teams. 
+		Scenario: You work for a TV production company that is producing a game show. The Show is a program that has, as a major design component, competition between teams and cooperation within teams.
 	</p>
-	<h1>Your Task</h1>
+	<h2>Your Task</h2>
 	<p>
 		Your boss needs help selecting good teams from persons that have been selected to be potential participants. He has assigned you to help with this effort.
 	</p>
-		
+
 	<ol>
-	  <li>
-	  	<p>
-	  		Being new to Erlang, you decide to start by doing some experimentation so you can see what to expect from Erlang lists and expressions. You have written some unit tests in the <kbd>build_teams.erl</kbd> file in the <a href="game_show.zip">game_show.zip</a> file you got from your team. You figured these would help you see what happens in various situations. Write code to complete the functions and tests in the <kbd>build_teams.erl</kbd> file. <a href="./game_show.zip">Download the project you created</a>, unzip it, and finish the needed lines of code.
+		<li>
+			<p>
+				Being new to Erlang, you decide to start by doing some experimentation so you can see what to expect from Erlang lists and expressions. You have written some unit tests in the <kbd>team_builder.erl</kbd> file in the <a href="game_show.zip">game_show.zip</a> file you got from your team. You figured these would help you see what happens in various situations. Write code to complete the functions and tests in the <kbd>build_teams.erl</kbd> file. <a href="./game_show.zip">Download the project you created</a>, unzip it, and finish the needed lines of code.
 			</p>
 			<p>
 				You found a <a href="https://www.erlang.org/doc/man/assert.hrl.html" target="_blank">web page</a> with list of all of the possible assertions available.
 			</p>
-	  </li>
+		</li>
 	</ol>
-	<h1>Stretch Challenge (Optional)</h1>
+	<h2>Stretch Challenge (Optional)</h2>
 	<p>
-				Put the following in the REPL.
+		Try experimenting with Erlang by putting the following in the REPL.
 	</p>
-	<kbd>1234567890123456789.0 - 1234567890123456788.0.</kbd>
+	<p><code>1234567890123456789.0 - 1234567890123456788.0.</code></p>
 	<p>
-		The result is not <kbd>1.0</kbd>.
+		Notice that the result is not <kbd>1.0</kbd>.
 	</p>
 	<p>
-		Put the following in the REPL.
+		Now put the following in the REPL.
 	</p>
-	<kbd>1234567890123456789123456789.0 - 123456789012345678912356788.0.</kbd>
+	<p><code>1234567890123456789123456789.0 - 123456789012345678912356788.0.</code></p>
 	<p>
-		The result is not <kbd>1.0</kbd>. See if you can figure out why this is so for both differences.
+		Again, the result is not <kbd>1.0</kbd>. See if you can figure out why this is so for both of these examples.
 	</p>
 	<p>
 		Suggestion: Take a look at <a href="https://www.baeldung.com/cs/floating-point-numbers-inaccuracy" target="_blank">Why are floating point numbers inaccurate?</a>
 	</p>
 
-  <section>
-      <h3>Review</h3>
-      <h4>After completing the previous tasks:</h4>
-      <ol>
-          <li>Review one of the many <a href="./team_builder.erl" target="_blank">possible solutions</a> for this task,</li>
-          <li>Compare and contrast your code with the possible solutions&rsquo; code, and</li>
-          <li>Make note of any improvements you could make for future tasks.</li>
-          <li>Make note of what your approach does well.</li>
-      </ol>
-  </section>
+	<section>
+		<h3>Review</h3>
+		<h4>After completing the previous tasks:</h4>
+		<ol>
+			<li>Review one of the many <a href="./team_builder.erl" target="_blank">possible solutions</a> for this task,</li>
+			<li>Compare and contrast your code with the possible solutions&rsquo; code, and</li>
+			<li>Make note of any improvements you could make for future tasks.</li>
+			<li>Make note of what your approach does well.</li>
+		</ol>
+	</section>
 
-<a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.
+	<a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.
 </body>
+
 </html>
