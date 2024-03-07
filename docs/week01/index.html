@@ -54,15 +54,15 @@
 			<a href="https://code.visualstudio.com" target="_blank">Visual Studio Code</a>. If you don't already have it, go to the
 			<a href="https://code.visualstudio.com" target="_blank">download site for Visual Studio Code</a> to download the installer.
 		</p>
-		<p>After you have installed VS Code, install the following extensions:</p>
+		<p class="important">After you have installed VS Code, install the following extensions:</p>
 		<ol>
-			<li>Everyone: <a href="https://marketplace.visualstudio.com/items?itemName=pgourlain.erlang" target="_blank">erlang</a> by Pierrick Gourlain. This extension will provide syntax highlighting, color coding, and help docs for built-in Erlang functions (BIFs).</li>
-			<li>Everyone: <a href="https://marketplace.visualstudio.com/items?itemName=erlang-ls.erlang-ls">Erlang LS</a> by erlang-ls. Provides code completion for function names, variable names, and more.</li>
-			<li>Windows users only: <a href="https://marketplace.visualstudio.com/items?itemName=ms-VS Code-remote.remote-wsl">WSL</a> by Microsoft. This extension will let you connect to your Ubuntu WSL installation from VS Code, which you'll be installing in the next steps.</p>
+			<li><strong>Everyone:</strong> <a href="https://marketplace.visualstudio.com/items?itemName=pgourlain.erlang" target="_blank">erlang</a> by Pierrick Gourlain. This extension will provide syntax highlighting, color coding, and help docs for built-in Erlang functions (BIFs).</li>
+			<li><strong>Everyone:</strong> <a href="https://marketplace.visualstudio.com/items?itemName=erlang-ls.erlang-ls">Erlang LS</a> by erlang-ls. Provides code completion for function names, variable names, and more.</li>
+			<li><strong>Windows users only:</strong> <a href="https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-wsl">WSL</a> by Microsoft. This extension will let you connect to your Ubuntu WSL installation from VS Code, which you'll be installing in the next steps.</p>
 			</li>
 		</ol>
 		<p>Please realize that it's OK if you don't understand everything about VS Code and these plugins right off the bat. You'll
-			gradually learn as you run into a need. The reason for adding the Erlang plugins is that they enable color coding for Erlang in VS Code and show help docs for built-in Erlang functions (BIFs) when you move your mouse over a function and type <kbd>Command</kbd> (MacOS) or <kbd>Ctrl</kbd> (Windows).</p>
+			gradually learn as you run into a need. The reason for adding the Erlang plugins is that they enable color coding for Erlang in VS Code and show help docs for built-in Erlang functions (BIFs) when you move your mouse over a function and type <kbd>Command</kbd> (MacOS) or <kbd>Ctrl</kbd> (Windows). The WSL extension allows Windows users to connect to the Windows Subsystem for Linux from VS Code.</p>
 
 		<h3>Installing Erlang</h3>
 		<h4>Windows Users</h4>
@@ -104,6 +104,9 @@
 		<p>Finally, open VS Code in WSL mode by typing the following command.</p>
 		<code class="language-bash dark-code">$ code .</code>
 		<p>Note the single period "." at the end of the command. The single period is a symbol used on the command line to mean the "current working directory", i.e., the directory that you are in right now.</p>
+		<p>You'll know if VS Code has opened in WSL mode by looking at the bottom-left corner of the VS Code window. You should see "WSL: Ubuntu" like in this screenshot:</p>
+		<p><img src="images/vscode-wsl-mode.png" alt="WSL: Ubuntu"></p>
+		<p>If you don't see "WSL: Ubuntu", make sure you have installed the WSL extension in VS Code, then close VS Code completely and type <kbd>code .</kbd> in the terminal again.</p>
 		<p>After you have opened VS Code in WSL mode, install these two extensions:</p>
 		<ol>
 			<li><a href="https://marketplace.visualstudio.com/items?itemName=pgourlain.erlang" target="_blank">erlang</a> by Pierrick Gourlain. </li>
