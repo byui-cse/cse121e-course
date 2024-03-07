@@ -320,7 +320,7 @@ age = 'old'</code></pre>
       good at some things and bad at others. This includes both Python and
       Erlang.
     </p>
-    <h1>Atoms</h1>
+    <h2>Atoms</h2>
     <p>
       Erlang has a few types of things that Python does not. One of these is called an <a href="https://www.tutorialspoint.com/erlang/erlang_atoms.htm">atom</a>. Atoms in
       Erlang exist, but have no value. You saw one last week without knowing. It was the atom <kbd>ok</kbd>.
@@ -338,7 +338,7 @@ age = 'old'</code></pre>
       just are. They are things in and of them selves. They are atoms. You can't do mathematics with them, since they are
       not numbers, nor are they strings.
     </p>
-    <h1>Tuples</h1>
+    <h2>Tuples</h2>
     <p>
       Like Python, the Erlang language embraces the concept of a <a href="https://www.tutorialspoint.com/erlang/erlang_tuples.htm">tuple</a>. The syntax is a little different when you declare one.
       In Erlang you do it like this.
@@ -360,7 +360,7 @@ age = 'old'</code></pre>
       imagination and, of course, readability.
     </p>
 
-    <h1>Lists</h1>
+    <h2>Lists</h2>
     <p class="important">Type each of the code examples below into the Erlang REPL and make sure you fully understand them.</p>
     <p>Functional programming languages are <a href="https://riptutorial.com/erlang/example/3711/lists">list</a> generation and manipulation languages. This is the result of these languages' strong
       link to mathematics. Don't let this background fool you. You can do everything in functional programming languages that you do
@@ -418,7 +418,7 @@ Evens = [X || X <- lists:seq(1,100), X rem 2 == 0].
       Let me translate the Erlang to English for you.
       "Create a list of <kbd>X</kbd> values where <kbd>X</kbd> comes from the list <kbd>1,2,3&hellip;100</kbd>, and where the remainder of X divided by 2 is 0." <span class="important">Try it in the REPL.</span>
     </p>
-    <h2>List BIF's</h2>
+    <h3>List BIF's</h3>
     <p>
       Erlang has <a href="https://erlang.org/doc/man/lists.html">a lot of Built in Functions (BIF's)</a> that you can use
       with lists. You can find them in the <kbd>lists</kbd> module. As an example, imagine you needed to use a list to keep track of
@@ -464,7 +464,7 @@ Mucho = Customers ++ [grace].
       If you don't want either of those options, just believe me. The creators of Erlang were not silly. Erlang doesn't create copies when lists are passed to
       functions nor when they are returned. The creators were nice to us so they made it look like that was what is happening, but it's not.
     </p>
-    <h2>Efficient use of Lists</h2>
+    <h3>Efficient use of Lists</h3>
     <p>
       Appending to a list is great, but it is definitely not efficient. Because of the way lists are handled in functional languages, prepending to a list is VERY efficient.
       It is actually more computationally efficient to build a list using prepend and then sort it to reverse the order of the list than it is to
