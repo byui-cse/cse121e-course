@@ -2,510 +2,426 @@
 -->
 
 <html>
-  <head>
-    <title>CSE 121e: Week 03 | Functions</title>
 
-    <link
-      rel="shortcut icon"
-      href="https://byui-cse.github.io/Language-Courses/site/images/fav.ico"
-      type="image/x-icon"
-    />
-    <script type="text/javascript">
-      var codeType = "JavaScript";
-    </script>
-    <script src="https://byui-cse.github.io/Language-Courses/site/highlight.pack.js"></script>
-    <link
-      rel="stylesheet"
-      href="https://byui-cse.github.io/Language-Courses/site/highlight_styles/xcode.css"
-    />
-    <link rel="stylesheet" href="../site/styles.css">
-    <script
-      type="text/javascript"
-      src="https://byui-cse.github.io/Language-Courses/site/weekly.js"
-    ></script>
-  </head>
+<head>
+  <title>CSE 121e: Week 03 | Functions</title>
 
-  <body onload="fetchSource()">
-    <header class="hero-image">
-      <section class="hero-text">
-        <h1>CSE 121e: Week 03</h1>
-        <p>Creating, Calling, and Using Functions</p>
-      </section>
-    </header>
-    <main>
-      <h1>Organization and Access</h1>
-      <p>
-        All computer languages are ways to organize your communication and
-        thinking. In this, they are very similar to spoken languages. Each
-        spoken language, or family of spoken languages, does this organization
-        differently. English sentences often have a structure of Subject-Helper
-        Verb-Verb-Predicate...The boy will bite the dog, for example. German, a
-        language closely related to English, organizes things differently.
-        Sometimes German sentences have a Subject-Helper Verb-Predicate-Verb
-        structure... Ich werde das Buch bald lesen, which if translated
-        word-by-word is "I will the book soon read." Spanish has adjectives
-        after the nouns they modify.
-      </p>
-      <p>
-        While each language has its own organizational rules, these rules all do the
-        same thing. They allow us to organize and express our thinking.
-      </p>
-      <h3>Functions - a fundamental organization concept of Erlang</h3>
-      <p>
-        Python and Erlang, being related languages, both have functions as a
-        fundamental organizational structure. In Erlang this organization is so 
-        strong a principle that you can't put code in a file unless it is 
-        a function or in a function.
-        </p>
-        <p>When you truly begin thinking in
-        Erlang, you will be thinking in functions. You will think of how
-        functions are related to each other. You will have thoughts along these
-        lines, "If this function calls that one..." You will be able to do this
-        since you will eventually realize that when you are designing solutions
-        in Erlang, how a function accomplishes something is not as important
-        as that it will, and that you can wait to figure out how to complete the
-        function later.
-      </p>
+  <link rel="shortcut icon" href="https://byui-cse.github.io/Language-Courses/site/images/fav.ico" type="image/x-icon" />
+  <script type="text/javascript">
+    var codeType = "JavaScript";
+  </script>
+  <script src="https://byui-cse.github.io/Language-Courses/site/highlight.pack.js"></script>
+  <link rel="stylesheet" href="https://byui-cse.github.io/Language-Courses/site/highlight_styles/xcode.css" />
+  <link rel="stylesheet" href="../site/styles.css">
+  <script type="text/javascript" src="https://byui-cse.github.io/Language-Courses/site/weekly.js"></script>
+</head>
 
-      <h3>Modules - organizing functions in Erlang</h3>
-      <p>
-        Like Python, Erlang uses <a href="https://learnyousomeerlang.com/modules">modules</a> as a way to organize your functions. 
-        Unlike Python, Erlang allows you to make it possible to make some 
-        of your functions unavailable to programmers who are not working in 
-        the module itself. This allows you to have 'helper functions' to 
-        do the heavy lifting and functions that are easier to call that 
-        others can use. When you get to 'thinking in functions,' you 
-        won't care how a function you call accomplishes its task, just that it 
-        does. The reality is that, in Erlang, you must explicitly tell a module 
-        which functions other programmers are allowed to use.
-      </p>
-      <p>
-        Here is an example module. This module is found in a source code file named <kbd>funcs.erl</kbd>. 
-        Erlang, like Python, requires the module name to be the name of the file in which it resides.
+<body onload="fetchSource()">
+  <header class="hero-image">
+    <section class="hero-text">
+      <h1>CSE 121e: Week 03</h1>
+      <p>Creating, Calling, and Using Functions</p>
+    </section>
+  </header>
+  <main>
+    <h1>Organization and Access</h1>
+    <p>
+      All computer languages are ways to organize your communication and
+      thinking. In this, they are very similar to spoken languages. Each
+      spoken language, or family of spoken languages, does this organization
+      differently. English sentences often have a structure of Subject-Helper
+      Verb-Verb-Predicate...The boy will bite the dog, for example. German, a
+      language closely related to English, organizes things differently.
+      Sometimes German sentences have a Subject-Helper Verb-Predicate-Verb
+      structure... Ich werde das Buch bald lesen, which if translated
+      word-by-word is "I will the book soon read." Spanish has adjectives
+      after the nouns they modify.
+    </p>
+    <p>
+      While each language has its own organizational rules, these rules all do the
+      same thing. They allow us to organize and express our thinking.
+    </p>
+    <h3>Functions - a fundamental organization concept of Erlang</h3>
+    <p>
+      Python and Erlang, being related languages, both have functions as a
+      fundamental organizational structure. In Erlang this organization is so
+      strong a principle that you can't put code in a file unless it is
+      a function or in a function.
+    </p>
+    <p>When you truly begin thinking in
+      Erlang, you will be thinking in functions. You will think of how
+      functions are related to each other. You will have thoughts along these
+      lines, "If this function calls that one..." You will be able to do this
+      since you will eventually realize that when you are designing solutions
+      in Erlang, how a function accomplishes something is not as important
+      as that it will, and that you can wait to figure out how to complete the
+      function later.
+    </p>
 
-      <pre>
-<code class="Erlang">-module(funcs).
+    <h3>Modules - organizing functions in Erlang</h3>
+    <p>
+      Like Python, Erlang uses <a href="https://learnyousomeerlang.com/modules">modules</a> as a way to organize your functions.
+      Unlike Python, Erlang allows you to make it possible to make some
+      of your functions unavailable to programmers who are not working in
+      the module itself. This allows you to have 'helper functions' to
+      do the heavy lifting and functions that are easier to call that
+      others can use. When you get to 'thinking in functions,' you
+      won't care how a function you call accomplishes its task, just that it
+      does. The reality is that, in Erlang, you must explicitly tell a module
+      which functions other programmers are allowed to use.
+    </p>
+    <p>
+      Here is an example module. This module is found in a source code file named <kbd>funcs.erl</kbd>.
+      Erlang, like Python, requires the module name to be the name of the file in which it resides.</p>
+
+    <pre><code class="Erlang">-module(funcs).
 -export([print_parts/1,factorial/1,double/1]).
 </code></pre>
-      The first line is a function call that declares the atom that is the name of the module, <kbd>funcs</kbd>. 
-      The second line is a function call, <kbd>-export</kbd>, that is passed a list of functions that are made available 
-      for use outside of the <kbd>funcs</kbd> module. Each entry in the export list consists of two parts, 
-      1)the atom that is the name of the function to export, and 2) the number of parameters that function has. 
-      These two parts are always separated by the <kbd>/</kbd> character. Just so you understand, the use of 
+    <p>
+      The first line is a function call that declares the atom that is the name of the module, <kbd>funcs</kbd>.
+      The second line is a function call, <kbd>-export</kbd>, that is passed a list of functions that are made available
+      for use outside of the <kbd>funcs</kbd> module. Each entry in the export list consists of two parts,
+      1)the atom that is the name of the function to export, and 2) the number of parameters that function has.
+      These two parts are always separated by the <kbd>/</kbd> character. Just so you understand, the use of
       <kbd>/</kbd> here does NOT indicate division.
-      </p>
-      <p>
-        In the code snippet above, a module called <kbd>funcs</kbd> is declared. Three functions, <kbd>print_parts</kbd>, 
-        <kbd>factorial</kbd>, and <kbd>double</kbd> are made available for use outside the module. This is the module's 
-        <a href="https://en.wikipedia.org/wiki/API"
-          target="_blank"
-          rel="noreferrer">API</a>.
-      </p>
-      <h3>Using Functions</h3>
-      <p>
-        In Python and Erlang there are similarities and differences between
-        the languages regarding how you <a href="https://riptutorial.com/erlang/example/7944/function">declare functions</a>. Unlike Python's use of <kbd>def</kbd>, 
-        Erlang requires no keyword to identify a function. Also, Erlang 
-        uses either snake_case or camelCase for function names. In this class, we'll use 
-        snake_case. For example, a function that averages two numbers could be defined like this.
-      </p>
-      <pre>
-<code class="Erlang">average_two_numbers(First, Second) -> (First + Second) div 2.
-</code>
-	</pre>
-      <p>
-        Lets break down the syntax into English. "There is a function named <kbd>average_two_numbers</kbd>. It has 
-        two parameters, <kbd>First</kbd> and <kbd>Second</kbd>. The body of the function sums the <kbd>First</kbd> 
-        and <kbd>Second</kbd> variables, and then the sum is divided by <kbd>2</kbd> using integer division."
-      </p>
-      <p>
-        It is very important to notice that EVERY function ends with a '.' just like every English sentence. Also, the 
-        <kbd>-></kbd> operator indicates the code to execute, the 'body' of the function.
-      </p>
-      <p>
-        Single line functions are nice, but not everything should be done using single line functions. As a simple example, 
-        here is some code to print out the head and the tail of a list on separate lines in the REPL. Yes, there are 
-        better ways to perform this behavior. That isn't the point of this code snippet. The point is to see what 
-        multi-line functions look like syntax-wise.
-      </p>
+    </p>
+    <p>
+      In the code snippet above, a module called <kbd>funcs</kbd> is declared. Three functions, <kbd>print_parts</kbd>,
+      <kbd>factorial</kbd>, and <kbd>double</kbd> are made available for use outside the module. This is the module's
+      <a href="https://en.wikipedia.org/wiki/API" target="_blank" rel="noreferrer">API</a>.
+    </p>
+    <h3>Using Functions</h3>
+    <p>
+      In Python and Erlang there are similarities and differences between
+      the languages regarding how you <a href="https://riptutorial.com/erlang/example/7944/function">declare functions</a>. Unlike Python's use of <kbd>def</kbd>,
+      Erlang requires no keyword to identify a function. Also, Erlang
+      uses either snake_case or camelCase for function names. In this class, we'll use
+      snake_case. For example, a function that averages two numbers could be defined like this.
+    </p>
+    <pre><code class="Erlang">average_two_numbers(First, Second) -> (First + Second) div 2.
+</code></pre>
+    <p>
+      Lets break down the syntax into English. "There is a function named <kbd>average_two_numbers</kbd>. It has
+      two parameters, <kbd>First</kbd> and <kbd>Second</kbd>. The body of the function sums the <kbd>First</kbd>
+      and <kbd>Second</kbd> variables, and then the sum is divided by <kbd>2</kbd> using integer division."
+    </p>
+    <p>
+      It is very important to notice that EVERY function ends with a '.' just like every English sentence. Also, the
+      <kbd>-></kbd> operator indicates the code to execute, the 'body' of the function.
+    </p>
+    <p>
+      Single line functions are nice, but not everything should be done using single line functions. As a simple example,
+      here is some code to print out the head and the tail of a list on separate lines in the REPL. Yes, there are
+      better ways to perform this behavior. That isn't the point of this code snippet. The point is to see what
+      multi-line functions look like syntax-wise.
+    </p>
 
-      <pre>
-<code class="Erlang">print_parts([H|T]) ->
+    <pre><code class="Erlang">print_parts([H|T]) ->
   io:format("Head: ~p~n",[H]),
   io:format("Tail: ~p~n",[T]).
-</code>
-  </pre>
-  <p>
-    Just as before, the code to be executed bounded by the <kbd>-></kbd> and <kbd>.</kbd> operators. All of the other lines 
-    end with the <kbd>,</kbd> operator. This is, once again, similar to <a href="https://owl.purdue.edu/owl/general_writing/punctuation/commas/extended_rules_for_commas.html"
-          target="_blank"
-          rel="noreferrer">English punctuation rules</a>. In English, all sentences 
-    end with a period, and any independent clauses in the sentence that are joined by a coordinating conjunction (and, but, or, etc.) end in a comma. 
-    Here is a simple English sentence that illustrates this punctuation rule. 
-  </p>
-  <p>
-    The dog barked, and the wolf howled.
-  </p>
-  <p>
-    Notice that this could have been written as, "The dog barked. The wolf howled." The two clauses are independent since they are grammatically 
-    correct when written separately. The Erlang example, above, follows this English punctuation rule. The body of the function has two independent 
-    functions. They are combined together using the <kbd>,</kbd> operator and an implied <kbd>and</kbd>. "Print the head, and print the tail." 
-    The concept and punctuation/grammar rules of combining dependent clauses in some spoken languages drove the selection of this syntactical choice
-    for Erlang. Why reinvent the wheel?
-  </p>
-  <p>
-    Be warned and forewarned! The above function as written has a major problem. The problem is this, what if the list is empty? How then can the head be 
-    split from the tail? It can't. If you put the above function in a module file, compile the module, and then call the function using an empty list, 
-    you will get this error message.
-  </p>
-  <P><kbd>** exception error: no function clause matching funcs:print_parts([])</kbd></P>
-  <p>
-    This error is mysterious until greater knowledge and understanding is gained. There is something missing from the function as it was declared. But 
-    don't worry, the fix is easy and applies a variation of the Erlang pattern matching concept from week 02's reading. Here is the code snippet in 
-    its fixed form.
-  </p>
-  <p>
-    <pre>
-<code class="Erlang">print_parts([])->
+</code></pre>
+    <p>
+      Just as before, the code to be executed bounded by the <kbd>-></kbd> and <kbd>.</kbd> operators. All of the other lines
+      end with the <kbd>,</kbd> operator. This is, once again, similar to <a href="https://owl.purdue.edu/owl/general_writing/punctuation/commas/extended_rules_for_commas.html" target="_blank" rel="noreferrer">English punctuation rules</a>. In English, all sentences
+      end with a period, and any independent clauses in the sentence that are joined by a coordinating conjunction (and, but, or, etc.) end in a comma.
+      Here is a simple English sentence that illustrates this punctuation rule.
+    </p>
+    <p>
+      The dog barked, and the wolf howled.
+    </p>
+    <p>
+      Notice that this could have been written as, "The dog barked. The wolf howled." The two clauses are independent since they are grammatically
+      correct when written separately. The Erlang example, above, follows this English punctuation rule. The body of the function has two independent
+      functions. They are combined together using the <kbd>,</kbd> operator and an implied <kbd>and</kbd>. "Print the head, and print the tail."
+      The concept and punctuation/grammar rules of combining dependent clauses in some spoken languages drove the selection of this syntactical choice
+      for Erlang. Why reinvent the wheel?
+    </p>
+    <p>
+      Be warned and forewarned! The above function as written has a major problem. The problem is this, what if the list is empty? How then can the head be
+      split from the tail? It can't. If you put the above function in a module file, compile the module, and then call the function using an empty list,
+      you will get this error message.
+    </p>
+    <P><kbd>** exception error: no function clause matching funcs:print_parts([])</kbd></P>
+    <p>
+      This error is mysterious until greater knowledge and understanding is gained. There is something missing from the function as it was declared. But
+      don't worry, the fix is easy and applies a variation of the Erlang pattern matching concept from week 02's reading. Here is the code snippet in
+      its fixed form.
+    </p>
+    <p>
+    <pre><code class="Erlang">print_parts([])->
   io:format("Empty List");
 print_parts([H|T]) ->
   io:format("Head: ~p~n",[H]),
   io:format("Tail: ~p~n",[T]).
-</code>
-  </pre>
-  </p>
-  <p>
-    At first it may seem that the fix creates two functions but it does not. Notice that the end of the body for the first use of <kbd>print_parts</kbd> 
-    does NOT end in a period. That's why the first use of <kbd>print_parts</kbd> can NOT be a function all by itself. Instead of a period, the body of 
-    the first use of <kbd>print_parts</kbd> ends in a semicolon. 
-    The <kbd>print_parts</kbd> function starts with the first use of <kbd>print_parts</kbd> and ends with a period. The <kbd>print_parts</kbd> function 
-    consists of two independent clauses separated by a semicolon. Once again, 
-    Erlang is following <a href="https://www.econtentpro.com/blog/when-to-use-a-semicolon/7"
-          target="_blank"
-          rel="noreferrer">the grammar/punctuation rules for independent clauses 
-    of some spoken languages</a>.
-  </p>
-  <p>
-    When the <kbd>print_parts</kbd> function is called, Erlang uses pattern matching to decide which clause of the function will execute. That's why, 
-    in the code above, if the <kbd>print_parts</kbd> function is called and passed an empty list, the first clause is used and executed. If <kbd>print_parts</kbd> 
-    is called and passed a non-empty list, the second clause of <kbd>print_parts</kbd> matches the use of the function and the second clause is used 
-    and executed. Now the error message you saw before the fix was made, 
-  </p>
-  <p><kbd>** exception error: no function clause matching funcs:print_parts([])</kbd></p>
-  <p>
-    starts to make sense. It says, "Error: I tried to find a clause for the <kbd>print_parts</kbd> function that matches the pattern 
-    <kbd>funcs:print_parts([])</kbd> but couldn't. Did you forget to add one or did you use the wrong parameters?"
-  </p>
-  <p>
-    When you are adding clauses to a function, it is important that you order the independent clauses you are adding. No matter how many 
-    independent clauses there are in your function, order them from most to least restrictive. Otherwise you will get 
-    unexpected behavior when you use the function. You will see an example of this soon.
-  </p>
-  <h3>Why This Design for Functions?</h3>
-  <p>
-    By having function independent clauses and using pattern matching to determine which of those clauses is used makes it possible to 'think in functions' as was 
-    mentioned at the top of this page. In other languages that don't take this approach to functions, you usually have to have some sort of 'if' behavior inside 
-    the function to do the pattern matching by hand. Because of the way Erlang uses pattern matching, no such conditional branching is needed, and the programmer 
-    using the function has to know LESS about how the function works internally than they would in some other languages. 
-  </p>
-  <p>
-    While this distinction may not seem a big deal to you right now, when you start creating more complicated reality-like applications with millions of lines of 
-    code, this distinction becomes very important. Think of how many 'if' type lines of code you don't have to create in Erlang compared to other languages if 
-    your application consists of hundreds of thousands of functions. Also remember that any new code you write, including these 'if' type lines of code, are 
-    green-code. In other words, they will have bugs in them. So, with Erlang, you write less code which leads, always, to fewer bugs created.
-   </p>
-   <p>
-     There is another benefit, among many others that you will see, of this clause/pattern matching approach to functions. Take a look at how the factorial behavior 
-     from mathematics can be written using two clauses, one when the function is passed <kbd>0</kbd>, and the other when it is passed a non-zero value.
-   </p>
-  <p>
-    <pre>
-<code class="Erlang">factorial(0) -> 1;
+</code></pre>
+    </p>
+    <p>
+      At first it may seem that the fix creates two functions but it does not. Notice that the end of the body for the first use of <kbd>print_parts</kbd>
+      does NOT end in a period. That's why the first use of <kbd>print_parts</kbd> can NOT be a function all by itself. Instead of a period, the body of
+      the first use of <kbd>print_parts</kbd> ends in a semicolon.
+      The <kbd>print_parts</kbd> function starts with the first use of <kbd>print_parts</kbd> and ends with a period. The <kbd>print_parts</kbd> function
+      consists of two independent clauses separated by a semicolon. Once again,
+      Erlang is following <a href="https://www.econtentpro.com/blog/when-to-use-a-semicolon/7" target="_blank" rel="noreferrer">the grammar/punctuation rules for independent clauses
+        of some spoken languages</a>.
+    </p>
+    <p>
+      When the <kbd>print_parts</kbd> function is called, Erlang uses pattern matching to decide which clause of the function will execute. That's why,
+      in the code above, if the <kbd>print_parts</kbd> function is called and passed an empty list, the first clause is used and executed. If <kbd>print_parts</kbd>
+      is called and passed a non-empty list, the second clause of <kbd>print_parts</kbd> matches the use of the function and the second clause is used
+      and executed. Now the error message you saw before the fix was made,
+    </p>
+    <p><kbd>** exception error: no function clause matching funcs:print_parts([])</kbd></p>
+    <p>
+      starts to make sense. It says, "Error: I tried to find a clause for the <kbd>print_parts</kbd> function that matches the pattern
+      <kbd>funcs:print_parts([])</kbd> but couldn't. Did you forget to add one or did you use the wrong parameters?"
+    </p>
+    <p>
+      When you are adding clauses to a function, it is important that you order the independent clauses you are adding. No matter how many
+      independent clauses there are in your function, order them from most to least restrictive. Otherwise you will get
+      unexpected behavior when you use the function. You will see an example of this soon.
+    </p>
+    <h3>Why This Design for Functions?</h3>
+    <p>
+      By having function independent clauses and using pattern matching to determine which of those clauses is used makes it possible to 'think in functions' as was
+      mentioned at the top of this page. In other languages that don't take this approach to functions, you usually have to have some sort of 'if' behavior inside
+      the function to do the pattern matching by hand. Because of the way Erlang uses pattern matching, no such conditional branching is needed, and the programmer
+      using the function has to know LESS about how the function works internally than they would in some other languages.
+    </p>
+    <p>
+      While this distinction may not seem a big deal to you right now, when you start creating more complicated reality-like applications with millions of lines of
+      code, this distinction becomes very important. Think of how many 'if' type lines of code you don't have to create in Erlang compared to other languages if
+      your application consists of hundreds of thousands of functions. Also remember that any new code you write, including these 'if' type lines of code, are
+      green-code. In other words, they will have bugs in them. So, with Erlang, you write less code which leads, always, to fewer bugs created.
+    </p>
+    <p>
+      There is another benefit, among many others that you will see, of this clause/pattern matching approach to functions. Take a look at how the factorial behavior
+      from mathematics can be written using two clauses, one when the function is passed <kbd>0</kbd>, and the other when it is passed a non-zero value.
+    </p>
+    <p>
+    <pre><code class="Erlang">factorial(0) -> 1;
 factorial(N) -> N * factorial(N-1).
-</code>
-  </pre>
-  </p>
-  <p>
-    Notice how there are no 'if' type constructs in the code just like is described above. Also notice that this is a recursive function! Because of 
-    Erlang's clause/pattern matching approach to functions, you don't EVER need loops. In fact, there are no loop constructs in Erlang. You just don't 
-    need them.
-  </p>
-  <p>
-    There are some <a href="https://erlang.org/doc/efficiency_guide/myths.html"
-          target="_blank"
-          rel="noreferrer">false beliefs about Erlang</a> running around the internet. One of them is that you should always use tail-recursion in Erlang. Not so. First of all, tail-recursion isn't always faster. Another myth is that if you don't use tail-recursion, you'll end up 
-    having a stack overflow happen at runtime. Not so. Erlang is designed so that you will run out of RAM instead of getting a stack overflow. These statements 
-    don't mean you can ignore tail-recursion, it just means you don't have to go through contortions to make all your functions tail-recursive. I like 
-    <a href="https://ferd.ca/erlang-s-tail-recursion-is-not-a-silver-bullet.html"
-          target="_blank"
-          rel="noreferrer">this statement by Fred Herbert</a> .
+</code></pre>
+    </p>
+    <p>
+      Notice how there are no 'if' type constructs in the code just like is described above. Also notice that this is a recursive function! Because of
+      Erlang's clause/pattern matching approach to functions, you don't EVER need loops. In fact, there are no loop constructs in Erlang. You just don't
+      need them.
+    </p>
+    <p>
+      There are some <a href="https://erlang.org/doc/efficiency_guide/myths.html" target="_blank" rel="noreferrer">false beliefs about Erlang</a> running around the internet. One of them is that you should always use tail-recursion in Erlang. Not so. First of all, tail-recursion isn't always faster. Another myth is that if you don't use tail-recursion, you'll end up
+      having a stack overflow happen at runtime. Not so. Erlang is designed so that you will run out of RAM instead of getting a stack overflow. These statements
+      don't mean you can ignore tail-recursion, it just means you don't have to go through contortions to make all your functions tail-recursive. I like
+      <a href="https://ferd.ca/erlang-s-tail-recursion-is-not-a-silver-bullet.html" target="_blank" rel="noreferrer">this statement by Fred Herbert</a> .
 
-    "Writing clean code generally leads to better performance. This is something that many languages can not claim as true, but Erlang certainly can. In the general case, the optimizations in the Erlang VM come from observing idiomatic code in production, and clean [code] at that. This is why body recursion might be better, and why many other optimizations were made...Clean code is the best code."
-  </p>
-  <p>
-    The point he is making is that sometimes, in Erlang, body-recursive functions, those that are non-tail-recursive, can sometimes be better. So what would the 
-    <kbd>factorial</kbd> function look like if it was written using tail-recursion? Like this.
-  </p>
-  <p>
-    <pre>
-<code class="Erlang">factorial(N)->factorial(N,1).
+      "Writing clean code generally leads to better performance. This is something that many languages can not claim as true, but Erlang certainly can. In the general case, the optimizations in the Erlang VM come from observing idiomatic code in production, and clean [code] at that. This is why body recursion might be better, and why many other optimizations were made...Clean code is the best code."
+    </p>
+    <p>
+      The point he is making is that sometimes, in Erlang, body-recursive functions, those that are non-tail-recursive, can sometimes be better. So what would the
+      <kbd>factorial</kbd> function look like if it was written using tail-recursion? Like this.
+    </p>
+    <p>
+    <pre><code class="Erlang">factorial(N)->factorial(N,1).
 
 factorial(0,Accum)-> Accum;
 factorial(N,Accum)-> factorial(N-1,Accum*N).
-</code>
-  </pre>
-  </p>
-  <p>
-    Notice that there are two functions here, both named factorial. One of them has a single parameter. The other has two parameters. I've separated them 
-    by a blank line of code so they are easier to see as being distinct. The <kbd>factorial(N)</kbd> function is the only one that should be exported 
-    from the module <kbd>-export([factorial/1]).</kbd> That way people using the module don't have to think about how you are doing factorial, just that 
-    it works. (Thinking in functions!!)
-  </p>
-  <p>
-    The biggest question, however, is this. Is the extra code in the tail recursive version of <kbd>factorial</kbd> worth the effort of writing, debugging, and maintaining it? I ran a few simple tests on my machine (6 core i5 32Gb RAM under MacOS) and found the answer to the question is 'maybe'. The test consisted 
-    of running each version of <kbd>factorial</kbd> 8 times using the <a href="https://erlang.org/doc/man/timer.html#tc-3"
-          target="_blank"
-          rel="noreferrer"><kbd>timer:tc/3</kbd> function</a>. 
-    Then the results for each of the two sets of 8 runs were averaged. Tests like this are <a href="https://www.dictionary.com/browse/indicative"
-          target="_blank"
-          rel="noreferrer">indicative</a>, 
-    not <a href="https://www.dictionary.com/browse/conclusive?s=t"
-          target="_blank"
-          rel="noreferrer">conclusive</a>. For the body-recursive version of <kbd>factorial</kbd>, the average time required 
-    to calculate 1000! was 435 microseconds. For the tail-recursive version, the average time was 483 microseconds.
-  </p>
-  <p>
-    So for this case on this machine, the tail-recursive version was slower. Significantly slower? Probably not. That probably depends on many things. There may be 
-    a difference when <kbd>N</kbd> gets bigger. I'd suggest you play around by performing this kind of test with larger values of N. What are the results for 10,000! 
-    or 1,000,000! on your machine?
-  </p>
-  <p class="callout">
-    <span>Interesting Info:</span><br>
-        Another great result of Erlang's being a functional programming language and functional programming languages' affinity with Mathematics is the 
-        similarity between the Erlang version of multi-part functions and how you describe them in Mathematics. Take a look and compare the Erlang body-recursive 
-        version of <kbd>factorial</kbd> with the mathematical version of factorial you see here.<br>
+</code></pre>
+    </p>
+    <p>
+      Notice that there are two functions here, both named factorial. One of them has a single parameter. The other has two parameters. I've separated them
+      by a blank line of code so they are easier to see as being distinct. The <kbd>factorial(N)</kbd> function is the only one that should be exported
+      from the module <kbd>-export([factorial/1]).</kbd> That way people using the module don't have to think about how you are doing factorial, just that
+      it works. (Thinking in functions!!)
+    </p>
+    <p>
+      The biggest question, however, is this. Is the extra code in the tail recursive version of <kbd>factorial</kbd> worth the effort of writing, debugging, and maintaining it? I ran a few simple tests on my machine (6 core i5 32Gb RAM under MacOS) and found the answer to the question is 'maybe'. The test consisted
+      of running each version of <kbd>factorial</kbd> 8 times using the <a href="https://erlang.org/doc/man/timer.html#tc-3" target="_blank" rel="noreferrer"><kbd>timer:tc/3</kbd> function</a>.
+      Then the results for each of the two sets of 8 runs were averaged. Tests like this are <a href="https://www.dictionary.com/browse/indicative" target="_blank" rel="noreferrer">indicative</a>,
+      not <a href="https://www.dictionary.com/browse/conclusive?s=t" target="_blank" rel="noreferrer">conclusive</a>. For the body-recursive version of <kbd>factorial</kbd>, the average time required
+      to calculate 1000! was 435 microseconds. For the tail-recursive version, the average time was 483 microseconds.
+    </p>
+    <p>
+      So for this case on this machine, the tail-recursive version was slower. Significantly slower? Probably not. That probably depends on many things. There may be
+      a difference when <kbd>N</kbd> gets bigger. I'd suggest you play around by performing this kind of test with larger values of N. What are the results for 10,000!
+      or 1,000,000! on your machine?
+    </p>
+    <p class="callout">
+      <span>Interesting Info:</span><br>
+      Another great result of Erlang's being a functional programming language and functional programming languages' affinity with Mathematics is the
+      similarity between the Erlang version of multi-part functions and how you describe them in Mathematics. Take a look and compare the Erlang body-recursive
+      version of <kbd>factorial</kbd> with the mathematical version of factorial you see here.<br>
       <img src="images/fact.png" alt="the bipartite representation of the factorial function" alt="The mathematical representation of the factorial function.">
       <br>
-      Such a close match! Again, why reinvent the wheel? The Erlang creators tried very hard to not add unnecessary stuff on top of what you already know 
+      Such a close match! Again, why reinvent the wheel? The Erlang creators tried very hard to not add unnecessary stuff on top of what you already know
       in order to write code.
-  </p>
-  <h2>Guards, Guards!</h2>
-  <p>
-    In the factorial example above, it was very important to get the order of the function's clauses correct so that the function would execute as expected. 
-    This can be problematic when you have functions containing many clauses or when the pattern matching isn't as simple as factorial. Erlang's solution 
-    to these problems is called a <a href="https://en.citizendium.org/wiki/Erlang_(programming_language)/Tutorials/guards">guard</a>. The keyword for a guard is <kbd>when</kbd>. Here is a code snippet example of a factorial function that 
-    not only uses guards, but adds another clause so if factorial is called with a negative number, a situation which is undefined in Mathematics, the function 
-    returns an atom representing a failure.
-  </p>
-  <p>
-    <pre>
-<code class="Erlang">factorial(N) when N > 0 -> N * factorial(N-1);
+    </p>
+    <h2>Guards, Guards!</h2>
+    <p>
+      In the factorial example above, it was very important to get the order of the function's clauses correct so that the function would execute as expected.
+      This can be problematic when you have functions containing many clauses or when the pattern matching isn't as simple as factorial. Erlang's solution
+      to these problems is called a <a href="https://en.citizendium.org/wiki/Erlang_(programming_language)/Tutorials/guards">guard</a>. The keyword for a guard is <kbd>when</kbd>. Here is a code snippet example of a factorial function that
+      not only uses guards, but adds another clause so if factorial is called with a negative number, a situation which is undefined in Mathematics, the function
+      returns an atom representing a failure.
+    </p>
+    <pre><code class="Erlang">factorial(N) when N > 0 -> N * factorial(N-1);
 factorial(N) when N == 0 -> 1;
-factorial(N) when N < 0 -> undefined. %Factorials of negative integers are not defined. Therefore return the atom undefined.
-</code>
-  </pre>
-  </p>
-  <p>
-    By using guards, the order of our independent clauses is irrelevant, freeing us from a potential ordering bugs. It does cost us in a little more code, 
-    but in most cases, the extra text is worth it, especially when your guards need to be more complicated than this simplistic example.
-  </p>
-  <p>
-        What would the tail-recursive version of <kbd>factorial</kbd> look like using guards? Like this.
-
-    <pre>
-      <code class="Erlang">factorial(N)->factorial(N,1).
+factorial(N) when N < 0 -> undefined. % Factorials of negative integers are not defined. Therefore return the atom undefined.
+</code></pre>
+    <p>
+      By using guards, the order of our independent clauses is irrelevant, freeing us from potential ordering bugs. It does cost us in a little more code,
+      but in most cases, the extra text is worth it, especially when your guards need to be more complicated than this simplistic example.
+    </p>
+    <p>
+      What would the tail-recursive version of <kbd>factorial</kbd> look like using guards? Like this.
+    </p>
+    <pre><code class="Erlang">factorial(N)->factorial(N,1).
 
 factorial(N,Accum) when N > 0 -> factorial(N-1,Accum*N);
 factorial(N,Accum) when N == 0 -> Accum;
-factorial(N,_Accum) when N < 0 -> undefined. %Factorials of negative integers are not defined. Therefore return the atom undefined.
-</code>
-</pre>
-  </p>
-  <p class="callout">
-    <span>Interesting Info:</span><br>
-        Wait a minute! Shouldn't the mathematical version of the factorial function have some guards too? Great question. I'm glad you asked. &#128516; It 
-        absolutely should! The previous mathematical version has the guards in it that match the guards for the body recursive function. We just need to 
-        add one more to deal with negative numbers. In Mathematics, the way you do this is to limit the types of numbers n can be BEFORE the function is 
-        described. That way everybody knows what can be used as input. In this example, <kbd>n</kbd> is limited to be an integer that is greater-than zero.<br>
+factorial(N,_Accum) when N < 0 -> undefined. % Factorials of negative integers are not defined. Therefore return the atom undefined.
+</code></pre>
+
+    <p class="callout">
+      <span>Interesting Info:</span><br>
+      Wait a minute! Shouldn't the mathematical version of the factorial function have some guards too? Great question. I'm glad you asked. &#128516; It
+      absolutely should! The previous mathematical version has the guards in it that match the guards for the body recursive function. We just need to
+      add one more to deal with negative numbers. In Mathematics, the way you do this is to limit the types of numbers n can be BEFORE the function is
+      described. That way everybody knows what can be used as input. In this example, <kbd>n</kbd> is limited to be an integer that is greater-than zero.<br>
       <img src="images/limited_fact.png" alt="the number-limited bipartite representation of the factorial function" alt="The mathematical representation of the factorial function.">
       <br>
-  </p>
+    </p>
 
-  <h2>Recursion and Lists</h2>
-  <p>
-    <a href="https://erlangbyexample.org/list-comprehension"
-          target="_blank"
-          rel="noreferrer">List comprehensions</a> like those you saw 
-    <a href="file:///Volumes/File%20Drive/lee/cse121e-course/docs/week02/index.html"
-          target="_blank"
-          rel="noreferrer">last week</a>  are a better way to do this upcoming example. You'll also see 
-    some other better ways in a bit, but let's take a look at how to build a new list that is the numbers in a list multiplied by <kbd>2</kbd>. In the code snippet below you see a function called <kbd>double</kbd>. Notice that in this case we don't need to worry about the order of the clauses 
-    since there is no way for the pattern matcher to fail. That is also why no guards are needed. Either a list has elements and matches the last clause, or 
-    the list is empty and matches the first clause. Those are the only two options.
-  </p>
-  <p>
-<pre>
-<code class="Erlang">double([]) -> [];
+    <h2>Recursion and Lists</h2>
+    <p>
+      <a href="https://erlangbyexample.org/list-comprehension" target="_blank" rel="noreferrer">List comprehensions</a> like those you saw
+      <a href="file:///Volumes/File%20Drive/lee/cse121e-course/docs/week02/index.html" target="_blank" rel="noreferrer">last week</a> are a better way to do this upcoming example. You'll also see
+      some other better ways in a bit, but let's take a look at how to build a new list that is the numbers in a list multiplied by <kbd>2</kbd>. In the code snippet below you see a function called <kbd>double</kbd>. Notice that in this case we don't need to worry about the order of the clauses
+      since there is no way for the pattern matcher to fail. That is also why no guards are needed. Either a list has elements and matches the last clause, or
+      the list is empty and matches the first clause. Those are the only two options.
+    </p>
+    <pre><code class="Erlang">double([]) -> [];
 double([H|T]) ->
     [2 * H | double(T)].</code></pre>
-  </p>
-  <p>
-    Also notice the use of the cons operator, <kbd>[H|T]</kbd>, to split the list passed to the function into the head of the list and the tail, the rest of the 
-    numbers in the list. The Head is then multiplied by <kbd>2</kbd> and the cons operator is used again to prepend the result to whatever is returned from calling 
-    the <kbd>double</kbd> function on the remaining tail numbers.
-  </p>
-  <p>
-    This way, each time <kbd>double</kbd> gets called, the list it is passed gets smaller by one number until the list is empty. Then, after getting to the end of 
-    the list, each doubled number is prepended to a new list, last number first, until the doubled values are all included, first number last <a href="https://www.churchofjesuschrist.org/study/scriptures/dc-testament/dc/29?lang=eng"
-          target="_blank"
-          rel="noreferrer">(Doctrine and 
-    Covenants 29:30)</a>.
-  </p>
-  <p>
-    Put the <kbd>double</kbd> function, above, in a file as part of a module, compile the module in the REPL, and run it. Then play around with it. What happens if you 
-    print out the values of <kbd>H</kbd> and <kbd>T</kbd>? Try out a few other changes you dream up. This exploration process should help you understand the 
-    list disassembly-reassembly precess that is a major part of writing Erlang code.
-  </p>  
-  <h2>The Better Way: Map, Filter, and Reduce</h2>
+    <p>
+      Also notice the use of the cons operator, <kbd>[H|T]</kbd>, to split the list passed to the function into the head of the list and the tail, the rest of the
+      numbers in the list. The Head is then multiplied by <kbd>2</kbd> and the cons operator is used again to prepend the result to whatever is returned from calling
+      the <kbd>double</kbd> function on the remaining tail numbers.
+    </p>
+    <p>
+      This way, each time <kbd>double</kbd> gets called, the list it is passed gets smaller by one number until the list is empty. Then, after getting to the end of
+      the list, each doubled number is prepended to a new list, last number first, until the doubled values are all included, first number last <a href="https://www.churchofjesuschrist.org/study/scriptures/dc-testament/dc/29?lang=eng" target="_blank" rel="noreferrer">(Doctrine and
+        Covenants 29:30)</a>.
+    </p>
+    <p>
+      Put the <kbd>double</kbd> function, above, in a file as part of a module, compile the module in the REPL, and run it. Then play around with it. What happens if you
+      print out the values of <kbd>H</kbd> and <kbd>T</kbd>? Try out a few other changes you dream up. This exploration process should help you understand the
+      list disassembly-reassembly precess that is a major part of writing Erlang code.
+    </p>
+    <h2>The Better Way: Map, Filter, and Reduce</h2>
     In Erlang, as in most languages, it is important not to write code
-        that duplicates fundamental parts of the standard language library. Think about the <a href="file:///Volumes/File%20Drive/lee/cse121e-course/docs/week02/index.html"
-          target="_blank"
-          rel="noreferrer">list functions you saw last week</a>. Did you
-        wonder when you saw the code example
-      </p>
-      <pre><code class="Erlang">lists:seq(1,100).</code></pre>
-      <p>
-        where the <kbd>lists:seq/2</kbd> function came from? It's a built in part of the lists module that is part of the standard library. Lists have
-        <a
-          href="http://erlang.org/doc/man/lists.html"
-          target="_blank"
-          rel="noreferrer"
-          >many helpful helper methods</a>
-        that we can and should use. Please visit that link and familiarize
-        yourself with the list. Only a few are covered in this here.
-      </p>
-      <p>
-        While it would be possible to write a recursive function in Erlang to average,
-        modify, or select some elements of an array, you should not. Instead you
-        should use the built-in <kbd>map</kbd> (convert all), <kbd>filter/2</kbd> (select some),
-        <kbd>foldl/3</kbd> (left-to-right), or <kbd>foldr/3</kbd>  (right-to-left) functions. The <kbd>foldl/3</kbd> and <kbd>foldr/3</kbd> functions 
-        are Erlang's way of doing the what is called reduce in other languages. Use them to average, sum, get the product, etc. of lists.
-      </p>
-      <p>
-        Consider a situation where you have been hired to write code for a
-        social media site. You have been asked to write code to count up the
-        total number of 'likes' postings that a single customer has received.
-        Existing code that others have written puts a likes count for each
-        posting in a list in a variable called <kbd>Like_counts</kbd> for you.
-      </p>
-      <p>
-        Suppose you were told to filter out all the like counts that are less
-        then 10. How should this be done?
-      </p>
-      <p>Like this.</p>
+    that duplicates fundamental parts of the standard language library. Think about the <a href="file:///Volumes/File%20Drive/lee/cse121e-course/docs/week02/index.html" target="_blank" rel="noreferrer">list functions you saw last week</a>. Did you
+    wonder when you saw the code example
+    </p>
+    <pre><code class="Erlang">lists:seq(1,100).</code></pre>
+    <p>
+      where the <kbd>lists:seq/2</kbd> function came from? It's a built in part of the lists module that is part of the standard library. Lists have
+      <a href="http://erlang.org/doc/man/lists.html" target="_blank" rel="noreferrer">many helpful helper methods</a>
+      that we can and should use. Please visit that link and familiarize
+      yourself with the list. Only a few are covered in this here.
+    </p>
+    <p>
+      While it would be possible to write a recursive function in Erlang to average,
+      modify, or select some elements of an array, you should not. Instead you
+      should use the built-in <kbd>map</kbd> (convert all), <kbd>filter/2</kbd> (select some),
+      <kbd>foldl/3</kbd> (left-to-right), or <kbd>foldr/3</kbd> (right-to-left) functions. The <kbd>foldl/3</kbd> and <kbd>foldr/3</kbd> functions
+      are Erlang's way of doing the what is called reduce in other languages. Use them to average, sum, get the product, etc. of lists.
+    </p>
+    <p>
+      Consider a situation where you have been hired to write code for a
+      social media site. You have been asked to write code to count up the
+      total number of 'likes' postings that a single customer has received.
+      Existing code that others have written puts a likes count for each
+      posting in a list in a variable called <kbd>Like_counts</kbd> for you.
+    </p>
+    <p>
+      Suppose you were told to filter out all the like counts that are less
+      then 10. How should this be done?
+    </p>
+    <p>Like this.</p>
 
-      <pre>
-<code class="Erlang">Filtered_likes = lists:filter(fun(X) -> X >= 10 end,Like_counts).
-}</code>
-  </pre>
-      <p>
-        Let's break this up so you can see how it is done. The filter function
-        has two parameters. The first is a Lambda function like 
-        you learned about in Python, and the second is the list to filter.
-      </p>
-      <p>
-        Lambda's in Erlang are called <a href="https://erlang.org/doc/programming_examples/funs.html"
-          target="_blank"
-          rel="noreferrer">funs</a> because you define one using the keyword <kbd>fun</kbd>. The <kbd>lists:filter/2</kbd> function expects a fun 
-          that has one parameter. In this example, it's called <kbd>X</kbd>. As in the Python filter function, this <kbd>X</kbd> will be each 
-          element of the list in order. This <kbd>fun</kbd> consists of a single line that returns <kbd>true</kbd> or <kbd>false</kbd> depending on 
-          if the specific element of the list in question is greater-than or equal to 10. The <kbd>end</kbd> keyword then declares the fun is complete.
-      </p>
+    <pre><code class="Erlang">Filtered_likes = lists:filter(fun(X) -> X >= 10 end, Like_counts).
+</code></pre>
+    <p>
+      Let's break this up so you can see how it is done. The filter function
+      has two parameters. The first is a Lambda function like
+      you learned about in Python, and the second is the list to filter.
+    </p>
+    <p>
+      Lambdas in Erlang are called <a href="https://erlang.org/doc/programming_examples/funs.html" target="_blank" rel="noreferrer">funs</a> because you define one using the keyword <kbd>fun</kbd>. The <kbd>lists:filter/2</kbd> function expects a fun
+      that has one parameter. In this example, it's called <kbd>X</kbd>. As in the Python filter function, this <kbd>X</kbd> will be each
+      element of the list in order. This <kbd>fun</kbd> consists of a single line that returns <kbd>true</kbd> or <kbd>false</kbd> depending on
+      if the specific element of the list in question is greater-than or equal to 10. The <kbd>end</kbd> keyword then declares the fun is complete.
+    </p>
 
-      <p>
-        On the other hand, maybe you have been asked to give the customer five
-        'bonus likes' that are to be added to each posting.
-      </p>
+    <p>
+      On the other hand, maybe you have been asked to give the customer five
+      'bonus likes' that are to be added to each posting.
+    </p>
 
-      <p>How should the likes in the list be used to create this new list?</p>
-      <p>
-        Like this.
-      </p>
-      <pre>
-<code class="Erlang">Adjusted_likes = lists:map(fun(X) -> X+5 end,Like_counts).
-</code>
-  </pre>
-      <p>
-        Maybe you are asked to total the customers likes. How should you do
-        that?
-      </p>
-      <p>
-        You would usually use the <kbd>foldl/3</kbd> function. It has three parameters, the first is a
-        <kbd>fun</kbd> with two parameters, the second is the accumulator's initial value, 0 in the example below since addition is being done. This initial  value is used,
-        modified, and returned to accumulate the final result. In this case the
-        final result is the summation of the likes. The third parameter is the list to reduce.
-      </p>
-      <pre>
-<code class="Erlang">Total_likes = lists:foldl(fun(X,Accumulator)-> Accumulator + X end, 0, Like_counts).
-</code>
-  </pre>
-      <p>
-        What if you are to give five bonus likes only for those that already
-        have 10 likes and then sum the result (filter, then map, then reduce)? You could first use <kbd>lists:filter/2</kbd> followed by <kbd>lists:map/2</kbd> 
-        and then use <kbd>lists:foldl/3</kbd>, or, since these functions return a list, you could embed the call to <kbd>lists:filter/2</kbd> inside the call to <kbd>lists:map/1</kbd> and then embed the call to <kbd>lists:map/1</kbd> into a call to <kbd>lists:foldl/3</kbd>. This would be 
-        a mistake. Instead, since there is no <kbd>lists</kbd> BIF to do this precise sequence of manipulations, you should use a list comprehension like this.
-      </p>
-      <pre>
-<code class="Erlang">Big_likes = [X+5 || X <- Like_counts, X >= 10].
-</code>
-  </pre>
-      <p>
-        On the other hand, maybe you have been asked to give five bonus likes to everyone and then sum the result. In this case, you wouldn't want to use a 
-        list comprehension. There is a BIF for this case already. Remember, don't re-invent the wheel. The BIF is <kbd>lists:mapfoldl/3</kbd>. You would use 
-        it like this.
-      </p>
+    <p>How should the likes in the list be used to create this new list?</p>
+    <p>
+      Like this.
+    </p>
+    <pre><code class="Erlang">Adjusted_likes = lists:map(fun(X) -> X+5 end, Like_counts).
+</code></pre>
+    <p>
+      Maybe you are asked to total the customers likes. How should you do
+      that?
+    </p>
+    <p>
+      You would usually use the <kbd>foldl/3</kbd> function. It has three parameters, the first is a
+      <kbd>fun</kbd> with two parameters, the second is the accumulator's initial value, 0 in the example below since addition is being done. This initial value is used,
+      modified, and returned to accumulate the final result. In this case the
+      final result is the summation of the likes. The third parameter is the list to reduce.
+    </p>
+    <pre><code class="Erlang">Total_likes = lists:foldl(fun(X,Accumulator)-> Accumulator + X end, 0, Like_counts).
+</code></pre>
+    <p>
+      What if you are to give five bonus likes only for those that already
+      have 10 likes and then sum the result (filter, then map, then reduce)? You could first use <kbd>lists:filter/2</kbd> followed by <kbd>lists:map/2</kbd>
+      and then use <kbd>lists:foldl/3</kbd>, or, since these functions return a list, you could embed the call to <kbd>lists:filter/2</kbd> inside the call to <kbd>lists:map/1</kbd> and then embed the call to <kbd>lists:map/1</kbd> into a call to <kbd>lists:foldl/3</kbd>. This would be
+      a mistake. Instead, since there is no <kbd>lists</kbd> BIF to do this precise sequence of manipulations, you should use a list comprehension like this.
+    </p>
+    <pre><code class="Erlang">Big_likes = [X+5 || X <- Like_counts, X >= 10].
+</code></pre>
+    <p>
+      On the other hand, maybe you have been asked to give five bonus likes to everyone and then sum the result. In this case, you wouldn't want to use a
+      list comprehension. There is a BIF for this case already. Remember, don't re-invent the wheel. The BIF is <kbd>lists:mapfoldl/3</kbd>. You would use
+      it like this.
+    </p>
 
-      <pre>
-<code class="Erlang">{Big_likes, Total_likes} = lists:mapfoldl(fun(X,Accumulator)->{X+5, Accumulator + X+5} end, 0, Like_counts).
-</code>
-  </pre>
-  <p>
-    Notice that <kbd>mapfoldl/3</kbd> returns two values as part of a tuple. The first part is the list of updated like counts. The second  value is the the 
-    sum of the updated likes. If all you want in the result is the total, you should tell Erlang not to bother returning the <kbd>Big_likes</kbd> list. You 
-    would do that like this.
-  </p>
-  <pre>
-<code class="Erlang">{_Big_likes, Total_likes} = lists:mapfoldl(fun(X,Accumulator)->{X+5, Accumulator + X+5} end, 0, Like_counts).
-</code>
-  </pre>
-  <p>
-    Notice the <kbd>_</kbd> operator IN FRONT of the <kbd>Big_likes</kbd> variable name. Any time an atom or variable name begins with <kbd>_</kbd>, you are 
-    telling Erlang you don't want that value and to please ignore it.
-  </p>
-      
-      <p>
-        If you would like a simple review of Erlang functions, <a href="https://www.tutorialspoint.com/erlang/erlang_functions.htm"
-          target="_blank"
-          rel="noreferrer">here is one of many on the web.</a>.
-      </p>
+    <pre><code class="Erlang">{Big_likes, Total_likes} = lists:mapfoldl(fun(X, Accumulator)->{X+5, Accumulator + X+5} end, 0, Like_counts).
+</code></pre>
+    <p>
+      Notice that <kbd>mapfoldl/3</kbd> returns two values as part of a tuple. The first part is the list of updated like counts. The second value is the the
+      sum of the updated likes. If all you want in the result is the total, you should tell Erlang not to bother returning the <kbd>Big_likes</kbd> list. You
+      would do that like this.
+    </p>
+    <pre><code class="Erlang">{_Big_likes, Total_likes} = lists:mapfoldl(fun(X, Accumulator)->{X+5, Accumulator + X+5} end, 0, Like_counts).
+</code></pre>
+    <p>
+      Notice the <kbd>_</kbd> operator IN FRONT of the <kbd>Big_likes</kbd> variable name. Any time an atom or variable name begins with <kbd>_</kbd>, you are
+      telling Erlang you don't want that value and to please ignore it.
+    </p>
 
-    </main>
-    <footer>
-      <a
-        rel="license"
-        href="http://creativecommons.org/licenses/by/4.0/"
-        target="_blank"
-        ><img
-          alt="This work is licensed under a Creative Commons Attribution 4.0 International License"
-          style="border-width: 0;"
-          src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a
-      ><br />This work is licensed under a
-      <a
-        rel="license"
-        href="http://creativecommons.org/licenses/by/4.0/"
-        target="_blank"
-        >Creative Commons Attribution 4.0 International License</a
-      >.
-    </footer>
-  </body>
+    <p>
+      If you would like a simple review of Erlang functions, <a href="https://www.tutorialspoint.com/erlang/erlang_functions.htm" target="_blank" rel="noreferrer">here is one of many on the web.</a>.
+    </p>
+
+  </main>
+  <footer>
+    <a rel="license" href="http://creativecommons.org/licenses/by/4.0/" target="_blank"><img alt="This work is licensed under a Creative Commons Attribution 4.0 International License" style="border-width: 0;" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a><br />This work is licensed under a
+    <a rel="license" href="http://creativecommons.org/licenses/by/4.0/" target="_blank">Creative Commons Attribution 4.0 International License</a>.
+  </footer>
+</body>
+
 </html>
