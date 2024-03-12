@@ -241,3 +241,36 @@ aside.figure.img {
   font-weight: bold;
   color: #d63384;
 }
+
+/* Accordion */
+/* Hide the checkbox */
+.accordion-toggle {
+  display: none;
+}
+
+/* Style for the label */
+.accordion-label {
+  display: block;
+  color: #007bff;
+  font-weight: bold;
+  background-color: #eee;
+  cursor: pointer;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-left: 5px solid #007bff;
+}
+
+/* Hide the content by default */
+.accordion-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+  background-color: #f0f4f8;
+  padding: 0 10px;
+  border-left: 5px solid #007bff;
+}
+
+/* Show content when checkbox is checked */
+.accordion-toggle:checked+.accordion-label+.accordion-content {
+  max-height: 500px;
+}
