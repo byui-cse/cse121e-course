@@ -75,21 +75,67 @@
       Erlang, like Python, requires the module name to be the name of the file in which it resides.</p>
 
     <pre><code class="Erlang">-module(funcs).
--export([print_parts/1,factorial/1,double/1]).
+-export([average_two_numbers/2,print_parts/1,factorial/1,double/1]).
+
+% Returns the average of two numbers
+average_two_numbers(First, Second) -> 
+    (First + Second) div 2.
+
+
+% Prints the Head and Tail of a list
+print_parts([H|T]) ->
+    io:format("Head: ~p~n",[H]),
+    io:format("Tail: ~p~n",[T]).
+
+
+% Returns the factorial of a number
+factorial(0) -> 1;
+factorial(N) -> N * factorial(N-1).
+
+
+% Double each item in a list of numbers
+double([]) -> [];
+double([H|T]) ->
+    [2 * H | double(T)].
 </code></pre>
     <p>
       The first line is a function call that declares the atom that is the name of the module, <kbd>funcs</kbd>.
       The second line is a function call, <kbd>-export</kbd>, that is passed a list of functions that are made available
       for use outside of the <kbd>funcs</kbd> module. Each entry in the export list consists of two parts,
-      1)the atom that is the name of the function to export, and 2) the number of parameters that function has.
+      1) the atom that is the name of the function to export, and 2) the number of parameters that function has.
       These two parts are always separated by the <kbd>/</kbd> character. Just so you understand, the use of
       <kbd>/</kbd> here does NOT indicate division.
     </p>
     <p>
-      In the code snippet above, a module called <kbd>funcs</kbd> is declared. Three functions, <kbd>print_parts</kbd>,
+      In the code snippet above, a module called <kbd>funcs</kbd> is declared. Four functions, <kbd>average_two_numbers</kbd>, <kbd>print_parts</kbd>,
       <kbd>factorial</kbd>, and <kbd>double</kbd> are made available for use outside the module. This is the module's
       <a href="https://en.wikipedia.org/wiki/API" target="_blank" rel="noreferrer">API</a>.
     </p>
+
+    <div class="call-to-action">
+      <h3>🧑‍💻 Now Your Turn</h3>
+      <p>Create a new Erlang project called "practice" so you can follow along with the code examples below. To do this, open a terminal and type the following command. <span class="important">Windows users: Make sure you are in a <kbd>wsl</kbd> shell first.</span></p>
+      <pre><code class="language-bash">$ rebar3 new lib practice</code></pre>
+      <p>Notice how this created a new project for you in a directory called <kbd>practice</kbd>. Inside the <kbd>practice</kbd> directory, you'll notice some additional files, including a <kbd>README.md</kbd>, <kbd>LICENSE</kbd>, and other files. You'll also see a <kbd>src</kbd> directory. This is where you'll put any Erlang files, which should end in a <kbd>.erl</kbd> extension.</p>
+      <p>Change to the <kbd>practice</kbd> directory.</p>
+      <pre><code class="language-bash">$ cd practice</code></pre>
+      <p>Next, use VS Code to create a file called <kbd>funcs.erl</kbd> in the <kbd>src</kbd> folder and add the code for the <kbd>funcs</kbd> module to the file.</p>
+
+      <p>Try running the <kbd>average_two_numbers</kbd> function by opening a <kbd>rebar3 shell</kbd> and typing the following.</p>
+      <pre><code class="language-bash">$ rebar3 shell
+===> Verifying dependencies...
+===> Analyzing applications...
+===> Compiling practice
+Erlang/OTP 24 [erts-12.2.1] [source] [64-bit] [smp:16:16] [ds:16:16:10] [async-threads:1] [jit]
+
+Eshell V12.2.1  (abort with ^G)
+1> funcs:average_two_numbers(4, 6).
+5
+2>
+      </code></pre>
+      <p class="important">Note that you should be in the "practice" directory in the terminal when you run the <kbd>rebar3 shell</kbd> command.</p>
+    </div>
+
     <h3>Using Functions</h3>
     <p>
       In Python and Erlang there are similarities and differences between
@@ -109,6 +155,11 @@
       It is very important to notice that EVERY function ends with a '.' just like every English sentence. Also, the
       <kbd>-></kbd> operator indicates the code to execute, the 'body' of the function.
     </p>
+    <p class="important">Try out the <kbd>average_two_numbers/2</kbd> function again by running it in the Rebar3 shell.</p>
+    <pre><code class="language-bash">2> funcs:average_two_numbers(8, 16).
+12
+3>
+</code></pre>
     <p>
       Single line functions are nice, but not everything should be done using single line functions. As a simple example,
       here is some code to print out the head and the tail of a list on separate lines in the REPL. Yes, there are
@@ -121,7 +172,7 @@
   io:format("Tail: ~p~n",[T]).
 </code></pre>
     <p>
-      Just as before, the code to be executed bounded by the <kbd>-></kbd> and <kbd>.</kbd> operators. All of the other lines
+      Just as before, the code to be executed is bounded by the <kbd>-></kbd> and <kbd>.</kbd> operators. All of the other lines
       end with the <kbd>,</kbd> operator. This is, once again, similar to <a href="https://owl.purdue.edu/owl/general_writing/punctuation/commas/extended_rules_for_commas.html" target="_blank" rel="noreferrer">English punctuation rules</a>. In English, all sentences
       end with a period, and any independent clauses in the sentence that are joined by a coordinating conjunction (and, but, or, etc.) end in a comma.
       Here is a simple English sentence that illustrates this punctuation rule.
@@ -136,25 +187,33 @@
       The concept and punctuation/grammar rules of combining dependent clauses in some spoken languages drove the selection of this syntactical choice
       for Erlang. Why reinvent the wheel?
     </p>
+    <div class="call-to-action">
+      <h3>🧑‍💻 Now Your Turn</h3>
+      <p>Try running the <kbd>print_parts/1</kbd> function in the REPL by passing in a list of numbers.</p>
+      <pre><code class="language-bash">3> funcs:print_parts([1,2,3,4,5]).
+Head: 1
+Tail: [2,3,4,5]
+ok
+4></code></pre>
+    </div>
     <p>
       Be warned and forewarned! The above function as written has a major problem. The problem is this, what if the list is empty? How then can the head be
-      split from the tail? It can't. If you put the above function in a module file, compile the module, and then call the function using an empty list,
+      split from the tail? It can't. If you call the function using an empty list,
       you will get this error message.
     </p>
-    <P><kbd>** exception error: no function clause matching funcs:print_parts([])</kbd></P>
+    <p><kbd>** exception error: no function clause matching funcs:print_parts([])</kbd></p>
+    <p class="important">Try it in the REPL.</p>
     <p>
       This error is mysterious until greater knowledge and understanding is gained. There is something missing from the function as it was declared. But
-      don't worry, the fix is easy and applies a variation of the Erlang pattern matching concept from week 02's reading. Here is the code snippet in
-      its fixed form.
+      don't worry, the fix is easy and applies a variation of the Erlang pattern matching concept from week 02's reading. Here is the code snippet in its fixed form. 
     </p>
-    <p>
     <pre><code class="Erlang">print_parts([])->
   io:format("Empty List");
 print_parts([H|T]) ->
   io:format("Head: ~p~n",[H]),
   io:format("Tail: ~p~n",[T]).
 </code></pre>
-    </p>
+   
     <p>
       At first it may seem that the fix creates two functions but it does not. Notice that the end of the body for the first use of <kbd>print_parts</kbd>
       does NOT end in a period. That's why the first use of <kbd>print_parts</kbd> can NOT be a function all by itself. Instead of a period, the body of
@@ -175,6 +234,15 @@ print_parts([H|T]) ->
       starts to make sense. It says, "Error: I tried to find a clause for the <kbd>print_parts</kbd> function that matches the pattern
       <kbd>funcs:print_parts([])</kbd> but couldn't. Did you forget to add one or did you use the wrong parameters?"
     </p>
+    <div class="call-to-action">
+      <h3>🧑‍💻 Now Your Turn</h3>
+      <p class="important">Update the <kbd>print_parts/1</kbd> function in your <kbd>funcs.erl</kbd> file with this new fixed form.</p>
+      <p>Since you changed the funcs.erl file, you'll need to tell the Erlang REPL to compile it again. To do this, type <kbd>c(funcs).</kbd> in the REPL:</p>
+      <pre><code class="language-bash">5> c(funcs).</code></pre>
+<p>This will recompile the <kbd>funcs</kbd> module.</p>
+<p>Now try running the new version of the <kbd>print_parts/1</kbd> function, both with an empty list and with a non-empty list.</p>
+
+    </div>
     <p>
       When you are adding clauses to a function, it is important that you order the independent clauses you are adding. No matter how many
       independent clauses there are in your function, order them from most to least restrictive. Otherwise you will get
@@ -207,6 +275,8 @@ factorial(N) -> N * factorial(N-1).
       Erlang's clause/pattern matching approach to functions, you don't EVER need loops. In fact, there are no loop constructs in Erlang. You just don't
       need them.
     </p>
+    <p class="important">Try running this <kbd>factorial/1</kbd> function in the REPL.</p>
+    <pre><code class="language-bash">6> funcs:factorial(5).</code></pre>
     <p>
       There are some <a href="https://erlang.org/doc/efficiency_guide/myths.html" target="_blank" rel="noreferrer">false beliefs about Erlang</a> running around the internet. One of them is that you should always use tail-recursion in Erlang. Not so. First of all, tail-recursion isn't always faster. Another myth is that if you don't use tail-recursion, you'll end up
       having a stack overflow happen at runtime. Not so. Erlang is designed so that you will run out of RAM instead of getting a stack overflow. These statements
@@ -289,6 +359,7 @@ factorial(N,_Accum) when N < 0 -> undefined. % Factorials of negative integers a
       <img src="images/limited_fact.png" alt="the number-limited bipartite representation of the factorial function" alt="The mathematical representation of the factorial function.">
       <br>
     </p>
+    <p class="important">Take a few minutes to try out these different versions of the <kbd>factorial/1</kbd> function. Remember to recompile each time you make a change to the <kbd>funcs.erl</kbd> file by typing <kbd>c(funcs).</kbd> in the REPL.</p>
 
     <h2>Recursion and Lists</h2>
     <p>
@@ -311,11 +382,14 @@ double([H|T]) ->
       the list, each doubled number is prepended to a new list, last number first, until the doubled values are all included, first number last <a href="https://www.churchofjesuschrist.org/study/scriptures/dc-testament/dc/29?lang=eng" target="_blank" rel="noreferrer">(Doctrine and
         Covenants 29:30)</a>.
     </p>
-    <p>
-      Put the <kbd>double</kbd> function, above, in a file as part of a module, compile the module in the REPL, and run it. Then play around with it. What happens if you
-      print out the values of <kbd>H</kbd> and <kbd>T</kbd>? Try out a few other changes you dream up. This exploration process should help you understand the
-      list disassembly-reassembly precess that is a major part of writing Erlang code.
-    </p>
+    <div class="call-to-action">
+      <h3>🧑‍💻 Now Your Turn</h3>
+      <p>
+        Put the <kbd>double</kbd> function, above, in a file as part of a module, compile the module in the REPL, and run it. Then play around with it. What happens if you
+        print out the values of <kbd>H</kbd> and <kbd>T</kbd>? Try out a few other changes you dream up. This exploration process should help you understand the
+        list disassembly-reassembly precess that is a major part of writing Erlang code.
+      </p>
+    </div>
     <h2>The Better Way: Map, Filter, and Reduce</h2>
     In Erlang, as in most languages, it is important not to write code
     that duplicates fundamental parts of the standard language library. Think about the <a href="file:///Volumes/File%20Drive/lee/cse121e-course/docs/week02/index.html" target="_blank" rel="noreferrer">list functions you saw last week</a>. Did you
@@ -342,6 +416,9 @@ double([H|T]) ->
       Existing code that others have written puts a likes count for each
       posting in a list in a variable called <kbd>Like_counts</kbd> for you.
     </p>
+    <p>Suppose the <kbd>Like_counts</kbd> variable contains the following:</p>
+    <pre><code class="Erlang">Like_counts = [5, 12, 10, 9, 27, 13, 1, 1, 0, 6, 14, 12]
+</code></pre>
     <p>
       Suppose you were told to filter out all the like counts that are less
       then 10. How should this be done?
@@ -350,13 +427,15 @@ double([H|T]) ->
 
     <pre><code class="Erlang">Filtered_likes = lists:filter(fun(X) -> X >= 10 end, Like_counts).
 </code></pre>
+
+    <p class="important">Try this out in your REPL.</p>
     <p>
-      Let's break this up so you can see how it is done. The filter function
+      Let's break this up so you can see how the filter function works. The filter function
       has two parameters. The first is a Lambda function like
       you learned about in Python, and the second is the list to filter.
     </p>
     <p>
-      Lambdas in Erlang are called <a href="https://erlang.org/doc/programming_examples/funs.html" target="_blank" rel="noreferrer">funs</a> because you define one using the keyword <kbd>fun</kbd>. The <kbd>lists:filter/2</kbd> function expects a fun
+      Lambdas in Erlang are called <a href="https://erlang.org/doc/programming_examples/funs.html" target="_blank" rel="noreferrer">funs</a> because you define one using the keyword <kbd>fun</kbd>. The <kbd>lists:filter/2</kbd> function expects a <kbd>fun</kbd>
       that has one parameter. In this example, it's called <kbd>X</kbd>. As in the Python filter function, this <kbd>X</kbd> will be each
       element of the list in order. This <kbd>fun</kbd> consists of a single line that returns <kbd>true</kbd> or <kbd>false</kbd> depending on
       if the specific element of the list in question is greater-than or equal to 10. The <kbd>end</kbd> keyword then declares the fun is complete.
@@ -373,6 +452,7 @@ double([H|T]) ->
     </p>
     <pre><code class="Erlang">Adjusted_likes = lists:map(fun(X) -> X+5 end, Like_counts).
 </code></pre>
+<p class="important">Try it in the REPL.</p>
     <p>
       Maybe you are asked to total the customers likes. How should you do
       that?
@@ -385,6 +465,7 @@ double([H|T]) ->
     </p>
     <pre><code class="Erlang">Total_likes = lists:foldl(fun(X,Accumulator)-> Accumulator + X end, 0, Like_counts).
 </code></pre>
+<p class="important">Again, try it in the REPL.</p>
     <p>
       What if you are to give five bonus likes only for those that already
       have 10 likes and then sum the result (filter, then map, then reduce)? You could first use <kbd>lists:filter/2</kbd> followed by <kbd>lists:map/2</kbd>
