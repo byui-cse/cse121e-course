@@ -66,6 +66,13 @@ footer {
   color: var(--callout-color);
 }
 
+div.txtbox, div.quote {
+  margin: 1em 1em 0;
+  border: 1px solid #555;
+  border-radius: 4px;
+  padding: 10px;
+}
+
 h1,
 h2,
 h3,
