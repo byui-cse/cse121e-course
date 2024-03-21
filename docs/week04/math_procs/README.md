@@ -1,7 +1,7 @@
 math_procs
 =====
 
-An OTP application
+An OTP library
 
 Build
 -----
