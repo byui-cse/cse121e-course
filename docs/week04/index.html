@@ -5,18 +5,14 @@
 
 <head>
     <title>CSE 121e: Week 04 | Concurrent Programming</title>
-    <link rel="shortcut icon"
-        href="https://byui-cse.github.io/Language-Courses/site/images/fav.ico"
-        type="image/x-icon">
+    <link rel="shortcut icon" href="https://byui-cse.github.io/Language-Courses/site/images/fav.ico" type="image/x-icon">
     <script type="text/javascript">
-        var codeType = "JavaScript"
+        var codeType = "Erlang"
     </script>
     <script src="https://byui-cse.github.io/Language-Courses/site/highlight.pack.js"></script>
-    <link rel="stylesheet"
-        href="https://byui-cse.github.io/Language-Courses/site/highlight_styles/xcode.css">
-    	<link rel="stylesheet" href="../site/styles.css">
-    <script type="text/javascript"
-        src="https://byui-cse.github.io/Language-Courses/site/weekly.js"></script>
+    <link rel="stylesheet" href="https://byui-cse.github.io/Language-Courses/site/highlight_styles/xcode.css">
+    <link rel="stylesheet" href="../site/styles.css">
+    <script type="text/javascript" src="https://byui-cse.github.io/Language-Courses/site/weekly.js"></script>
 
 </head>
 
@@ -28,22 +24,18 @@
         </section>
     </header>
     <h1>Beyond Sequential</h1>
-    <p><a href="https://www.merriam-webster.com/dictionary/sequential" target="_blank"
-            rel="noreferrer"></a> Sequential computing is a good thing. It's easy to think
+    <p><a href="https://www.merriam-webster.com/dictionary/sequential" target="_blank" rel="noreferrer"></a> Sequential computing is a good thing. It's easy to think
         about. It's easy to debug. It's lots of good things. But
         there is something it isn't good at. It can't maximize the computing power of a
         multi-core computer. And since
-        <a href="https://www.cnet.com/news/moores-law-is-dead-nvidias-ceo-jensen-huang-says-at-ces-2019/"
-            target="_blank" rel="noreferrer">Moore's law is dead</a>, we programmers and
+        <a href="https://www.cnet.com/news/moores-law-is-dead-nvidias-ceo-jensen-huang-says-at-ces-2019/" target="_blank" rel="noreferrer">Moore's law is dead</a>, we programmers and
         software engineers can't rely on hardware speed ups to make our applications
         run faster...or can we? &#129320;
     </p>
     <p>
         These days, nearly all computers have multiple cores. But how do we leverage them so
         that our applications complete tasks sooner?
-        We make it happen by doing <a
-            href="https://dictionary.cambridge.org/us/dictionary/english/concurrent"
-            target="_blank" rel="noreferrer">concurrent</a> programming and software design
+        We make it happen by doing <a href="https://dictionary.cambridge.org/us/dictionary/english/concurrent" target="_blank" rel="noreferrer">concurrent</a> programming and software design
         instead of sequential programming and software design.
         That way, we can run our application on multiple cores or on multiple distinct
         computers, or both, and have our app do
@@ -65,10 +57,7 @@
     <p>
         But Erlang was specifically designed for concurrent programming. Because of that, the
         biggest traps programmers fall into when they
-        write concurrent applications, <a
-            href="https://stackoverflow.com/questions/34510/what-is-a-race-condition"
-            target="_blank" rel="noreferrer">race conditions</a> and <a
-            href="https://www.cis.upenn.edu/~milom/cis501-Fall10/lectures/09_multicore-4up.pdf">cross
+        write concurrent applications, <a href="https://stackoverflow.com/questions/34510/what-is-a-race-condition" target="_blank" rel="noreferrer">race conditions</a> and <a href="https://www.cis.upenn.edu/~milom/cis501-Fall10/lectures/09_multicore-4up.pdf">cross
             locks</a>, are impossible to create in Erlang. You probably have never created these
         monsters and had to try to fix them,
         so you might not appreciate not falling in a trap
@@ -93,18 +82,13 @@
     <p>
         Erlang processes are not the same thing as an operating system process. OS processes are
         things like applications and
-        <a href="https://www.webopedia.com/TERM/D/daemon.html" target="_blank"
-            rel="noreferrer">daemon's</a> running on your computer. One difference between OS
+        <a href="https://www.webopedia.com/TERM/D/daemon.html" target="_blank" rel="noreferrer">daemon's</a> running on your computer. One difference between OS
         processes running on your computer and an Erlang process is that
-        Each OS process has its own chunk of memory. <a
-            href="https://www.skcript.com/svr/concurrency-in-the-erlang-vm/" target="_blank"
-            rel="noreferrer">Erlang processes</a> do not since they are small pieces of a single
+        Each OS process has its own chunk of memory. <a href="https://www.skcript.com/svr/concurrency-in-the-erlang-vm/" target="_blank" rel="noreferrer">Erlang processes</a> do not since they are small pieces of a single
         OS process all running at the same time.
     </p>
     <p>
-        The Erlang virtual machine, <a
-            href="https://en.wikipedia.org/wiki/BEAM_(Erlang_virtual_machine)" target="_blank"
-            rel="noreferrer">BEAM</a>, is highly efficient at using the OS's exposure of
+        The Erlang virtual machine, <a href="https://en.wikipedia.org/wiki/BEAM_(Erlang_virtual_machine)" target="_blank" rel="noreferrer">BEAM</a>, is highly efficient at using the OS's exposure of
         multiple cores through these processes. There is actually little you
         need to worry about as a programmer creating concurrent applications in Erlang.
     </p>
@@ -173,8 +157,7 @@
     </p>
     <p>
         Let's start by starting the <kbd>simple_calc</kbd> process and getting its process ID.
-        To do this, use the <a href="https://erlang.org/doc/man/erlang.html#spawn-3"
-            target="_blank" rel="noreferrer"><kbd>spawn/3</kbd></a> BIF. It will spawn the
+        To do this, use the <a href="https://erlang.org/doc/man/erlang.html#spawn-3" target="_blank" rel="noreferrer"><kbd>spawn/3</kbd></a> BIF. It will spawn the
         process for you.
     </p>
     <p>
@@ -480,7 +463,11 @@ calculate(Pid, Message, Response_handler) ->
     <pre><code class="Erlang">1> Pid = simple_calc_1:start().
 2> simple_calc_1:calculate(Pid, {add, [1,2,3,4,5]}, fun(R) -> io:format("Response: ~p~n", [R]) end).
 </code></pre>
+    <h3><kbd>simple_calc_1</kbd> video demonstration</h3>
+    <iframe id="kaltura_player" src="https://cdnapisec.kaltura.com/p/1157612/sp/115761200/embedIframeJs/uiconf_id/41338032/partner_id/1157612?iframeembed=true&playerId=kaltura_player&entry_id=1_ntcf1qc1&flashvars[localizationCode]=en&amp;flashvars[sideBarContainer.plugin]=true&amp;flashvars[sideBarContainer.position]=left&amp;flashvars[sideBarContainer.clickToClose]=true&amp;flashvars[chapters.plugin]=true&amp;flashvars[chapters.layout]=vertical&amp;flashvars[chapters.thumbnailRotator]=false&amp;flashvars[streamSelector.plugin]=true&amp;flashvars[EmbedPlayer.SpinnerTarget]=videoHolder&amp;flashvars[dualScreen.plugin]=true&amp;flashvars[Kaltura.addCrossoriginToIframe]=true&amp;&wid=1_xwdmnhhn" width="608" height="402" allowfullscreen webkitallowfullscreen mozAllowFullScreen allow="autoplay *; fullscreen *; encrypted-media *" sandbox="allow-downloads allow-forms allow-same-origin allow-scripts allow-top-navigation allow-pointer-lock allow-popups allow-modals allow-orientation-lock allow-popups-to-escape-sandbox allow-presentation allow-top-navigation-by-user-activation" frameborder="0" title="CSE121E - Week 04 - simple_calc_1"></iframe>
 
+    <h3>Another example - Area Calculator (optional video)</h3>
+    <iframe id="kaltura_player" src="https://cdnapisec.kaltura.com/p/1157612/sp/115761200/embedIframeJs/uiconf_id/41338032/partner_id/1157612?iframeembed=true&playerId=kaltura_player&entry_id=1_4ejhv70v&flashvars[localizationCode]=en&amp;flashvars[sideBarContainer.plugin]=true&amp;flashvars[sideBarContainer.position]=left&amp;flashvars[sideBarContainer.clickToClose]=true&amp;flashvars[chapters.plugin]=true&amp;flashvars[chapters.layout]=vertical&amp;flashvars[chapters.thumbnailRotator]=false&amp;flashvars[streamSelector.plugin]=true&amp;flashvars[EmbedPlayer.SpinnerTarget]=videoHolder&amp;flashvars[dualScreen.plugin]=true&amp;flashvars[Kaltura.addCrossoriginToIframe]=true&amp;&wid=1_mmkdqxoy" width="608" height="402" allowfullscreen webkitallowfullscreen mozAllowFullScreen allow="autoplay *; fullscreen *; encrypted-media *" sandbox="allow-downloads allow-forms allow-same-origin allow-scripts allow-top-navigation allow-pointer-lock allow-popups allow-modals allow-orientation-lock allow-popups-to-escape-sandbox allow-presentation allow-top-navigation-by-user-activation" frameborder="0" title="CSE121E - Week 04 - Processes"></iframe>
 
     <h2>Wrap Up</h2>
     <p>
@@ -494,9 +481,7 @@ calculate(Pid, Message, Response_handler) ->
         Here is a template suggested by Joe Armstrong, one of the creators of Erlang, as being a
         good place to start when you are creating processes. The
         code comes from </p>
-    <iframe type="text/html" width="336" height="550" frameborder="0" allowfullscreen
-        style="max-width:100%"
-        src="https://read.amazon.com/kp/card?asin=B00I9GR4TW&preview=inline&linkCode=kpe&ref_=cm_sw_r_kb_dp_5qzTFbKCFS400"></iframe>
+    <iframe type="text/html" width="336" height="550" frameborder="0" allowfullscreen style="max-width:100%" src="https://read.amazon.com/kp/card?asin=B00I9GR4TW&preview=inline&linkCode=kpe&ref_=cm_sw_r_kb_dp_5qzTFbKCFS400"></iframe>
     <p>
         The template has the client and server code in one module, but doesn't use a
         <kbd>fun</kbd> as a response handler for the client function.
@@ -529,13 +514,9 @@ loop()->
     </p>
 
     <footer>
-        <a rel="license" href="http://creativecommons.org/licenses/by/4.0/" target="_blank"><img
-                alt="This work is licensed under a Creative Commons Attribution 4.0 International License"
-                style="border-width: 0;"
-                src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a><br />This work is
+        <a rel="license" href="http://creativecommons.org/licenses/by/4.0/" target="_blank"><img alt="This work is licensed under a Creative Commons Attribution 4.0 International License" style="border-width: 0;" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a><br />This work is
         licensed under a
-        <a rel="license" href="http://creativecommons.org/licenses/by/4.0/"
-            target="_blank">Creative Commons Attribution 4.0 International License</a>.
+        <a rel="license" href="http://creativecommons.org/licenses/by/4.0/" target="_blank">Creative Commons Attribution 4.0 International License</a>.
     </footer>
 </body>
 
