@@ -1,25 +1,25 @@
 -module(arithmetic).
 -export([start_factorializer/0,start_adder/0,start_subtracter/0,start_multiplier/0,start_divider/0,
 		 factorializer/0,adder/0,subtracter/0,multiplier/0,divider/0,
-		 factorial_of/2,add/3,subtract/3]).
+		 factorial_of/2,add/3,subtract/3,multiply/3,divide/3]).
 
 
 %% Spawning functions
 start_factorializer() ->
 	io:format("in factorializer"),
-	spawn(?MODULE,factorializer,[]).
+	spawn(?MODULE, factorializer, []).
 start_adder() ->
 	io:format("in adder"),
-	spawn(?MODULE,adder,[]).
+	spawn(?MODULE, adder, []).
 start_subtracter() ->
 	io:format("in subtracter"),
-	spawn(?MODULE,subtracter,[]).
+	spawn(?MODULE, subtracter, []).
 start_multiplier() ->
 	io:format("in multiplier"),
-	spawn(?MODULE,multiplier,[]).
+	spawn(?MODULE, multiplier, []).
 start_divider() ->
 	io:format("in divider"),
-	spawn(?MODULE,divider,[]).
+	spawn(?MODULE, divider, []).
 
 %% Clients
 factorial_of(Factorializer_pid, Number) ->
