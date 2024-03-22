@@ -9,7 +9,7 @@
 %%
 
 start(Initial_friends_list)->
-	spawn(?MODULE, run, [Initial_friends_list]).%The MODULE macro is used instead of hard coding the module name.
+	spawn(?MODULE, run, [Initial_friends_list]). % The MODULE macro is used instead of hard coding the module name.
 
 
 %%--------------------------
@@ -31,8 +31,9 @@ rpc(Pid,Message)->
 %% Server function
 %%---------------------------
 
-run(Friend_list)->
-	%complete this function.
+run(Friend_list) ->
+	% TODO: complete this function.
+	
 
 -ifdef(EUNIT).
 %%
@@ -44,31 +45,32 @@ run(Friend_list)->
 
 add_friend_test_() ->
 {setup,
-	fun()->%runs before any of the tests
-			Pid = spawn(?MODULE,run,[[sue,grace,fred]]),	
-			register(test_adder,Pid)
+	fun()-> % runs before any of the tests to set up the test
+			Pid = spawn(?MODULE, run, [[sue,grace,fred]]),	
+			register(test_adder, Pid)
 		end,
-	fun(_)->%runs after all of the tests
+	fun(_)-> % runs after all of the tests to clean up from the test
 		unregister(test_adder)
 	end,
-	%factorializer tests start here
-	[ ?_assertEqual(received,rpc(test_adder,{add,bob})),%happy path
-	  %nasty thoughts start here
-	  ?_assertEqual(received,rpc(test_adder,{add,1})),
-	  ?_assertEqual(received,rpc(test_adder,{add,#{name=>suzannah,age=>23}}))
+
+	% add_friend tests start here
+	[ ?_assertEqual(received, rpc(test_adder, {add, bob})), % Test obvious case
+	  % Test edge cases or less obvious cases
+	  ?_assertEqual(received, rpc(test_adder, {add, 1})), % Yes, we can add a number to the list
+	  ?_assertEqual(received, rpc(test_adder, {add, #{name=>suzannah, age=>23}})) % Yes we can add a map/dictionary to the list
 	]
 }.
 
 add_friends_test_() ->
 {setup,
-	fun()->%runs before any of the tests
+	fun()-> %runs before any of the tests
 			Pid = spawn(?MODULE,run,[[sue,grace,fred]]),	
 			register(test_adder,Pid)
 		end,
 	fun(_)->%runs after all of the tests
 		unregister(test_adder)
 	end,
-	%factorializer tests start here
+	% add_friends tests start here
 	[ ?_assertEqual(received,rpc(test_adder,{add,[bob,alice,joe]})),%happy path
 	  %nasty thoughts start here
 	  ?_assertEqual(received,rpc(test_adder,{add,[]})),
@@ -85,8 +87,8 @@ has_friend_test_() ->
 	fun(_)->%runs after all of the tests
 		unregister(test_finder)
 	end,
-	%factorializer tests start here
-	[ ?_assert(rpc(test_finder,{has_friend,sue})),%happy path
+	% has_friend tests start here
+	[ ?_assert(rpc(test_finder,{has_friend,sue})),%happy path. Should return true
 	  %nasty thoughts start here
 	  ?_assertNot(rpc(test_finder,{has_friend,bob})),
 	  ?_assertNot(rpc(test_finder,{has_friend,[#{name=>suzannah,age=>23},#{name=>gunhild,age=>20}]}))
@@ -102,8 +104,8 @@ has_friends_test_() ->
 	fun(_)->%runs after all of the tests
 		unregister(test_finder)
 	end,
-	%factorializer tests start here
-	[ ?_assert(rpc(test_finder,{has_friends,[sue,fred]})),%happy path
+	% has_friends tests start here
+	[ ?_assert(rpc(test_finder,{has_friends,[sue,fred]})),%happy path, should return true
 	  %nasty thoughts start here
 	  ?_assert(rpc(test_finder,{has_friends,[]})),
 	  ?_assertNot(rpc(test_finder,{has_friends,[bob]})),
@@ -122,7 +124,7 @@ remove_friend_test_() ->
 	fun(_)->%runs after all of the tests
 		unregister(test_remover)
 	end,
-	%factorializer tests start here
+	% remove friend tests start here
 	[ ?_assertEqual(received,rpc(test_remover,{remove,fred})),%happy path
 	  %nasty thoughts start here
 	  ?_assertEqual(received,rpc(test_remover,{remove,bob})),
@@ -139,7 +141,7 @@ remove_friends_test_() ->
 	fun(_)->%runs after all of the tests
 		unregister(test_remover)
 	end,
-	%factorializer tests start here
+	% remove friends tests start here
 	[ ?_assertEqual(received,rpc(test_remover,{remove,[sue,fred]})),%happy path
 	  %nasty thoughts start here
 	  ?_assertEqual(received,rpc(test_remover,{remove,[bob]})),
@@ -156,7 +158,7 @@ get_friends_test_() ->
 	fun(_)->%runs after all of the tests
 		unregister(test_remover)
 	end,
-	%factorializer tests start here
+	% get friends tests start here
 	[ ?_assertEqual([sue,grace,fred],rpc(test_remover,get))%happy path
 	]
 }.
@@ -170,14 +172,12 @@ bad_message_test_() ->
 	fun(_)->%runs after all of the tests
 		unregister(test_bad_message)
 	end,
-	%factorializer tests start here
+	% bad message tests start here
 	[ ?_assertMatch({fail, unrecognized_message},rpc(test_bad_message,what)),%happy path
 	  ?_assertMatch({fail, unrecognized_message},rpc(test_bad_message,nil)),
 	  ?_assertMatch({fail, unrecognized_message},rpc(test_bad_message,[])),
 	  ?_assertMatch({fail, unrecognized_message},rpc(test_bad_message,{}))
 	]
 }.
-
-
 
 -endif.
