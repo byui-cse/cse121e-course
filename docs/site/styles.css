@@ -244,6 +244,14 @@ aside.figure.img {
   color: #333;
 }
 
+.call-to-action li p {
+  margin: 0;
+}
+
+.call-to-action li pre {
+  margin: 0 0 1em 0;
+}
+
 .important {
   font-weight: bold;
   color: #d63384;
