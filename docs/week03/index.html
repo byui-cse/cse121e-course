@@ -207,7 +207,7 @@ ok
     <p class="important">Try it in the REPL.</p>
     <p>
       This error is mysterious until greater knowledge and understanding is gained. There is something missing from the function as it was declared. But
-      don't worry, the fix is easy and applies a variation of the Erlang pattern matching concept from week 02's reading. Here is the code snippet in its fixed form. 
+      don't worry, the fix is easy and applies a variation of the Erlang pattern matching concept from week 02's reading. Here is the code snippet in its fixed form.
     </p>
     <pre><code class="Erlang">print_parts([])->
   io:format("Empty List");
@@ -215,7 +215,7 @@ print_parts([H|T]) ->
   io:format("Head: ~p~n",[H]),
   io:format("Tail: ~p~n",[T]).
 </code></pre>
-   
+
     <p>
       At first it may seem that the fix creates two functions but it does not. Notice that the end of the body for the first use of <kbd>print_parts</kbd>
       does NOT end in a period. That's why the first use of <kbd>print_parts</kbd> can NOT be a function all by itself. Instead of a period, the body of
@@ -241,8 +241,8 @@ print_parts([H|T]) ->
       <p class="important">Update the <kbd>print_parts/1</kbd> function in your <kbd>funcs.erl</kbd> file with this new fixed form.</p>
       <p>Since you changed the funcs.erl file, you'll need to tell the Erlang REPL to compile it again. To do this, type <kbd>c(funcs).</kbd> in the REPL:</p>
       <pre><code class="language-bash">5> c(funcs).</code></pre>
-<p>This will recompile the <kbd>funcs</kbd> module.</p>
-<p>Now try running the new version of the <kbd>print_parts/1</kbd> function, both with an empty list and with a non-empty list.</p>
+      <p>This will recompile the <kbd>funcs</kbd> module.</p>
+      <p>Now try running the new version of the <kbd>print_parts/1</kbd> function, both with an empty list and with a non-empty list.</p>
 
     </div>
     <p>
@@ -267,11 +267,9 @@ print_parts([H|T]) ->
       There is another benefit, among many others that you will see, of this clause/pattern matching approach to functions. Take a look at how the factorial behavior
       from mathematics can be written using two clauses, one when the function is passed <kbd>0</kbd>, and the other when it is passed a non-zero value.
     </p>
-    <p>
     <pre><code class="Erlang">factorial(0) -> 1;
 factorial(N) -> N * factorial(N-1).
 </code></pre>
-    </p>
     <p>
       Notice how there are no 'if' type constructs in the code just like is described above. Also notice that this is a recursive function! Because of
       Erlang's clause/pattern matching approach to functions, you don't EVER need loops. In fact, there are no loop constructs in Erlang. You just don't
@@ -321,7 +319,7 @@ factorial(N,Accum)-> factorial(N-1,Accum*N).
       Another great result of Erlang's being a functional programming language and functional programming languages' affinity with Mathematics is the
       similarity between the Erlang version of multi-part functions and how you describe them in Mathematics. Take a look and compare the Erlang body-recursive
       version of <kbd>factorial</kbd> with the mathematical version of factorial you see here.<br>
-      <img src="images/fact.png" alt="the bipartite representation of the factorial function" alt="The mathematical representation of the factorial function.">
+      <img src="images/fact.png" alt="The mathematical representation of the factorial function.">
       <br>
       Such a close match! Again, why reinvent the wheel? The Erlang creators tried very hard to not add unnecessary stuff on top of what you already know
       in order to write code.
@@ -358,7 +356,7 @@ factorial(N,_Accum) when N < 0 -> undefined. % Factorials of negative integers a
       absolutely should! The previous mathematical version has the guards in it that match the guards for the body recursive function. We just need to
       add one more to deal with negative numbers. In Mathematics, the way you do this is to limit the types of numbers n can be BEFORE the function is
       described. That way everybody knows what can be used as input. In this example, <kbd>n</kbd> is limited to be an integer that is greater-than zero.<br>
-      <img src="images/limited_fact.png" alt="the number-limited bipartite representation of the factorial function" alt="The mathematical representation of the factorial function.">
+      <img src="images/limited_fact.png" alt="The mathematical representation of the factorial function.">
       <br>
     </p>
     <p class="important">Take a few minutes to try out these different versions of the <kbd>factorial/1</kbd> function. Remember to recompile each time you make a change to the <kbd>funcs.erl</kbd> file by typing <kbd>c(funcs).</kbd> in the REPL.</p>
@@ -389,13 +387,13 @@ double([H|T]) ->
       <p>
         Put the <kbd>double</kbd> function, above, in a file as part of a module, compile the module in the REPL, and run it. Then play around with it. What happens if you
         print out the values of <kbd>H</kbd> and <kbd>T</kbd>? Try out a few other changes you dream up. This exploration process should help you understand the
-        list disassembly-reassembly precess that is a major part of writing Erlang code.
+        list disassembly-reassembly process that is a major part of writing Erlang code.
       </p>
     </div>
     <h2>The Better Way: Map, Filter, and Reduce</h2>
-    In Erlang, as in most languages, it is important not to write code
-    that duplicates fundamental parts of the standard language library. Think about the <a href="file:///Volumes/File%20Drive/lee/cse121e-course/docs/week02/index.html" target="_blank" rel="noreferrer">list functions you saw last week</a>. Did you
-    wonder when you saw the code example
+    <p>In Erlang, as in most languages, it is important not to write code
+      that duplicates fundamental parts of the standard language library. Think about the <a href="file:///Volumes/File%20Drive/lee/cse121e-course/docs/week02/index.html" target="_blank" rel="noreferrer">list functions you saw last week</a>. Did you
+      wonder when you saw the code example
     </p>
     <pre><code class="Erlang">lists:seq(1,100).</code></pre>
     <p>
@@ -454,7 +452,7 @@ double([H|T]) ->
     </p>
     <pre><code class="Erlang">Adjusted_likes = lists:map(fun(X) -> X+5 end, Like_counts).
 </code></pre>
-<p class="important">Try it in the REPL.</p>
+    <p class="important">Try it in the REPL.</p>
     <p>
       Maybe you are asked to total the customers likes. How should you do
       that?
@@ -467,7 +465,7 @@ double([H|T]) ->
     </p>
     <pre><code class="Erlang">Total_likes = lists:foldl(fun(X,Accumulator)-> Accumulator + X end, 0, Like_counts).
 </code></pre>
-<p class="important">Again, try it in the REPL.</p>
+    <p class="important">Again, try it in the REPL.</p>
     <p>
       What if you are to give five bonus likes only for those that already
       have 10 likes and then sum the result (filter, then map, then reduce)? You could first use <kbd>lists:filter/2</kbd> followed by <kbd>lists:map/2</kbd>
