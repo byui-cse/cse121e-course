@@ -1,108 +1,178 @@
 <!-- uses https://highlightjs.org/
 -->
-
-<html>
+<!DOCTYPE HTML>
+<html lang="en">
 
 <head>
-				<title>CSE 121e: Week 05 | Stateful Processes</title>
-          <link rel="shortcut icon" href="https://byui-cse.github.io/Language-Courses/site/images/fav.ico" type="image/x-icon">
-        <script type="text/javascript">
-                 var codeType = "Erlang"
-        </script>
-        <script src="https://byui-cse.github.io/Language-Courses/site/highlight.pack.js"></script>
-        <link rel="stylesheet" href="https://byui-cse.github.io/Language-Courses/site/highlight_styles/xcode.css">
-        <link rel="stylesheet" href="https://byui-cse.github.io/Language-Courses/site/weekly.css">
-        <script type="text/javascript" src="https://byui-cse.github.io/Language-Courses/site/weekly.js"></script>
+    <title>CSE 121e: Week 05 | Stateful Processes</title>
+    <link rel="shortcut icon" href="https://byui-cse.github.io/Language-Courses/site/images/fav.ico" type="image/x-icon">
+    <script>
+        var codeType = "Erlang"
+    </script>
+    <script src="https://byui-cse.github.io/Language-Courses/site/highlight.pack.js"></script>
+    <link rel="stylesheet" href="https://byui-cse.github.io/Language-Courses/site/highlight_styles/xcode.css">
+    <link rel="stylesheet" href="../site/styles.css">
+    <script src="https://byui-cse.github.io/Language-Courses/site/weekly.js"></script>
 
 </head>
 
 <body onload="fetchSource()">
-<header class="hero-image">
-  <section class="hero-text">
-    <h1>CSE 121e: Week 05</h1>
-    <p>Stateful Processes</p>
-  </section>
-</header>
-	<h1>State</h1>
-	<p>
-		For a moment, think about the computer network system you are using. Here is what seems to be a simple question. "Is the network up or down?" Another way of saying this is "Is up or down the state of the network system?" Pause your reading of this document. Take a moment and answer the question for the network you are currently using.
-	</p>
-	<p>
-		If you said the network was up or if you said it was down, are you sure it still is? How might you check a network to see if it is up or down? Using a web browser or some other app to do something using the network only ensures that some part of it was up when the data transfers were taking place. The only sure way to check would be to check each element, the routers, servers, WiFi access points, etc. that make up the network, to see if each of them is up. The problem you run into when you try this is you can't check them all at the same time. This means by the time you check one element, any element you saw as being up previously may now be down.
-	</p>
-	<p>
-		The state of any dynamic system is impossible to determine.
-	</p>
-	<h2>State and OO Applications</h2>
-	<p>
-		Applications of any significant size written in Object Oriented languages are actually dynamic systems. Their state is the aggregate of the state of each property of each instance of each class currently in memory. The application's state is distributed. As you become more comfortable doing OO design and programming, you stop worrying about the state of the application and only consider the state of the class you are working on. This means you will need to do A LOT of validation of data that is passed to the methods of the class you are creating. If you don't, chaos will ensue within the application.
-	</p>
-	<p>
-		You could write code that will run within your application to check its current state, but that would mean you would have to make it stop being dynamic temporarily. If you  were to do this (you should not) the application would have to stop doing anything else until you had checked everything. Your application would be so slow it would be unusable.
-	<p>
-	<p>
-		If you think about it, that is what you are assuming is happening when you do input validation checks on class instances. This is a very bad assumption. You hope that as you do a validation check, the instance you just checked doesn't change after you check it. Especially you hope it hasn't changed in some way that could upset your calculations.
-	</p>
-	<h2>State and Functional Applications</h2>
-	<p>
-		In functional programming, the state of the application is reduced to the values of the parameters passed to the function you are writing. Nothing else can affect those values while you are using them. This greatly reduces the problems that might arise while your function executes. Any pattern matching you do will yield consistent decisions. There is no need to be concerned about anything else that may or may not be happening in the system that is your application.
-	</p>
-
-	<h1>Stateful Erlang Processes</h1>
-		There are two things you should understand about the code for the process you saw in the previous reading. There is nothing special about the <kbd>run/0</kbd> function. It's just a function. You could name it anything you want, <kbd>again</kbd>, <kbd>wait</kbd>, or even something as silly as <kbd>skip_down_the_road</kbd>. 
-		The name of the function is unimportant. Also, the <kbd>run/0</kbd> function you saw was stateless. This means it has no data carried over from one invocation to the next. 
-	</p>
-	<p>Say there <span font-style:italic>was</span> some data, a state, you wanted the process to 
-		continue to use between times when it receives a request. All you have to do is add one or more parameters and pass the data. If, for some reason, you needed to track how many times the 
-		process received a request and print out that count when the server is shut down, the code could look like this. 
-	</p>
-	<p><pre><code class="Erlang">run(Count)-&gt;
+    <header class="hero-image">
+        <section class="hero-text">
+            <h1>CSE 121e: Week 05</h1>
+            <p>Stateful Processes</p>
+        </section>
+    </header>
+    <main>
+        <h2>State</h2>
+        <p>
+            For a moment, think about the computer network system you are using. Here is what seems to be a simple question. "Is the network up or down?" Another way of saying this is "Is up or down the state of the network system?" Pause your reading of this document. Take a moment and answer the question for the network you are currently using.
+        </p>
+        <p>
+            If you said the network was up or if you said it was down, are you sure it still is? How might you check a network to see if it is up or down? Using a web browser or some other app to do something using the network only ensures that some part of it was up when the data transfers were taking place. The only sure way to check would be to check each element, the routers, servers, WiFi access points, etc. that make up the network, to see if each of them is up. The problem you run into when you try this is you can't check them all at the same time. This means by the time you check one element, any element you saw as being up previously may now be down.
+        </p>
+        <p>
+            The state of any dynamic system is impossible to determine.
+        </p>
+        <h3>State and OO Applications</h3>
+        <p>
+            Applications of any significant size written in Object Oriented languages are actually dynamic systems. Their state is the aggregate of the state of each property of each instance of each class currently in memory. The application's state is distributed. As you become more comfortable doing OO design and programming, you stop worrying about the state of the application and only consider the state of the class you are working on. This means you will need to do A LOT of validation of data that is passed to the methods of the class you are creating. If you don't, chaos will ensue within the application.
+        </p>
+        <p>
+            You could write code that will run within your application to check its current state, but that would mean you would have to make it stop being dynamic temporarily. If you were to do this (you should not) the application would have to stop doing anything else until you had checked everything. Your application would be so slow it would be unusable.
+        <p>
+        <p>
+            If you think about it, that is what you are assuming is happening when you do input validation checks on class instances. This is a very bad assumption. You hope that as you do a validation check, the instance you just checked doesn't change after you check it. Especially you hope it hasn't changed in some way that could upset your calculations.
+        </p>
+        <h3>State and Functional Applications</h3>
+        <p>
+            In functional programming, the state of the application is reduced to the values of the parameters passed to the function you are writing. Nothing else can affect those values while you are using them. This greatly reduces the problems that might arise while your function executes. Any pattern matching you do will yield consistent decisions. There is no need to be concerned about anything else that may or may not be happening in the system that is your application.
+        </p>
+        <h2>Stateful Erlang Processes</h2>
+        <p>There are two things you should understand about the code for the process you saw in the previous reading. There is nothing special about the <kbd>run/0</kbd> function. It's just a function. You could name it anything you want, <kbd>again</kbd>, <kbd>wait</kbd>, or even something as silly as <kbd>skip_down_the_road</kbd>.
+            The name of the function is unimportant. Also, the <kbd>run/0</kbd> function you saw was stateless. This means it has no data carried over from one invocation to the next.
+        </p>
+        <p>Say there <em>was</em> some data, a state, you wanted the process to
+            continue to use between times when it receives a request. All you have to do is add one or more parameters and pass the data. If, for some reason, you needed to track how many times the
+            process received a request and print out that count when the server is shut down, the code could look like this.
+        </p>
+        <pre><code class="Erlang">run(Count)-&gt;
     receive
-        {Pid,{multiply,List}} ->
-              Pid ! {ok,lists:foldl(fun(X,Y)->X*Y end,1,List)};
-        {Pid,{add,List}} ->
-              Pid ! {ok,lists:foldl(fun(X,Y)->X+Y end,0,List)};
-        {Pid,{divide,Dividend,Divisor}} -> 
-              Pid ! {ok,Dividend div Divisor};
-        {Pid,shutdown} ->
-              io:format("shutting down after ~p uses.~n",[Count]),
-              exit(closed);
-        {Pid,_other} ->
-              Pid ! {fail, unrecognized_message}
+        {Pid, {multiply, List}} ->
+            Pid ! {ok, lists:foldl(fun(X, Y) -> X*Y end, 1, List)};
+        {Pid, {add, List}} ->
+            Pid ! {ok, lists:foldl(fun(X, Y) -> X+Y end, 0, List)};
+        {Pid, {divide, Dividend, Divisor}} -> 
+            Pid ! {ok, Dividend div Divisor};
+        {Pid, shutdown} ->
+            io:format("shutting down after ~p uses.~n", [Count]),
+            exit(closed);
+        {Pid, _other} ->
+            Pid ! {fail, unrecognized_message}
     end,
     run(Count+1).
-</code></pre></p>
-	<p>
-		Since <kbd>run</kbd> is just like any other recursive function, the number of parameters is up to you as are the types of those parameters. If you needed to, you could 
-		have parameters of type atom, tuple, list, numeric, or any other type. The set of parameters you use are usually referred to as the state of the process. 
-	</p>
-	<h2>Wrap Up</h2>
-	<p>
-		So there you have it. While there is a LOT more that can be done using stateful and stateless processes, there is a lot more yet to learn (Search Erlang OTP online). You've read the basics; the minimum needed to get a parallel system to work and run. Remember, however, that this example has the same defects it had when you read about it in the week 4 material.
-	</p>
-	<p>
-		Congratulations. You've now seen how to use Erlang. Now it's up to you to build on this foundation and do some amazing, wonderful things.
-	</p>
-	
+</code></pre>
+        <p>
+            Since <kbd>run</kbd> is just like any other recursive function, the number of parameters is up to you as are the types of those parameters. If you needed to, you could
+            have parameters of type atom, tuple, list, numeric, or any other type. The set of parameters you use are usually referred to as the state of the process.
+        </p>
+
+        <h3>Shopping List example</h3>
+        <p>What if we need a process to keep track of a shopping list? How would we keep the state of the list as we add and remove items? As in the previous example, we keep track of any state we need to maintain by using a parameter in the function and passing the updated data we need to track.</p>
+
+        <p>Here's an example of a complete module that starts a process to keep track of a shopping list. Notice how the list is updated and the updated list is passed in to the <kbd>run</kbd> function each time it is called recursively.</p>
+
+        <pre><code class="Erlang">-module(shopping_list).
+-export([run/1, start/1, rpc/2]).
+
+% Start a process to keep track of a shopping list.
+start(Initial_list) ->
+    spawn(?MODULE, run, [Initial_list]).
+
+% Client interface to send messages to the shopping list process.
+rpc(Pid, Message) ->
+    Pid ! {self(), Message},
+    receive
+        Response ->
+            Response
+    end.
+
+% Shopping list process.
+run(Shopping_list)-> 
+    % Notice how the Updated_list variable is updated with whatever is returned by 
+    % each clause under the "receive" block.
+    Updated_list = 
+        receive
+            {Pid,{add, Item}} ->
+                Pid ! {added, Item}, % Send a message back to the client
+                [Item | Shopping_list]; % Update the shopping list by adding an item to the head of the list.
+            {Pid,get_list} ->
+                Pid ! Shopping_list, % Send the shopping list back to the client
+                Shopping_list; % The list is not modified
+            {Pid,{remove, Item}} -> 
+                Pid ! {removed, Item}, % Send a message back to the client
+                Shopping_list -- [Item]; % Update the list by removing an item
+                % lists:delete(Item, Shopping_list); % Another way to remove an item from a list
+            {Pid, {has_item, Item}} ->
+                Pid ! lists:member(Item, Shopping_list), % Send message back to client. This will be true or false.
+                Shopping_list; % The list is not modified
+            {Pid,_Other} ->
+                Pid ! {fail, unrecognized_message}, % Send message back to client
+                Shopping_list % The list is not modified
+        end,
+    run(Updated_list). % Call run recursively with the updated shopping List
+</code></pre>
+<div class="call-to-action">
+    <h3>🧑‍💻 Now Your Turn</h3>
+    <p>Create a new rebar3 project.</p>
+    <pre><code class="language-bash">$ rebar3 new lib shopping_list</code></pre>
+    <p>Now find the <kbd>shopping_list.erl</kbd> file in the <kbd>src</kbd> folder of your new project. Copy/paste the above example into that file.</p>
+    <p>Open a rebar3 shell to the <kbd>shopping_list</kbd> directory and try out the shopping list example.</p>
+    <ol>
+        <li><p>Start a new shopping list process:</p>
+            <pre><code class="language-bash">1&gt; ShoppingPid = shopping_list:start([eggs, milk, cheese]).
+&lt;0.138.0&gt;
+
+</code></pre>
+        </li>
+        <li><p>Check what is currently on the list:</p>
+            <pre><code class="language-bash">2&gt; shopping_list:rpc(ShoppingPid, get_list).               
+[eggs,milk,cheese]</code></pre>
+        </li>
+        <li><p>Add a few items to the list:</p>
+            <pre><code class="language-bash">3&gt; shopping_list:rpc(ShoppingPid, {add, bread}).
+{added,bread}</code></pre>
+        </li>
+        <li><p>Check for existing items in the list:</p>
+            <pre><code class="language-bash">4&gt; shopping_list:rpc(ShoppingPid, {has_item, milk}). 
+true</code></pre>
+
+        </li>
+        <li><p>Remove a few items from the list:</p>
+            <pre><code class="language-bash">5&gt; shopping_list:rpc(ShoppingPid, {remove, milk}).  
+{removed,milk}
+6&gt; shopping_list:rpc(ShoppingPid, {has_item, milk}).
+false
+7&gt; shopping_list:rpc(ShoppingPid, get_list).  
+[bread,eggs,cheese]</code></pre></li>
+    </ol>
+  </div>
+
+        <h2>Wrap Up</h2>
+        <p>
+            So there you have it. While there is a LOT more that can be done using stateful and stateless processes, there is a lot more yet to learn (Search Erlang OTP online). You've read the basics; the minimum needed to get a parallel system to work and run. Remember, however, that this example has the same defects it had when you read about it in the week 4 material.
+        </p>
+        <p>
+            Congratulations. You've now seen how to use Erlang. Now it's up to you to build on this foundation and do some amazing, wonderful things.
+        </p>
+    </main>
 
 
 
-<footer>
-      <a
-        rel="license"
-        href="http://creativecommons.org/licenses/by/4.0/"
-        target="_blank"
-        ><img
-          alt="This work is licensed under a Creative Commons Attribution 4.0 International License"
-          style="border-width: 0;"
-          src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a
-      ><br />This work is licensed under a
-      <a
-        rel="license"
-        href="http://creativecommons.org/licenses/by/4.0/"
-        target="_blank"
-        >Creative Commons Attribution 4.0 International License</a
-      >.
+    <footer>
+        <a rel="license" href="http://creativecommons.org/licenses/by/4.0/" target="_blank"><img alt="This work is licensed under a Creative Commons Attribution 4.0 International License" style="border-width: 0;" src="https://i.creativecommons.org/l/by/4.0/88x31.png"></a><br>This work is licensed under a
+        <a rel="license" href="http://creativecommons.org/licenses/by/4.0/" target="_blank">Creative Commons Attribution 4.0 International License</a>.
     </footer>
 </body>
+
 </html>

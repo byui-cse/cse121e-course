@@ -1,0 +1,291 @@
+:root {
+  --callout-bgcolor: #cbe1e8;
+  --callout-color: black;
+  --footer-bgcolor: gray;
+  --footer-color: white;
+}
+* {
+  box-sizing: border-box;
+}
+
+body,
+html {
+  height: 100%;
+  font-size: 1.2em;
+  max-width: 1080px;
+  margin: 0 auto;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* The hero image */
+.hero-image {
+  /* Use "linear-gradient" to add a darken background effect to the image (photographer.jpg). This will make the text easier to read */
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    url("https://byui-cse.github.io/Language-Courses/site/images/languages_header_1920x.jpg");
+
+  /* Set a specific height */
+  height: 25%;
+
+  /* Position and center the image to scale nicely on all screens */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+  min-height: 150px;
+}
+
+/* Place text in the middle of the image */
+.hero-text {
+  text-align: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  /* font-size:  */
+}
+img {
+  max-width: 100%;
+}
+
+main {
+  padding: 3vw;
+}
+footer {
+  background-color: var(--footer-bgcolor);
+  color: var(--footer-color);
+  padding: 5px;
+  text-align: center;
+}
+
+.callout {
+  max-width: 90%;
+  margin: 1em auto;
+  padding: 0.5em;
+  background: var(--callout-bgcolor);
+  color: var(--callout-color);
+}
+
+div.txtbox, div.quote {
+  margin: 1em 1em 0;
+  border: 1px solid #555;
+  border-radius: 4px;
+  padding: 10px;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 1em 0 0.5em 0;
+}
+
+p {
+  margin: 0 0 1em 0;
+  padding: 0px;
+  line-height: 1.5;
+}
+
+ul > li,
+ol > li {
+  margin: 0 0 0.5em 0;
+}
+
+code {
+  border-style: solid;
+  border-width: 1px;
+  margin: 0 0 1em 0;
+}
+.tag {
+  font-weight: bold;
+}
+
+.file_name {
+  font-weight: bold;
+  font-style: italic;
+}
+
+.inline_code {
+  border: none;
+  margin: 0px;
+  padding: 0px;
+}
+
+code.inline {
+  display: inline;
+  border: none;
+  margin: 0px;
+  padding: 0px;
+}
+
+code.dark-code {
+  /* for dark command line */
+  background-color: #333;
+  color: #fff;
+  border-radius: 5px;
+}
+
+table.blueTable {
+  border: 1px solid #1c6ea4;
+  background-color: #eeeeee;
+  width: 200px;
+  text-align: left;
+  border-collapse: collapse;
+}
+table.blueTable td,
+table.blueTable th {
+  border: 1px solid #aaaaaa;
+  padding: 3px 3px;
+}
+table.blueTable tbody td {
+  font-size: 13px;
+}
+table.blueTable tr:nth-child(even) {
+  background: #d0e4f5;
+}
+table.blueTable thead {
+  background: #1c6ea4;
+  background: linear-gradient(to bottom, #5592bb 0%, #327cad 66%, #1c6ea4 100%);
+  border-bottom: 2px solid #444444;
+}
+table.blueTable thead th {
+  font-size: 15px;
+  font-weight: bold;
+  color: #ffffff;
+  text-align: center;
+  border-left: 2px solid #d0e4f5;
+}
+table.blueTable thead th:first-child {
+  border-left: none;
+}
+
+table.blueTable td {
+  font-size: 14px;
+}
+
+span.blue {
+  color: blue;
+}
+span.green {
+  color: green;
+}
+.citation {
+  font-size: 10px;
+}
+blockquote.style1 {
+  font: 14px/20px italic Times, serif;
+  padding: 8px;
+  background-color: #faebbc;
+  border-top: 1px solid #e1cc89;
+  border-bottom: 1px solid #e1cc89;
+  text-align: center;
+  padding-left: 30px;
+  margin: 0 auto;
+  width: 500px;
+  display: table;
+  background-image: url("https://byui-cse.github.io/Language-Courses/site/images/openquote1.gif");
+  background-position: top left;
+  background-repeat: no-repeat;
+  margin-top: 10px;
+}
+blockquote.style1 span {
+  display: block;
+  padding-right: 30px;
+  background-image: url("https://byui-cse.github.io/Language-Courses/site/images/closequote1.gif");
+  background-repeat: no-repeat;
+  background-position: bottom right;
+}
+
+aside {
+  width: 30%;
+  margin-left: 20px;
+  margin-right: 20px;
+  padding: 0.5em;
+  background: var(--callout-bgcolor);
+  color: var(--callout-color);
+}
+aside.left {
+  float: left;
+}
+aside.left_wide {
+  float: left;
+  width: auto;
+}
+aside.right {
+  float: right;
+}
+aside.right_wide {
+  float: right;
+  width: auto;
+}
+aside.figure.figcaption {
+  font-size: small;
+}
+aside.figure.img {
+  max-width: 100%;
+  height: auto;
+}
+
+.call-to-action {
+  padding: 20px;
+  background-color: #f0f4f8;
+  border-left: 5px solid #007bff;
+  margin: 20px 0;
+  font-family: Arial, sans-serif;
+}
+
+.call-to-action h3 {
+  color: #007bff;
+}
+
+.call-to-action p {
+  color: #333;
+}
+
+.call-to-action li p {
+  margin: 0;
+}
+
+.call-to-action li pre {
+  margin: 0 0 1em 0;
+}
+
+.important {
+  font-weight: bold;
+  color: #d63384;
+}
+
+/* Accordion */
+/* Hide the checkbox */
+.accordion-toggle {
+  display: none;
+}
+
+/* Style for the label */
+.accordion-label {
+  display: block;
+  color: #007bff;
+  font-weight: bold;
+  background-color: #eee;
+  cursor: pointer;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-left: 5px solid #007bff;
+}
+
+/* Hide the content by default */
+.accordion-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+  background-color: #f0f4f8;
+  padding: 0 10px;
+  border-left: 5px solid #007bff;
+}
+
+/* Show content when checkbox is checked */
+.accordion-toggle:checked+.accordion-label+.accordion-content {
+  max-height: 500px;
+}

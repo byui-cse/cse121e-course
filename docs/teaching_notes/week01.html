@@ -1,61 +1,144 @@
 <!doctype html>
 <html>
+
 <head>
-	<meta charset="UTF-8">
-	<title>Weekly Teacher Notes</title>
-	<link rel="shortcut icon" href="https://byui-cse.github.io/Language-Courses/site/images/fav.ico" type="image/x-i        con">
-    <script type="text/javascript">
-                 var codeType = "Clojure"
-    </script>
-    <script src="https://byui-cse.github.io/Language-Courses/site/highlight.pack.js"></script>
-    <link rel="stylesheet" href="https://byui-cse.github.io/Language-Courses/site/highlight_styles/xcode.css">
-    <link rel="stylesheet" href="https://byui-cse.github.io/Language-Courses/site/weekly.css">
-    <script type="text/javascript" src="https://byui-cse.github.io/Language-Courses/site/weekly.js"></script>
-    <script type="text/javascript" src="https://byui-cse.github.io/Language-Courses/site/weekly.js"></script>
-    <link rel="stylesheet" type="text/css" href="https://byui-cse.github.io/cse381-course/styles/class.css">
+  <meta charset="UTF-8">
+  <title>Week 01 Teacher Notes</title>
+  <link rel="shortcut icon" href="https://byui-cse.github.io/Language-Courses/site/images/fav.ico" type="image/x-icon">
+  <script type="text/javascript">
+    var codeType = "Erlang"
+  </script>
+  <link rel="stylesheet" href="https://byui-cse.github.io/Language-Courses/site/highlight_styles/xcode.css">
+  <link rel="stylesheet" href="../site/styles.css">
+  <script src="https://byui-cse.github.io/Language-Courses/site/highlight.pack.js"></script>
+  <script type="text/javascript" src="https://byui-cse.github.io/Language-Courses/site/weekly.js"></script>
 </head>
 
 <body>
-	<div class="hero-image">
-  <div class="hero-text">
-    <h1>CSE 121e: Teacher's Notes</h1>
-    <p>Week 1</p>
-  </div>
-</div>
+  <header class="hero-image">
+    <section class="hero-text">
+      <h1>CSE 121e: Teacher's Notes</h1>
+      <p>Week 1</p>
+    </section>
+  </header>
+  <main>
 
-<h2>Week 01 Goals</h2>
-<ol>
-<li>Introduce syllabus</li>
-<li>Introduce course structure and flow</li>
-<li>Form student teams</li>
-<li>Introduce Erlang</li>
-<li>Help students get their development environment up and working</li>
-</ol>
-<h2>Prior to first day of the week</h2>
-<p><em>Refer to the <a href="general.html">General Teaching Notes</a> for a more complete description of your role and the course.&nbsp;</em></p>
-<h2>Class Hour 1</h2>
-<ul>
-<li>Create and make available one or more 10 minute videos relative to the goals of this module.
-</li>
-<li>
-  Reach out to any students in the class that appear to have 'gone dark.'
-</li>
-</ul>
-<h2>Class Hour 2</h2>
-<ul>
-<li>
-  On Wednesday, create and upload one or more 10 minute videos covering topics from the week students still are working on understanding, based on your interactions with students on Monday and Tuesday.
-</li>
-<li>
-  Reach out to any students in the class that appear to have 'gone dark.'
-</li>
-<ul>
+    <h2>Week 01 Goals</h2>
+    <ol>
+      <li>Introduce syllabus</li>
+      <li>Introduce course structure and flow</li>
+      <li>Form student teams</li>
+      <li>Introduce Erlang</li>
+      <li>Help students get their development environment up and working</li>
+    </ol>
 
-<h2>W01 Formative Assessments</h2>
-<ol>
-<li>Using the Spirit, reach out to a set of students to interact with them early in the week.</li>
-<li>Participate in answering any questions posted in iLearn by the students.</li>
-</ol>
-	
+    <h2>Before the Week Begins</h2>
+    <ul>
+      <li><em>Refer to the <a href="general.html">General Teaching Notes</a> for a more complete description of your role and the course.&nbsp;</em></li>
+      <li>Complete all of the semester set-up checklist items.</li>
+      <li>Create a Microsoft Teams organization for the course.
+        <ul>
+          <li>Make sure to allow students to create channels by editing the settings for the team. They will create a channel for their team this week. </li>
+          <li>Also, create an Icebreaker channel for students to participate in the Icebreaker assignment.</li>
+          <li>Students will self-assign to student groups in Canvas and will create their own channel on Microsoft Teams. (Students will remain in the same channel throughout the entire course.) </li>
+          <li>Let students know they should work on the tasks with their team members in an announcement post. They can choose to work synchronously or asynchronously, but they should communicate frequently with their team and rely on team members to help them understand and complete the task.</li>
+        </ul>
+      </li>
+      <li>Post a welcome announcement.</li>
+    </ul>
+    <h3>Sample Welcome Announcement</h3>
+    <div class="txtbox">
+      <h4>Welcome to Erlang!</h4>
+
+      <p>Dear CSE 121E Students,</p>
+      <p>Welcome to Erlang!</p>
+      <p>My name is &lt;your name here&gt;, and I will be your instructor this semester. I look forward to getting to know you and working with you as we learn about the basics of the Erlang language. This is an exciting topic! Let's have fun learning together.</p>
+      <p>In this course, we'll learn about the fundamentals of the Erlang programming language and the functional programming paradigm.</p>
+      <p>Our primary means of communication this semester will be the Microsoft Teams app. Make sure you can login to Microsoft Teams using your BYU-Idaho credentials, then look for our class.</p>
+      <p>I will also post weekly announcements on Canvas.</p>
+      <p>For the first week of class, do the following:</p>
+      <ol>
+        <li>
+          Read the syllabus
+        </li>
+        <li>
+          Look over the course and be familiar with the course calendar
+        </li>
+        <li>
+          Note any due dates this first week
+        </li>
+        <li>
+          Introduce yourself to the class on our #Icebreaker channel on Microsoft Teams.
+        </li>
+        <li>
+          Complete the reading
+        </li>
+        <li>
+          Set up your development environment by following the instructions in the reading.
+        </li>
+        <li>
+          As you do the reading and set up your environment, make sure to post any questions you have on our class #Questions channel.
+        </li>
+      </ol>
+      <p>I want you to know I am here to help you learn. This class is somewhat different from other programming classes you've taken before. The main idea of this class is that you are here to learn. You will get out of the course what you put into it. The reading material will not provide everything you need to be successful. I encourage you to develop your skills by finding your own resources as you encounter things that you don't understand or need more information about.</p>
+      <p>One of the best resources to help you learn is ChatGPT (and other generative AI tools). I encourage you to use ChatGPT much like you would use a tutor. Rather than asking it to complete the assignments for you, ask it questions that will help you better understand the course topics. You can ask it to explain snippets of code, provide examples of different concepts, help you debug your own code, and even help you brainstorm ideas.</p>
+      <p>Let's have fun learning Erlang!</p>
+    </div>
+
+    <h2>During the Week</h2>
+    <ul>
+      <li>Monitor the Microsoft Teams channels. Interacting with students is where much of your time should be spent.</li>
+      <li>Participate in the Icebreaker discussion to get to know your students. You should have created an Icebreaker channel on Microsoft Teams for students to post their introductions.</li>
+      <li>Using the Spirit, reach out to a set of students to interact with them early in the week.</li>
+      <li>Participate in answering any questions posted by the students.</li>
+
+      <li>Create and make available one or more 10 minute videos as you feel necessary to the goals of this module.
+      </li>
+      <li>
+        Reach out to any students in the class that appear to have 'gone dark.'
+      </li>
+    </ul>
+    <h3>Grading and Feedback</h3>
+    <ul>
+      <li>The final grade is determined only by the results of the students' weekly quiz in which they self-report whether they completed the assignment, however the instructor should still provide feedback on the W01 Task Submission and W01 Group Sign-up.</li>
+      <li>W01 Task Submission
+        <ul>
+          <li>The instructor should provide students feedback on their W01 Task submission as quickly as possible.</li>
+          <li>(The task does not count toward the final grade, but leave a score there anyways. It helps students know that you saw their work and they will try to achieve the maximum score.)</li>
+          <li>Students should have submitted a screenshot showing the results of running rebar3 eunit. Make sure their screenshot shows all 7 test passing. That will ensure they are set up correctly and have run the command in the right directory.&nbsp;</li>
+          <li>Provide a comment to students such as this: "Great job! I'm glad you were able to get everything set up properly. Please be available to help your team members if they have any questions about how to get set up."&nbsp;</li>
+          <li>If a student's screenshot does not show all 7 tests passing, leave them a comment to ask them to try again and let them know what you're looking for.&nbsp;</li>
+          <li>Give the student the maximum score if they share the correct screenshot. (Even though it doesn't count toward the final grade, it helps motivate students when they see a score there.)</li>
+        </ul>
+      </li>
+      <li>W01 Group Sign-up
+        <ul>
+          <li>Students will leave comments regarding their prior experience with group work. Leave them a comment to provide encouragement.</li>
+          <li>Make sure to give them the maximum number of points for this assignment as long as they answer the questions.</li>
+          <li>Here is an example of a comment you might leave for the student: "Thank you for sharing your experiences with group work."</li>
+        </ul>
+      </li>
+    </ul>
+
+
+
+    <h2>Looking Ahead</h2>
+    <ul>
+      <li>Create and post your announcement for W02 by Friday (mountain time) at the end of the week.</li>
+      <li>Let students know you will frequently provide feedback on their task submissions. These assignments are not graded; however, students will receive personalized instruction and feedback from you.&nbsp;</li>
+      <li>Your announcement should include a reference to gospel principles or topics.</li>
+    </ul>
+
+    <h3>Sample W02 Announcement</h3>
+    <div class="txtbox"><b>Week 01 Wrap Up - Release Friday</b><br />
+      <p>Dear Class,</p>
+      <p>This week we've focused on setting up our development environment to work in Erlang. For Windows users, you've had to install the Windows Subsystem for Linux. For everyone, you've had to work with the command line, perhaps more than you are used to. It is important for developers to be familiar with command line tools and to be comfortable navigating a command line. This includes understanding file paths, both Windows and Linux/Mac style paths. If this is an uncomfortable concept for you, I would invite you to spend some time using Google or ChatGPT to help you learn about file system organization and command line navigation. Don't be afraid to post your questions on Microsoft Teams. If you have questions, chances are that other students in the class have the same question.</p>
+      <p>For next week, you'll read about some of the fundamentals of the Erlang language. As you read, you should start to look for additional resources that will help you learn about Erlang. The reading material I am providing will give you a basic introduction. Make sure to click all the links in the reading to see if there is anything relevant to questions you might have and to help you explore further. <strong>Try to run all the code examples on your own. You'll learn much more if you type each example directly into the Erlang REPL to run it.</strong> (Remember to use <kbd>rebar3 shell</kbd> to open an Erlang REPL).</p>
+      <p>As we move through the course, start to compile your own list of helpful resources for learning about Erlang. Try to pick out the differences between a quality source versus a sub-standard source. Start to look for official documentation and other quality sources that will help you further explore the topics of the week.</p>
+      <p>Make sure to turn on your notifications in MS Teams and keep watching our Teams discussion channels. Don't forget to set up a time to meet with your group at least once during the week. Your group meeting is a great opportunity to work on the weekly task together. In order to make your group meeting time the most productive, make sure you come prepared having completed the reading assignment and having looked over the weekly task.</p>
+    </div>
+  </main>
+
 </body>
+
 </html>

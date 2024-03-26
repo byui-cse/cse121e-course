@@ -1,129 +1,155 @@
 <!-- uses https://highlightjs.org/
 -->
-
-<html>
+<!DOCTYPE HTML>
+<html lang="en">
 
 <head>
 	<title>CSE 121e: Week 03 | Tasks</title>
 
 	<link rel="shortcut icon" href="https://byui-cse.github.io/Language-Courses/site/images/fav.ico" type="image/x-icon">
-    <script type="text/javascript">
-                 var codeType = "Clojure"
-    </script>
-    <script src="https://byui-cse.github.io/Language-Courses/site/highlight.pack.js"></script>
-    <link rel="stylesheet" href="https://byui-cse.github.io/Language-Courses/site/highlight_styles/xcode.css">
-    <link rel="stylesheet" href="https://byui-cse.github.io/Language-Courses/site/weekly.css">
-    <script type="text/javascript" src="https://byui-cse.github.io/Language-Courses/site/weekly.js"></script>
+	<script type="text/javascript">
+		var codeType = "Erlang"
+	</script>
+	<script src="https://byui-cse.github.io/Language-Courses/site/highlight.pack.js"></script>
+	<link rel="stylesheet" href="https://byui-cse.github.io/Language-Courses/site/highlight_styles/xcode.css">
+	<link rel="stylesheet" href="../site/styles.css">
+	<script type="text/javascript" src="https://byui-cse.github.io/Language-Courses/site/weekly.js"></script>
 
 </head>
 
 <body onload="fetchSource()">
-<div class="hero-image">
-  <div class="hero-text">
-    <h1>CSE 121e: Week 03</h1>
-    <p>Ponder and Prove</p>
-  </div>
-</div>
-<h1>Introduction</h1>
-<p>
-	You have two major task groups this week. The first is to rework a few of the functions from 
-	last week to deal with zeros. The second is to do calculations relative to an ice cream shop.
-</p>
-<h1>Introduction</h1>
-	
+	<header class="hero-image">
+		<section class="hero-text">
+			<h1>CSE 121e: Week 03</h1>
+			<p>Ponder and Prove</p>
+		</section>
+	</header>
 
-	<h1>Your Tasks</h1>
-	<h2>Task Group 1</h2>
-	<p>
-		Last week, there were a few situations that could not be put into the unit tests until you learned how to 
-		create and write functions. This week's project has modified unit tests for those functions involving division. You will find those functions and their unit tests in the <kbd>team_builder.erl</kbd> file.
-	</p>
-	<ol>
-		<li>Download the <a href="shop.zip">shop.zip</a> file. Edit the <kbd>team_builder.erl</kbd> file such that you </li>
-		<ol>
-			<li>Re-create the <kbd>divide/2</kbd> function in such a way that it passes its updated unit tests.</li>
-			<li>Re-create the <kbd>lower_divide/2</kbd> function in such a way that it passes its updated unit tests.</li>
-			<li>Re-create the <kbd>remainder/2</kbd> function in such a way that it passes its  updated unit tests.</li>
-		</ol>
-	</ol>
-	<h2>Task Group 2</h2>
-	<p>You own an ice cream shop, The Double Dip, that only offers two-scoop
-		cones. Based on previous data collected regarding your customers, to reduce waste and increase
-		profitability, you have decided on having two lists customers can select from.</p>
-	<p> List one is:
-	<ul>
-		<li>Vanilla,</li>
-		<li>Chocolate, and</li>
-		<li>Cherry Ripple.</li>
-	</ul>
-	List two is:
-	<ul>
-		<li>Lemon,</li>
-		<li>Butterscotch, and</li>
-		<li>Licorice Ripple.</li>
-	</ul> </p>
-	<p>Data collected by your staff indicates that Chocolate is your
-	customers&rsquo; preferred flavor from list one. To aid you in deciding how to plan
-	your ice cream purchases in future weeks, you need to know all the
-	possible combinations of flavors customers can choose. Customers can select one flavor from list one and one flavor from list two. </p>
-	<p>
-		Depending on how you design your task solutions, you may need some <a href="https://erlang.org/doc/man/lists.html">list BIF's</a> not covered in the reading.
-	</p>
-	<ol>
-		  <li><p>
-          Complete the stubbed-out <kbd>cone_combinations/2</kbd> function in the <kbd>cone_combination_builder.erl</kbd> file so it passes all of its unit tests.</p></li>
-		  <li><p>
-          AFTER completing the code for (1) and examining the generated list,
-			you realize your customers might want to combine any flavor in a list with
-			any flavor in either list. In fact they might want a Chocolate-Chocolate
-			cone. That means you will have to change your menu to have a single list
-			with instructions for the customer to &ldquo;select a flavor for each
-			scoop&rdquo;.</p>
-
-			    <p>
-			    	Complete the stubbed-out <kbd>cone_combinations/1</kbd> function in <kbd>cone_builder.erl</kbd> so it passes all of its unit tests.
-       		</p>
-      </li>
-      <li>
-      	<p>
-      		You become curious regarding how popular the top 10 cone combinations are. You decide to gather data about the popularity of all of these cone combinations. After having done so, you create a list of 2-tuples. Each 2-tuple consists of the number of purchases of that combination followed by a 2-tuple that consists of the flavors for the top and bottom scoops, <kbd>{purchase_count,{top_flavor,bottom_flavor}}</kbd>.
-      	</p>
-      	<p>
-      		You decide to print an advertisement extolling the availability of these top 10 cone combinations.
-      	</p>
-      	<p>
-      		Complete the stubbed-out <kbd>most_popular_combinations/1</kbd> function in <kbd>cone_builder.erl</kbd> so it passes all of its unit tests.
-      	</p>
-      </li>
-	</ol>
-
-	<h3>Definitions</h3>
-	<ul>
-		<li><a href="https://mathworld.wolfram.com/Combinatorics.html">Combinatorics</a></li>
-		<li><a href="https://mathworld.wolfram.com/Combination.html">Combinations</a></li>
-		<li><a href="https://mathworld.wolfram.com/CartesianProduct.html">Cartesian Product</a></li>
-	</ul>
-
-	<section>
-		<h2>Stretch Challenge (Optional)</h2>
+	<main>
+		<h2>Introduction</h2>
 		<p>
-			Find and read several postings online about map, filter, and reduce. Go back to a part of an assignment from a previous class that used loops and lists or arrays. Rewrite that portion of the assignment in Erlang
-			using only <kbd>map/2</kbd>, <kbd>filter/2</kbd>, and <kbd>foldl/2</kbd>. When appropriate, feel free 
-			to use <kbd>mapfoldl/3</kbd> or any other <a href="https://www.erlang.org/doc/man/lists.html">function from the lists module</a>. You should also feel free to use list comprehensions.
+			You have two major task groups this week. The first is to rework a few of the functions from
+			last week to deal with zeros. The second is to do calculations relative to an ice cream shop.
 		</p>
-	</section>
+		<div class="accordion">
+			<input type="checkbox" id="accordion-1" class="accordion-toggle">
+			<label for="accordion-1" class="accordion-label">🔽 Watch this video to help get you started on the task (optional, as needed)</label>
+			<div class="accordion-content">
+				<iframe id="kaltura_player" src="https://cdnapisec.kaltura.com/p/1157612/sp/115761200/embedIframeJs/uiconf_id/41338032/partner_id/1157612?iframeembed=true&playerId=kaltura_player&entry_id=1_fgpacz46&flashvars[localizationCode]=en&amp;flashvars[sideBarContainer.plugin]=true&amp;flashvars[sideBarContainer.position]=left&amp;flashvars[sideBarContainer.clickToClose]=true&amp;flashvars[chapters.plugin]=true&amp;flashvars[chapters.layout]=vertical&amp;flashvars[chapters.thumbnailRotator]=false&amp;flashvars[streamSelector.plugin]=true&amp;flashvars[EmbedPlayer.SpinnerTarget]=videoHolder&amp;flashvars[dualScreen.plugin]=true&amp;flashvars[Kaltura.addCrossoriginToIframe]=true&amp;&wid=1_87vqrl84" width="608" height="402" allowfullscreen webkitallowfullscreen mozAllowFullScreen allow="autoplay *; fullscreen *; encrypted-media *" sandbox="allow-downloads allow-forms allow-same-origin allow-scripts allow-top-navigation allow-pointer-lock allow-popups allow-modals allow-orientation-lock allow-popups-to-escape-sandbox allow-presentation allow-top-navigation-by-user-activation" frameborder="0" title="CSE121E - Week 03 - Task - Getting Started"></iframe>
+			</div>
+		</div>
 
-  <section>
-      <h3>Review</h3>
-      <h4>After completing the previous steps:</h4>
-      <ol>
-          <li>Review one of the many <a href="https://byui-cse.github.io/cse121e-course/week03/provided_solution.zip">possible solutions</a> for this task,</li>
-          <li>Compare and contrast your code with the possible solutions&rsquo; code, and</li>
-          <li>Make note of any improvements you could make for future tasks.</li>
-          <li>Make note of what your approach does well.</li>
-      </ol>
-  </section>
+		<h3>Your Tasks</h3>
+		<h4>Task Group 1</h4>
+		<p>
+			Last week, there were a few situations that could not be put into the unit tests until you learned how to
+			create and write functions. This week's project has modified unit tests for those functions involving division. You will find those functions and their unit tests in the <kbd>team_builder.erl</kbd> file.
+		</p>
 
-<a rel="license" href="https://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.
+		<ol>
+			<li>Download the <a href="shop.zip">shop.zip</a> file. Edit the <kbd>team_builder.erl</kbd> file such that you </li>
+			<ol>
+				<li>Re-create the <kbd>divide/2</kbd> function in such a way that it passes its updated unit tests.</li>
+				<li>Re-create the <kbd>lower_divide/2</kbd> function in such a way that it passes its updated unit tests.</li>
+				<li>Re-create the <kbd>remainder/2</kbd> function in such a way that it passes its updated unit tests.</li>
+			</ol>
+		</ol>
+
+		<h4>Task Group 2</h4>
+		<p>You own an ice cream shop, The Double Dip, that only offers two-scoop
+			cones. Based on previous data collected regarding your customers, to reduce waste and increase
+			profitability, you have decided on having two lists customers can select from.</p>
+		<p> List one is:
+		<ul>
+			<li>Vanilla,</li>
+			<li>Chocolate, and</li>
+			<li>Cherry Ripple.</li>
+		</ul>
+		List two is:
+		<ul>
+			<li>Lemon,</li>
+			<li>Butterscotch, and</li>
+			<li>Licorice Ripple.</li>
+		</ul>
+		</p>
+		<p>Data collected by your staff indicates that Chocolate is your
+			customers&rsquo; preferred flavor from list one. To aid you in deciding how to plan
+			your ice cream purchases in future weeks, you need to know all the
+			possible combinations of flavors customers can choose. Customers can select one flavor from list one and one flavor from list two. </p>
+		<p>
+			Depending on how you design your task solutions, you may need some <a href="https://erlang.org/doc/man/lists.html">list BIF's</a> not covered in the reading.
+		</p>
+		<ol>
+			<li>
+				<p>
+					Complete the stubbed-out <kbd>cone_combinations/2</kbd> function in the <kbd>cone_combination_builder.erl</kbd> file so it passes all of its unit tests.</p>
+				<p>This function should return a list of all possible combinations of list one and list two.</p>
+			</li>
+			<li>
+				<p>
+					AFTER completing the code for (1) and examining the generated list,
+					you realize your customers might want to combine any flavor in a list with
+					any flavor in either list. In fact they might want a Chocolate-Chocolate
+					cone. That means you will have to change your menu to have a single list
+					with instructions for the customer to &ldquo;select a flavor for each
+					scoop&rdquo;.</p>
+
+				<p>
+					Complete the stubbed-out <kbd>cone_combinations/1</kbd> function in <kbd>cone_builder.erl</kbd> so it passes all of its unit tests.
+				</p>
+			</li>
+			<li>
+				<p>
+					You become curious regarding how popular the top 10 cone combinations are. You decide to gather data about the popularity of all of these cone combinations. After having done so, you create a list of 2-tuples. Each 2-tuple consists of the number of purchases of that combination followed by a 2-tuple that consists of the flavors for the top and bottom scoops, <kbd>{purchase_count,{top_flavor,bottom_flavor}}</kbd>.
+				</p>
+				<p>
+					You decide to print an advertisement extolling the availability of these top 10 cone combinations.
+				</p>
+				<p>
+					Complete the stubbed-out <kbd>most_popular_combinations/1</kbd> function in <kbd>cone_builder.erl</kbd> so it passes all of its unit tests.
+				</p>
+			</li>
+		</ol>
+
+		<h3>Definitions</h3>
+		<ul>
+			<li><a href="https://mathworld.wolfram.com/Combinatorics.html">Combinatorics</a></li>
+			<li><a href="https://mathworld.wolfram.com/Combination.html">Combinations</a></li>
+			<li><a href="https://mathworld.wolfram.com/CartesianProduct.html">Cartesian Product</a></li>
+		</ul>
+
+		<section>
+			<h3>Stretch Challenge (Optional)</h3>
+			<p>
+				Find and read several postings online about map, filter, and reduce. Go back to a part of an assignment from a previous class that used loops and lists or arrays. Rewrite that portion of the assignment in Erlang
+				using only <kbd>map/2</kbd>, <kbd>filter/2</kbd>, and <kbd>foldl/2</kbd>. When appropriate, feel free
+				to use <kbd>mapfoldl/3</kbd> or any other <a href="https://www.erlang.org/doc/man/lists.html">function from the lists module</a>. You should also feel free to use list comprehensions.
+			</p>
+		</section>
+
+		<section>
+			<h2>Review</h2>
+			<h3>After completing the previous steps:</h3>
+			<ol>
+				<li>Review one of the many <a href="./provided_solution.zip">possible solutions</a> for this task,</li>
+				<li>Compare and contrast your code with the possible solutions&rsquo; code, and</li>
+				<li>Make note of any improvements you could make for future tasks.</li>
+				<li>Make note of what your approach does well.</li>
+			</ol>
+			<div class="accordion">
+				<input type="checkbox" id="accordion-2" class="accordion-toggle">
+				<label for="accordion-2" class="accordion-label">🔽 Watch this walkthrough of the sample solution to help with your understanding (optional / as needed)</label>
+				<div class="accordion-content">
+					<iframe id="kaltura_player" src="https://cdnapisec.kaltura.com/p/1157612/sp/115761200/embedIframeJs/uiconf_id/41338032/partner_id/1157612?iframeembed=true&playerId=kaltura_player&entry_id=1_5dka6tgo&flashvars[localizationCode]=en&amp;flashvars[sideBarContainer.plugin]=true&amp;flashvars[sideBarContainer.position]=left&amp;flashvars[sideBarContainer.clickToClose]=true&amp;flashvars[chapters.plugin]=true&amp;flashvars[chapters.layout]=vertical&amp;flashvars[chapters.thumbnailRotator]=false&amp;flashvars[streamSelector.plugin]=true&amp;flashvars[EmbedPlayer.SpinnerTarget]=videoHolder&amp;flashvars[dualScreen.plugin]=true&amp;flashvars[Kaltura.addCrossoriginToIframe]=true&amp;&wid=1_uu8a7v5b" width="608" height="402" allowfullscreen webkitallowfullscreen mozAllowFullScreen allow="autoplay *; fullscreen *; encrypted-media *" sandbox="allow-downloads allow-forms allow-same-origin allow-scripts allow-top-navigation allow-pointer-lock allow-popups allow-modals allow-orientation-lock allow-popups-to-escape-sandbox allow-presentation allow-top-navigation-by-user-activation" frameborder="0" title="CSE121E - Week 03 - Task - Sample Solution"></iframe>
+				</div>
+			</div>
+		</section>
+	</main>
+
+	<footer>
+		<a rel="license" href="https://creativecommons.org/licenses/by/4.0/" target="_blank"><img alt="This work is licensed under a Creative Commons Attribution 4.0 International License" style="border-width: 0;" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a><br />This work is licensed under a
+		<a rel="license" href="https://creativecommons.org/licenses/by/4.0/" target="_blank">Creative Commons Attribution 4.0 International License</a>.
+	</footer>
 </body>
+
 </html>

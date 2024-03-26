@@ -1,114 +1,118 @@
 -module(arithmetic).
 -export([start_factorializer/0,start_adder/0,start_subtracter/0,start_multiplier/0,start_divider/0,
 		 factorializer/0,adder/0,subtracter/0,multiplier/0,divider/0,
-		 factorial_of/2,add/3,subtract/3]).
+		 factorial_of/2,add/3,subtract/3,multiply/3,divide/3]).
 
 
 %% Spawning functions
 start_factorializer() ->
 	io:format("in factorializer"),
-	spawn(?MODULE,factorializer,[]).
+	spawn(?MODULE, factorializer, []).
 start_adder() ->
-	spawn(?MODULE,adder,[]).
+	io:format("in adder"),
+	spawn(?MODULE, adder, []).
 start_subtracter() ->
-	spawn(?MODULE,subtracter,[]).
+	io:format("in subtracter"),
+	spawn(?MODULE, subtracter, []).
 start_multiplier() ->
-	spawn(?MODULE,multiplier,[]).
+	io:format("in multiplier"),
+	spawn(?MODULE, multiplier, []).
 start_divider() ->
-	spawn(?MODULE,divider,[]).
+	io:format("in divider"),
+	spawn(?MODULE, divider, []).
 
-%%Clients
+%% Clients
 factorial_of(Factorializer_pid, Number) ->
-	Factorializer_pid ! {self(),Number},
+	Factorializer_pid ! {self(), Number},
 	receive
 		Response ->
-			Response%the response will print out in the REPL
+			Response % the response will print out in the REPL
 	end.
 
 add(Adder_pid, Augend, Addend) ->
-	Adder_pid ! {self(),Augend,Addend},
+	Adder_pid ! {self(), Augend, Addend},
 	receive
 		Response ->
-			Response%the response will print out in the REPL
+			Response % the response will print out in the REPL
 	end.
 
 subtract(Subtracter_pid, Minuend, Subtrahend) ->
-	Subtracter_pid ! {self(),Minuend,Subtrahend},
+	Subtracter_pid ! {self(), Minuend, Subtrahend},
 	receive
 		Response ->
-			Response%the response will print out in the REPL
+			Response % the response will print out in the REPL
 	end.
 
 multiply(Multiplier_pid, Multiplicand, Multiplier) ->
-	Multiplier_pid ! {self(),Multiplicand,Multiplier},
+	Multiplier_pid ! {self(), Multiplicand, Multiplier},
 	receive
 		Response ->
-			Response%the response will print out in the REPL
+			Response % the response will print out in the REPL
 	end.
 
 divide(Dividerer_pid, Dividend, Divisor) ->
-	Dividerer_pid ! {self(),Dividend,Divisor},
+	Dividerer_pid ! {self(), Dividend, Divisor},
 	receive
 		Response ->
-			Response%the response will print out in the REPL
+			Response % the response will print out in the REPL
 	end.
 
 %% Process functions
 factorializer()->
 	receive
-		{Requesting_pid,Data} when is_integer(Data) == false ->
-			Requesting_pid ! {fail,Data,is_not_integer};
-		{Requesting_pid,Integer} when Integer < 0 ->
-			Requesting_pid ! {fail,Integer,is_negative};
-		{Requesting_pid,Number} ->
-			Requesting_pid ! lists:foldl(fun(X,Accum) -> X*Accum end,1,lists:seq(1,Number))
+		{Requesting_pid, Data} when is_integer(Data) == false ->
+			Requesting_pid ! {fail, Data, is_not_integer};
+		{Requesting_pid, Integer} when Integer < 0 ->
+			Requesting_pid ! {fail, Integer, is_negative};
+		{Requesting_pid, Number} ->
+			Requesting_pid ! lists:foldl(fun(X,Accum) -> X*Accum end, 1, lists:seq(1,Number))
 	end,
 	factorializer().
 
 adder() ->
 	receive
-		{Requesting_pid,Augend,_Addend} when (is_number(Augend) == false)  ->
-			Requesting_pid ! {fail,Augend,is_not_number};
-		{Requesting_pid,_Augend,Addend} when (is_number(Addend) == false)  ->
-			Requesting_pid ! {fail,Addend,is_not_number};
-		{Requesting_pid,Augend,Addend} ->
+		{Requesting_pid,Augend, _Addend} when (is_number(Augend) == false)  ->
+			Requesting_pid ! {fail,Augend, is_not_number};
+		{Requesting_pid,_Augend, Addend} when (is_number(Addend) == false)  ->
+			Requesting_pid ! {fail,Addend, is_not_number};
+		{Requesting_pid,Augend, Addend} ->
 			Requesting_pid ! Augend+Addend
 	end,
 	adder().
 
 subtracter() ->
 	receive
-		{Requesting_pid,Minuend,_Subtrahend} when (is_number(Minuend) == false)  ->
-			Requesting_pid ! {fail,Minuend,is_not_number};
-		{Requesting_pid,_Minuend,Subtrahend} when (is_number(Subtrahend) == false)  ->
-			Requesting_pid ! {fail,Subtrahend,is_not_number};
-		{Requesting_pid,Minuend,Subtrahend} ->
+		{Requesting_pid, Minuend, _Subtrahend} when (is_number(Minuend) == false)  ->
+			Requesting_pid ! {fail, Minuend, is_not_number};
+		{Requesting_pid, _Minuend, Subtrahend} when (is_number(Subtrahend) == false)  ->
+			Requesting_pid ! {fail, Subtrahend, is_not_number};
+		{Requesting_pid, Minuend, Subtrahend} ->
 			Requesting_pid ! Minuend-Subtrahend
 	end,
 	subtracter().
 
 multiplier() ->
 	receive
-		{Requesting_pid,Multiplicand,_Multiplier} when (is_number(Multiplicand) == false)  ->
-			Requesting_pid ! {fail,Multiplicand,is_not_number};
-		{Requesting_pid,_Multiplicand,Multiplier} when (is_number(Multiplier) == false)  ->
-			Requesting_pid ! {fail,Multiplier,is_not_number};
-		{Requesting_pid,Multiplicand,Multiplier} ->
+		{Requesting_pid, Multiplicand, _Multiplier} when (is_number(Multiplicand) == false)  ->
+			Requesting_pid ! {fail, Multiplicand, is_not_number};
+		{Requesting_pid, _Multiplicand, Multiplier} when (is_number(Multiplier) == false)  ->
+			Requesting_pid ! {fail, Multiplier, is_not_number};
+		{Requesting_pid, Multiplicand, Multiplier} ->
 			Requesting_pid ! Multiplicand*Multiplier
 	end,
 	multiplier().
 
 divider() ->
 	receive
-		{Requesting_pid,Dividend,_Divisor} when (is_number(Dividend) == false)  ->
-			Requesting_pid ! {fail,Dividend,is_not_number};
-		{Requesting_pid,_Dividend,Divisor} when (is_number(Divisor) == false)  ->
-			Requesting_pid ! {fail,Divisor,is_not_number};
-		{Requesting_pid,_Dividend,0} ->
-			Requesting_pid ! {fail,division_by_zero};
-		{Requesting_pid,Dividend,Divisor} ->
+		{Requesting_pid, Dividend, _Divisor} when (is_number(Dividend) == false)  ->
+			Requesting_pid ! {fail, Dividend, is_not_number};
+		{Requesting_pid, _Dividend, Divisor} when (is_number(Divisor) == false)  ->
+			Requesting_pid ! {fail, Divisor, is_not_number};
+		{Requesting_pid, _Dividend, 0} ->
+			Requesting_pid ! {fail, division_by_zero};
+		{Requesting_pid, Dividend, Divisor} ->
 			Requesting_pid ! Dividend/Divisor
-	end,
+	end, 
 	divider().
 
 -ifdef(EUNIT).
