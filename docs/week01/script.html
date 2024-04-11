@@ -1,0 +1,96 @@
+<!-- uses https://highlightjs.org/
+-->
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>CSE 121e: Week 01 | Installation</title>
+
+	<link rel="shortcut icon" href="https://byui-cse.github.io/Language-Courses/site/images/fav.ico" type="image/x-icon">
+	<script type="text/javascript">
+		var codeType = "Erlang"
+	</script>
+	<script type="text/javascript" src="https://byui-cse.github.io/Language-Courses/site/highlight.pack.js"></script>
+	<link rel="stylesheet" href="https://byui-cse.github.io/Language-Courses/site/highlight_styles/xcode.css">
+	<link rel="stylesheet" href="../site/styles.css">
+	<script type="text/javascript" src="https://byui-cse.github.io/Language-Courses/site/weekly.js"></script>
+
+</head>
+
+<body onload="fetchSource()">
+	<header class="hero-image">
+		<section class="hero-text">
+			<h1>CSE 121e: Week 01</h1>
+			<p>Getting Started</p>
+		</section>
+	</header>
+	<main>
+		<h1>The ChatGPT learning Assistants</h1>
+		Create a chat session in ChatGPT. Paste the text from the <a href="/erlang_learning_assistant.txt">Erlang Learning Assitant</a> into the chat prompt.
+		<h1>Windows Users</h1>
+		Follow this script using your WSL ChatGPT assistant.
+		<ol>
+			<li>In a seperate chatGPT session, paste the text from the <a href="">WSL installation</a> into the chat prompt.</li>
+			<li>Interact with the chat session to install Windows Subsystem for Linux.</li>
+		</ol>
+		<h1>WSL and Linux Users</h1>
+		Install rebar3 by entering this in your terminal application
+		<code class="language-bash dark-code">
+		 sudo apt install
+		</code>
+		<h1>macOS Users</h1>
+		Install HomeBrew by opening the terminal application and entering,
+
+		<code class="language-bash dark-code">
+		 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+		</code>
+		Then install rebar3 by entering this in your terminal
+		 <code class="language-bash dark-code">
+		 brew install rebar3
+		</code>
+
+
+		<h1>Getting Started</h1>
+		As part of your team, interact with your Erlang Learning Assistant to review Python and see how what you learned there relates to Erlang. Discuss each item it brings up until everyone in your team is secure and confident in the basic programming principles it brings up. If anyone in your team doesn't understand something, make sure you ask your assitant for more information about the point it brought up.
+		<h1>Running Erlang Code</h1>
+		In your terminal, enter this
+		<code class="language-bash dark-code">
+		 rebar3 new lib first
+		</code>
+		then 'cd' into the 'first' directory that was just created.
+		
+		Create a file called silly.erl using any text editor you want, VSCode is fine if you already have it.
+
+		Put this code in it and save the file.
+		<code class="Erlang">
+		 -module(silly).
+		 -export(sum/2).
+
+		 sum(X,Y)->X+Y.
+		</code>
+
+		Enter this into your terminal
+		<code class="language-bash dark-code">
+		 rebar3 shell
+		</code>
+		Your code is now ready to run.
+
+		Enter this in the Erlang shell.
+		Enter this into your terminal
+		<code class="Erlang">
+		 silly:sum(2,4).
+		</code>
+		You should see the number 6.
+
+		Congratulations! You are all set up and ready to go.
+
+		
+	</main>
+
+	<footer>
+		<a rel="license" href="http://creativecommons.org/licenses/by/4.0/" target="_blank"><img alt="This work is licensed under a Creative Commons Attribution 4.0 International License" style="border-width: 0;" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a><br />This work is licensed under a
+		<a rel="license" href="http://creativecommons.org/licenses/by/4.0/" target="_blank">Creative Commons Attribution 4.0 International License</a>.
+	</footer>
+</body>
+
+</html>
