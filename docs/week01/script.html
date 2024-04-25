@@ -26,9 +26,9 @@
 	</header>
 	<main>
 		<h1>The ChatGPT learning Assistants</h1>
-		Create a chat session in ChatGPT. Paste the text from the <a href="/erlang_learning_assistant.txt">Erlang Learning Assitant</a> into the chat prompt.
+		Create a chat session in ChatGPT. Paste the text from the <a href="erlang_learning_assistant.txt">Erlang Learning Assitant</a> into the chat prompt.
 		<h1>Windows Users</h1>
-		Follow this script using your WSL ChatGPT assistant.
+		Follow this script using your <a href="wsl_learning_assistant.txt">WSL ChatGPT assistant</a>.
 		<ol>
 			<li>In a seperate chatGPT session, paste the text from the <a href="">WSL installation</a> into the chat prompt.</li>
 			<li>Interact with the chat session to install Windows Subsystem for Linux.</li>
@@ -59,13 +59,13 @@
 		</code>
 		then 'cd' into the 'first' directory that was just created.
 		
-		Create a file called silly.erl using any text editor you want, VSCode is fine if you already have it.
+		Create a file called silly.erl using any text editor you want, VSCode is fine if you already have it. Make sure the file is created in the first/src directory. All of your source code for a project goes in the src(source) directory of the project. 
 
 		Put this code in it and save the file.
 		<pre>
 <code class="Erlang">
  -module(silly).
- -export(sum/2).
+ -export([sum/2]).
 
  sum(X,Y)->X+Y.
 </code>
