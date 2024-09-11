@@ -1,0 +1,161 @@
+Task 1: Introduction to Terms
+
+Overview
+Task: Experiment with basic Erlang terms to understand what they are and how to use them.
+Purpose: This will help you learn to create and use Erlang terms such as lists, variables, tuples, atoms, and operators. 
+Instructions
+ Use ErlangSparq. Links to an external site.
+Enter "Who are you?" and answer its question.
+Enter "Give me an analogy of variables. Don't show me code yet."
+Brainstorm as a team about what a variable is until everyone is confident in the team's definition.
+Enter "I think a variable is <your definition>. Is that right?"
+If not, loop to 2.
+otherwise continue.
+Enter "Show me 5 code examples of variables for numeric types.
+Brainstorm with your team about what the pattern is for declaring variables that hold numeric types. Do this until everyone on the team is confident in the result.
+Enter "I think the pattern for declaring numeric variables is <your pattern description>. Is that right?"
+If not, loop to 2.C.
+otherwise continue.
+Enter "Show me 5 code examples of variables for string types.
+Brainstorm with your team about what the pattern is for declaring variables that hold string types. Do this until everyone on the team is confident in the result.
+Enter "I think the pattern for declaring string variables is <your pattern description>. Is that right?"
+If not, loop to 2.D.
+otherwise continue.
+Enter "Give me an analogy for Erlang atoms."
+Brainstorm with your team to come up with a definition of what Erlang atoms are. Do this until all members of your team are confident in your definition.
+Enter "I think Erlang atoms are <your definition here>. Is that right?"
+If not, loop to 2.E
+otherwise continue.
+Enter "Give me 5 examples of Erlang atoms."
+Brainstorm with your team to come up with a pattern for how Erlang atoms are declared. Do this until all members of your team are confident in your definition.
+Enter "I think the pattern for declaring atoms is <your pattern here>. Is that right?"
+If no, loop to 2.F.
+otherwise continue.
+Enter "Give me an analogy of tuples."
+Brainstorm with your team to come up with a definition of what a tuple is. Do this until all members of your team are confident in your definition.
+Enter "I think the definition of tuples is <your definition>. Is that right?"
+If no, loop to 2.G.
+otherwise continue.
+Enter "Give me an analogy of lists."
+Brainstorm with your team to come up with a definition of what a list is. Do this until all members of your team are confident in your definition.
+Enter "I think the definition of lists is <your definition>. Is that right?"
+If no, loop to 2.H.
+otherwise continue.
+Enter "Give me 5 examples of declaring lists."
+Brainstorm with your team to come up with a definition of what a list is. Do this until all members of your team are confident in your definition.
+Enter "I think the definition of lists is <your definition>. Is that right?"
+If no, loop to 2.I.
+otherwise continue.
+Enter, "Show me 5 examples of how to add an element to a list."
+Brainstorm with your team to come up with the pattern of how to add an element to a list. Do this until all members of your team are confident in your definition.
+Enter "I think the pattern for adding an element to a list is <your description>. Is that right?"
+If no, loop to 2.J.
+otherwise continue.
+Enter "Show me 5 examples of how to use pattern matching to get the first element of a list."
+Brainstorm with your team to come up with the pattern of how to get the first element a list. Do this until all members of your team are confident in your definition.
+Enter "I think the pattern for getting the first element of a list is <your description>. Is that right?"
+If no, loop to 2.K.
+otherwise continue.
+Enter "Show me the operators available in Erlang."
+Examine the list or lists of operators. Discuss each of them with your team and compare them with operators from one or more languages that you already know.
+Enter "Show me 5 examples of using the <your choice> operator." For <your choice>, put in an operator that at least one member of your team is not confident in using.
+Enter "Here is an example of using the <your choice> operator. <your example code> Is that right?"
+If no, loop to 2.L.A.
+otherwise continue.
+While there is one operator one or more of your team members are not confident in, loop to L.B.
+
+
+Task 2: Introduction to Functions
+
+Overview
+Task: Experiment with Erlang functions to understand what they are and how to use them.
+Purpose: This will help you learn to create and use Erlang functions to work with lists, and tuples. You will also learn how to use common Built In Functions (BIFs). Additionally, you will learn to design and create functions to fit any situation needed. 
+Instructions
+ Use ErlangSparq.
+Enter "Give me an analogy of functions. Don't show me code yet."
+Brainstorm as a team about what a function is until everyone is confident in the team's definition.
+Enter "I think a function is <your definition>. Is that right?"
+If not, loop to 2.
+otherwise continue.
+Enter "Show me 5 code examples of non-recursive functions.
+Brainstorm with your team about what the pattern is for declaring non-recursive functions. Do this until everyone on the team is confident in the result.
+Enter "I think the pattern for declaring non-recursive functions is <your pattern description>. Is that right?"
+If not, loop to 1.C.
+otherwise continue.
+Enter "Show me 5 code examples of recursive functions.
+Brainstorm with your team about what the pattern is for declaring recursive functions. Do this until everyone on the team is confident in the result.
+Enter "I think the pattern for declaring recursive functions is <your pattern description>. Is that right?"
+If not, loop to 1.D.
+otherwise continue.
+Enter "Give me 5 examples of functions that decompose tuples."
+Brainstorm with your team to come up with a pattern for how Erlang functions that decompose tuples are declared. Do this until all members of your team are confident in your definition.
+Enter "I think the pattern for declaring functions that decompose tuples is <your pattern here>. Is that right?"
+If no, loop to 1.E.
+otherwise continue.
+Enter "Give me 5 examples of functions that decompose lists."
+Brainstorm with your team to come up with a pattern for how Erlang functions that decompose lists are declared. Do this until all members of your team are confident in your definition.
+Enter "I think the pattern for declaring functions that decompose lists is <your pattern here>. Is that right?"
+If no, loop to 1.F.
+otherwise continue.
+Enter "Give me an analogy of Built In Functions (BIFS)."
+Brainstorm with your team to come up with a definition of what a BIF is. Do this until all members of your team are confident in your definition.
+Enter "I think the definition of BIFs is <your definition>. Is that right?"
+If no, loop to 2.G.
+otherwise continue.
+Enter "Give a list of 10 commonly used BIFs that don't have to do with processes."
+Select one of the BIFs
+Enter "Show me five code examples of the use of <name of BIF>.
+Enter "I think this BIF <your description of what it does>. Is that right?"
+If no, loop to 1.H.A.1.
+otherwise continue.
+loop to 1.H.A until all BIFS listed have been examined and understood.
+Solve problems
+Brainstorm with your team to write a meaningful, useful function of your design, not one you've seen, in Erlang.
+Enter "I think this function <your description of what you think this function does>. Is that right?"
+If no, rework your function and loop to 2.I.B.
+otherwise continue.
+Enter "Show me another way to write this function <your code here>."
+Brainstorm with your team. Determine how the code presented by ErlangSparq is better than the code you created.
+Brainstorm with your team. Determine how the code you created is better than the code presented by ErlangSparq.
+
+
+Task 3: Introduction to Processes
+
+Overview
+Task: Experiment with Erlang processes to understand what they are and how to use them.
+Purpose: This will help you learn to create and use Erlang processes so you can write modern code that leverages all the processors on your machine.
+Instructions
+ Use ErlangSparq.
+Enter "Give me three analogies for Erlang processes, not clients. Don't show me code yet."
+Using these three analogies, brainstorm as a team about what a process is until everyone is confident in the team's definition.
+Enter "I think an Erlang process is <your definition>. Is that right?"
+If not, loop to B.
+otherwise continue.
+Enter "Show me 5 code examples of non-recursive processes. Show me how to interact with the processes, but don't show me client code yet."
+Brainstorm with your team about what the pattern is for declaring and interacting with processes. Do this until everyone on the team is confident in the result.
+Enter "I think the pattern for declaring processes and directly interacting with them is <your pattern description>. Is that right?"
+If not, loop to B.C.B.
+otherwise continue.
+Enter "Show me 5 code examples of recursive processes. Show me how to interact with the processes, but don't show me client code yet."
+Brainstorm with your team about what the pattern is for declaring  and using recursive processes. Do this until everyone on the team is confident in the result.
+Enter "I think the pattern for declaring recursive processes and directly interacting with them is <your pattern description>. Is that right?"
+If not, loop to B.D.B.
+otherwise continue.
+Enter "Give me an analogy for Erlang process client functions."
+Brainstorm with your team to come up with a definition of what a client function is. Do this until all members of your team are confident in your definition.
+Enter "I think the definition of a client function is <your definition>. Is that right?"
+If no, loop to B.E.
+otherwise continue.
+Enter "Give me examples of client functions for 5 Erlang processes."
+Brainstorm with your team to come up with a pattern for how client functions are declared. Do this until all members of your team are confident in your definition.
+Enter "I think the pattern for declaring processes' client functions is <your pattern here>. Is that right?"
+If no, loop to B.E.
+otherwise continue.
+Solve problems
+Brainstorm with your team to write a meaningful, useful process and its client functions of your design, not one you've seen, in Erlang.
+Enter "I think this process does this. <your description of what you think this function does>. Is that right?"
+If no, rework your process function and loop to B.G.A.
+otherwise continue.
+Enter "Show me another way to write this process and these client functions. <your code here>."
+Brainstorm with your team. Determine how the code presented by ErlangSparq is better than the code you created.
+Brainstorm with your team. Determine how the code you created is better than the code presented by ErlangSparq.
